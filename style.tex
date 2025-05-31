@@ -1,0 +1,151 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[russian]{babel} % Поддержка русского языка
+\usepackage{fontspec}
+\setmainfont[Ligatures=TeX]{Times New Roman} % Шрифт для основного текста
+\setsansfont[Ligatures=TeX]{Arial}
+\setmonofont{Consolas} % Шрифт для кода
+\usepackage{amsmath, amssymb} % Для математических формул
+\usepackage[left=1.45cm, right=1.45cm, top=1.5cm, bottom=1.5cm]{geometry} % Настройка полей
+\usepackage{pdflscape} % Поворот страниц в PDF
+\usepackage{graphicx}
+
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{ulem}
+\usepackage{tcolorbox}
+
+\usepackage{adjustbox}
+
+\usepackage[colorlinks=true]{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue, % Почему-то зависит от colorlinks=true
+}
+
+%-------------------ЦВЕТНОЙ ФОН ФЛОМАСТЕРА-------------------%
+% Цвета
+\definecolor{lightblue}{RGB}{202,244,255}
+\definecolor{pink}{RGB}{255,230,245}
+
+% Цветные боксы
+\newtcolorbox{highlightbox}{
+	colback=lightblue,
+	colframe=lightblue,
+	boxrule=0pt,
+	arc=3mm,
+	auto outer arc,
+	boxsep=2mm,
+	left=2mm, right=2mm, top=1mm, bottom=1mm
+}
+
+\newtcolorbox{pinkbox}{
+	colback=pink,
+	colframe=pink,
+	boxrule=0pt,
+	arc=2mm,
+	auto outer arc,
+	boxsep=1mm,
+	left=1mm, right=1mm, top=0.5mm, bottom=0.5mm
+}
+
+%-------------------КРУГОВАЯ ОБВОДКА-------------------%
+\usepackage{titlesec}
+\usepackage{tikz}
+
+% Универсальная команда для обводки
+\newcommand{\circled}[1]{%
+	\tikz[baseline=(char.base)]{%
+		\node[draw,circle,inner sep=1pt,minimum size=1.2em](char){\strut #1};%
+	}%
+}
+
+% Модифицированная команда для разделов с обведённым номером
+\newcommand{\circledsection}[2][]{%
+	% \refstepcounter{section} % Раскомментировав - раздел будет считаться в общей нумерации
+	\par\vspace{4ex plus 1ex minus .2ex}%
+	\noindent{\Large\bfseries\circled{\thesection}~#2\par} % \thesection передает номер из оглавление в раздел
+	\addcontentsline{toc}{section}{\protect\numberline{\thesection}#2} % С #1 будет убрано название и останутся только точки
+	\vspace{2.5ex plus .2ex}%
+}
+
+% Модифицированная команда для подразделов с обведённым номером
+\newcommand{\circledsubsection}[1]{%
+	\refstepcounter{subsection} % Отвечает за нуммерацию
+	\par\vspace{3.25ex plus 1ex minus .2ex}%
+	\noindent{\large\bfseries\circled{\thesubsection}~#1\par}%
+	\addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1}%
+	\vspace{2.3ex plus .2ex}%
+}
+
+% Стандартные подразделы
+\makeatletter
+\renewcommand{\subsection}{\@startsection{subsection}{2}{\z@}%
+	{-3.25ex\@plus -1ex \@minus -.2ex}%
+	{1.5ex \@plus .2ex}%
+	{\normalfont\large\bfseries}%
+}
+\makeatother
+
+% Реализация списков со сквозной нумерацией (просто \item в них писать не надо)
+\newcounter{flexcounter}
+\newlist{flexlist}{enumerate}{3}
+\setlist[flexlist]{
+	before=\setcounter{flexcounter}{0},
+	label={\arabic*.},
+	ref=\arabic*,
+	align=left,
+	leftmargin=*,
+	labelwidth=!,
+	labelindent=0pt
+}
+
+\newcommand{\flexlabel}[1]{%
+	\ifnum\value{flexcounter}>0\relax%
+	\arabic{flexcounter}.%
+	\fi%
+}
+
+\newcommand{\circleditem}{%
+	\refstepcounter{flexcounter}%
+	\item[\circled{\arabic{flexcounter}}]%
+}
+
+\newcommand{\plainitem}{%
+	\refstepcounter{flexcounter}%
+	\item[\arabic{flexcounter}]%
+}
+
+%-------------------ДЕЛАЕМ ТОЧКИ ОГЛАВЛЕНИЯ АКТИВНЫМИ-------------------%
+% Переопределяем \@dottedtocline для полной ссылки
+\makeatletter
+\def\@dottedtocline#1#2#3#4#5{%
+	\ifnum #1>\c@tocdepth \else
+	\vskip \z@ \@plus.2pt
+	{\leftskip #2\relax
+		\rightskip \@tocrmarg \parfillskip -\rightskip
+		\parindent #2\relax\@afterindenttrue
+		\interlinepenalty\@M
+		\leavevmode
+		\@tempdima #3\relax
+		\begingroup
+		\ifnum #1=1 \bfseries \fi % Жирный шрифт только для первого уровня
+		\parindent \z@ \leftskip #3\relax
+		% \advance\leftskip by 1.5em % - задаем сдвиг подзаголовка
+		% \hskip -\leftskip % - двигаем подзаголовок влево
+		\hyper@linkstart{link}{\Hy@tocdestname}%
+		#4% текст заголовка
+		\leaders\hbox{$\m@th
+			\mkern \@dotsep mu\hbox{.}\mkern \@dotsep mu$}\hfill
+		\nobreak\hb@xt@\@pnumwidth{\hfil #5}% номер страницы
+		\hyper@linkend
+		\endgroup
+		\par}%
+	\fi}
+% Переопределяем \l@section для использования \@dottedtocline
+\renewcommand*\l@section[2]{%
+	\ifnum \c@tocdepth >\z@
+	\addpenalty\@secpenalty
+	\addvspace{1.0em \@plus\p@}%
+	\@dottedtocline{1}{0em}{1.5em}{#1}{#2}%
+	\fi}
+\makeatother
