@@ -23,7 +23,14 @@
 	\hspace{1em}
 	\begin{adjustbox}{valign=m}
 		\begin{pinkbox}
-			\makebox[4cm][l]{\circled{A} + \circled{5} = A5}
+			\makebox[4cm][l]{\circled{A} + \circled{5} = \circled{A5}}
+			\par
+			Список с русскими буквами:
+			{\setcounter{ruscount}{0} % Сбрасываем счетчик
+				\rusitem{Первый пункт}
+				\rusitem{Второй пункт}
+				\rusitem{Третий пункт}
+			}
 		\end{pinkbox}
 	\end{adjustbox}
 	
@@ -144,11 +151,175 @@
 	\section{Анализ линейных математических моделей, основные его этапы. Фазовые портреты для моделей первого и второго порядка.}
 	
 	\subsection{Фазовые портреты}
-	\begin{itemize}
-		\item Для геометрической иллюстрации решений:
-		\[
-		\frac{dx}{dt} = f(x), \quad x(0) = x_0
-		\]
-	\end{itemize}
+	
+	Для геометрической иллюстрации решений (как линейных, так и нелинейных):
+	\begin{equation}
+		\mathbf{\frac{dx}{dt} = f(x), \quad x(0) = x_0}
+	\end{equation}
+	
+	Строят \textbf{фазовый портрет} — множество траекторий, описывающих поведение решений.
+	\par
+	\vspace{0.5em}
+	Для уравнений первого порядка типы траекторий:
+	{\setcounter{ruscount}{0} % Сбрасываем счетчик
+		\rusitem{Одноточечная (равновесие).}
+		\rusitem{Интервал (концы - равновесия).}
+		\rusitem{Полупрямая (один конец - равновесие, другой - $\pm\infty$).}
+	}
+	
+	При $f(x) > 0$ движение слева направо, при $f(x) < 0$ — справа налево. 
+	\par
+	\vspace{0.5em}
+	Примеры траекторий:
+	\begin{figure}[H]
+		\begin{minipage}[t]{0.4\textwidth}
+			\begin{itemize}
+				\item $x' = x^2$;
+				\item $x' = x^3$;
+				\item $x' = \frac{1}{2}(x^2 - 1)$;
+				\item $x' = \sin(\pi x)$.
+			\end{itemize}
+		\end{minipage}
+		\hspace{-3cm} % Регулировка горизонтального расстояния
+		\begin{minipage}[t]{0.45\textwidth}
+			\vspace{-0.5\baselineskip} % Корректировка вертикального положения
+			\includegraphics[
+			width=\linewidth,
+			height=3.3cm,
+			keepaspectratio=false
+			]{img/3_01}
+			\vspace{-3mm} % Поднимает подпись
+			\hspace*{4em} % Сдвигает подпись вправо
+			{\small \centering Примеры фазовых траекторий}
+		\end{minipage}
+	\end{figure}
+	
+	\subsection{Линейные системы и их фазовые портреты}
+	
+	Система:
+	\begin{equation}
+		\frac{d x}{d t} = A x
+	\end{equation}
+	
+	Точка $x = 0$ — очевидная точка равновесия. 
+	\newline
+	Пусть $\lambda_k$, $u_k$ - собственные значения и векторы матрицы $A$, а $U$ - матрица с векторами $u_k$ в столбцах.
+	\vspace{-1.5em}
+	\begin{align}
+		A u_k &= \lambda_k u_k, \quad U = (u_1, u_2), \notag \\
+		A U &= U \Lambda, \quad \Lambda = U^{-1} A U = \operatorname{diag}(\lambda_1, \lambda_2)
+	\end{align}
+	
+	Замена $x = U y$ даёт:
+	
+	\begin{equation}
+		\frac{d \mathbf{y}}{d t} = \Lambda \mathbf{y}, \quad \Lambda = \begin{pmatrix} \lambda_1 & 0 \\ 0 & \lambda_2 \end{pmatrix}
+	\end{equation}
+	
+	Уравнения:
+	\begin{equation}
+		\frac{d y_1}{d t} = \lambda_1 y_1, \quad \frac{d y_2}{d t} = \lambda_2 y_2
+	\end{equation}
+	
+	Решения:
+	\begin{equation}
+		y_1(t) = C_1 e^{\lambda_1 t}, \quad y_2(t) = C_2 e^{\lambda_2 t}
+	\end{equation}
+	
+	\newpage
+	Рассмотрим различные сочетания собственных значений:
+	
+	\begin{pinkbox}
+		\subsection*{Вариант 1. Одного знака}
+	\end{pinkbox}
+	
+	\begin{enumerate}
+		\item $\lambda_1 < 0$, $\lambda_2 < 0$ (например, $\lambda_1 = -1$, $\lambda_2 = -2$):
+		\begin{equation}
+			y_1(t) = C_1 e^{-t}, \quad y_2(t) = C_2 e^{-2t}
+		\end{equation}
+		\vspace{-0.4em}
+		$y_2(t) = C_3 y_1^2(t)$, $C_3 = \frac{C_2}{C_1^2}$ — \textbf{устойчивый узел} (парабола).
+		\item $\lambda_1 > 0$, $\lambda_2 > 0$ (например, $\lambda_1 = 1$, $\lambda_2 = 2$):
+		\begin{equation}
+			y_1(t) = C_1 e^{t}, \quad y_2(t) = C_2 e^{2t}
+		\end{equation}
+		\vspace{-0.4em}
+		$y_2(t) = C_3 y_1^2(t)$, $C_3 = \frac{C_2}{C_1^2}$ — \textbf{неустойчивый узел}.
+	\end{enumerate}
+	В обоих случаях при $C_1 = 0$ и $C_2 = 0$ получаем траектории на оси абсцисс или ординат
+	\vspace{-0.5em}
+	\begin{figure}[H]
+		\centering
+		\begin{minipage}[b]{0.49\linewidth}
+			\centering
+			\includegraphics[width=0.5\linewidth]{img/3_02}
+			\par
+			\small Устойчивый узел
+		\end{minipage}
+		\hfill
+		\begin{minipage}[b]{0.49\linewidth}
+			\centering
+			\includegraphics[width=0.5\linewidth]{img/3_03}
+			\par
+			\small Неустойчивый узел
+		\end{minipage}
+	\end{figure}
+	
+	\begin{pinkbox}
+		\subsection*{Вариант 2. Разного знака}
+	\end{pinkbox}
+	
+	$\lambda_1 > 0$, $\lambda_2 < 0$ (например, $\lambda_1 = 1$, $\lambda_2 = -1$):
+	\newline
+	\begin{equation}
+		y_1(t) = C_1 e^{t}, \quad y_2(t) = C_2 e^{-t}
+	\end{equation}
+	$y_2(t) = \frac{C_3}{y_1(t)}$, $C_3 = C_1 \cdot C_2$ — гипербола (седло).
+	\par
+	\vspace{0.5em}
+	при $C_1 = 0$ и $C_2 = 0$ получаем траектории на оси абсцисс или ординат
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.4\textwidth, height=0.2\textheight]{img/3_04}
+		\par
+		\small Равновесие типа «седло»
+	\end{figure}
+	
+	\begin{pinkbox}
+		\subsection*{Вариант 3. Комплексно-сопряжённые}
+	\end{pinkbox}
+	
+	$\lambda_{1,2} = \alpha \pm i \omega$:
+	\begin{equation}
+		y_1(t) = C_1 e^{\alpha t} \cos(\omega t), \quad y_2(t) = C_2 e^{\alpha t} \sin(\omega t)
+	\end{equation}
+	При $C_1 = C_2 = 1$:
+	\begin{equation}
+		y_1^2 + y_2^2 = e^{2 \alpha t}
+	\end{equation}
+	$\alpha < 0$ — устойчивый фокус, $\alpha > 0$ — неустойчивый фокус.
+	
+	\begin{figure}[H]
+		\centering
+		\begin{minipage}[b]{0.49\linewidth}
+			\centering
+			\includegraphics[width=0.7\linewidth]{img/3_05}
+			\par
+			\small Устойчивый фокус
+		\end{minipage}
+		\hfill
+		\begin{minipage}[b]{0.49\linewidth}
+			\centering
+			\includegraphics[width=0.7\linewidth]{img/3_06}
+			\par
+			\small Неустойчивый фокус
+		\end{minipage}
+	\end{figure}
+	
+	\subsection{Нелинейные системы}
+	
+	В малой окрестности точки равновесия нелинейную систему можно сколь угодно точно аппроксимировать линейной, поэтому поведение её решений соответствует типовым фазовым портретам.
 	
 \end{document}

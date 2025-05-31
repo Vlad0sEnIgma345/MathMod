@@ -1,5 +1,5 @@
 \documentclass[a4paper,12pt]{article}
-\usepackage[russian]{babel} % Поддержка русского языка
+\usepackage[russian]{babel} % (нельзя с polyglossia)
 \usepackage{fontspec}
 \setmainfont[Ligatures=TeX]{Times New Roman} % Шрифт для основного текста
 \setsansfont[Ligatures=TeX]{Arial}
@@ -14,13 +14,34 @@
 \usepackage{ulem}
 \usepackage{tcolorbox}
 
+\AtBeginDocument{\boldmath} % Опционально: все мат.элементы жирным шрифтом
+
 \usepackage{adjustbox}
+
+\usepackage{float} % Для жесткой фиксации изображений [H]
+
+\setlength{\parindent}{0pt} % Опционально: отрубаем по рофлу красную строку
 
 \usepackage[colorlinks=true]{hyperref}
 \hypersetup{
 	colorlinks=true,
 	linkcolor=blue, % Почему-то зависит от colorlinks=true
 }
+
+%-------------------РУССКАЯ НУМЕРАЦИЯ В ENUMERATE-------------------%
+% Создаем команду для русских букв
+\newcommand{\rusitem}[1]{
+	\par % без этого почему-то первый пункт оставался на строке с текстом
+	\stepcounter{ruscount}
+	\noindent
+	\ifcase\value{ruscount}\or а)\or б)\or в)\or г)\or д)\or е)\or ж)\or з)\or и)\or й)\or
+	к)\or л)\or м)\or н)\or о)\or п)\or р)\or с)\or т)\or у)\or
+	ф)\or х)\or ц)\or ч)\or ш)\or щ)\or ъ)\or ы)\or ь)\or э)\or ю)\or я)\fi
+	\ #1\par
+}
+
+% Создаем новый счетчик
+\newcounter{ruscount}
 
 %-------------------ЦВЕТНОЙ ФОН ФЛОМАСТЕРА-------------------%
 % Цвета
@@ -53,38 +74,38 @@
 \usepackage{tikz}
 
 % Универсальная команда для обводки
-\newcommand{\circled}[1]{%
-	\tikz[baseline=(char.base)]{%
-		\node[draw,circle,inner sep=1pt,minimum size=1.2em](char){\strut #1};%
-	}%
+\newcommand{\circled}[1]{
+	\tikz[baseline=(char.base)]{
+		\node[draw,circle,inner sep=1pt,minimum size=1.2em](char){\strut #1};
+	}
 }
 
 % Модифицированная команда для разделов с обведённым номером
-\newcommand{\circledsection}[2][]{%
+\newcommand{\circledsection}[2][]{
 	% \refstepcounter{section} % Раскомментировав - раздел будет считаться в общей нумерации
-	\par\vspace{4ex plus 1ex minus .2ex}%
+	\par\vspace{4ex plus 1ex minus .2ex}
 	\noindent{\Large\bfseries\circled{\thesection}~#2\par} % \thesection передает номер из оглавление в раздел
 	\addcontentsline{toc}{section}{\protect\numberline{\thesection}#2} % С #1 будет убрано название и останутся только точки
-	\vspace{2.5ex plus .2ex}%
+	\vspace{2.5ex plus .2ex}
 }
 
 % Модифицированная команда для подразделов с обведённым номером
-\newcommand{\circledsubsection}[1]{%
+\newcommand{\circledsubsection}[1]{
 	\refstepcounter{subsection} % Отвечает за нуммерацию
-	\par\vspace{3.25ex plus 1ex minus .2ex}%
-	\noindent{\large\bfseries\circled{\thesubsection}~#1\par}%
-	\addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1}%
-	\vspace{2.3ex plus .2ex}%
+	\par\vspace{3.25ex plus 1ex minus .2ex}
+	\noindent{\large\bfseries\circled{\thesubsection}~#1\par}
+	\addcontentsline{toc}{subsection}{\protect\numberline{\thesubsection}#1}
+	\vspace{2.3ex plus .2ex}
 }
 
-% Стандартные подразделы
-\makeatletter
-\renewcommand{\subsection}{\@startsection{subsection}{2}{\z@}%
-	{-3.25ex\@plus -1ex \@minus -.2ex}%
-	{1.5ex \@plus .2ex}%
-	{\normalfont\large\bfseries}%
-}
-\makeatother
+% Стандартные подразделы (если раскомментить - subsection* (без нумерации) перестанет работать)
+% \makeatletter
+% \renewcommand{\subsection}{\@startsection{subsection}{2}{\z@}
+%	{-3.25ex\@plus -1ex \@minus -.2ex}
+%	{1.5ex \@plus .2ex}
+%	{\normalfont\large\bfseries}
+% }
+% \makeatother
 
 % Реализация списков со сквозной нумерацией (просто \item в них писать не надо)
 \newcounter{flexcounter}
@@ -99,26 +120,26 @@
 	labelindent=0pt
 }
 
-\newcommand{\flexlabel}[1]{%
-	\ifnum\value{flexcounter}>0\relax%
-	\arabic{flexcounter}.%
-	\fi%
+\newcommand{\flexlabel}[1]{
+	\ifnum\value{flexcounter}>0\relax
+	\arabic{flexcounter}.
+	\fi
 }
 
-\newcommand{\circleditem}{%
-	\refstepcounter{flexcounter}%
-	\item[\circled{\arabic{flexcounter}}]%
+\newcommand{\circleditem}{
+	\refstepcounter{flexcounter}
+	\item[\circled{\arabic{flexcounter}}]
 }
 
-\newcommand{\plainitem}{%
-	\refstepcounter{flexcounter}%
-	\item[\arabic{flexcounter}]%
+\newcommand{\plainitem}{
+	\refstepcounter{flexcounter}
+	\item[\arabic{flexcounter}]
 }
 
 %-------------------ДЕЛАЕМ ТОЧКИ ОГЛАВЛЕНИЯ АКТИВНЫМИ-------------------%
 % Переопределяем \@dottedtocline для полной ссылки
 \makeatletter
-\def\@dottedtocline#1#2#3#4#5{%
+\def\@dottedtocline#1#2#3#4#5{
 	\ifnum #1>\c@tocdepth \else
 	\vskip \z@ \@plus.2pt
 	{\leftskip #2\relax
@@ -132,20 +153,20 @@
 		\parindent \z@ \leftskip #3\relax
 		% \advance\leftskip by 1.5em % - задаем сдвиг подзаголовка
 		% \hskip -\leftskip % - двигаем подзаголовок влево
-		\hyper@linkstart{link}{\Hy@tocdestname}%
-		#4% текст заголовка
+		\hyper@linkstart{link}{\Hy@tocdestname}
+		#4 % текст заголовка
 		\leaders\hbox{$\m@th
 			\mkern \@dotsep mu\hbox{.}\mkern \@dotsep mu$}\hfill
-		\nobreak\hb@xt@\@pnumwidth{\hfil #5}% номер страницы
+		\nobreak\hb@xt@\@pnumwidth{\hfil #5} % номер страницы
 		\hyper@linkend
 		\endgroup
-		\par}%
+		\par}
 	\fi}
 % Переопределяем \l@section для использования \@dottedtocline
-\renewcommand*\l@section[2]{%
+\renewcommand*\l@section[2]{
 	\ifnum \c@tocdepth >\z@
 	\addpenalty\@secpenalty
-	\addvspace{1.0em \@plus\p@}%
-	\@dottedtocline{1}{0em}{1.5em}{#1}{#2}%
+	\addvspace{1.0em \@plus\p@}
+	\@dottedtocline{1}{0em}{1.5em}{#1}{#2}
 	\fi}
 \makeatother
