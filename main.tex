@@ -789,13 +789,333 @@
 		Для этого применяется сингулярное разложение \(SVD\) матрицы \(\Phi\), где при отстутствии единственности решения выбирается то, которое соответствует минимальной длине вектора \(\Delta k\).
 		\begin{itemize}
 			\item Строки матрицы \(\Phi\) отражают влияние параметров на различные значения \(\Delta a_j\), а столбцы - влияние конкретного параметра на все \(\Delta a_j\).
-			\item В вектор \(\Delta a\) включают как значимые собственные значения, так и дополнительные «левые», обладающие высокой чувствительностью.
+			\item В вектор \(\Delta a\) включают как значимые собственные значения, так и дополнительные 
+			\newline 
+			«левые», обладающие высокой чувствительностью.
 			\item При отсутствии контроля нежелательные собственные значения могут смещаться вправо.
 			\item Величину \(\Delta a\) не следует задавать слишком большой, так как уравнение с \(\Phi\) — это лишь линейное приближение.
 			\item На практике матрицу \(\Phi\) могут пересчитывать несколько раз в ходе решения.
 		\end{itemize}
 	\end{itemize}
 	
+	\section{Анализ нелинейных моделей. Основные этапы. Теорема о неявных функциях. Классификация равновесных точек и их устойчивость}
 	
+	% АААААААААААААААААААААААААААААААААААААААААААААААААААААААА
+	
+	\subsection{Анализ нелинейных моделей}
+	
+	Рассмотрим модель, заданную системой нелинейных дифференциальных уравнений:
+	\begin{equation}
+		\frac{d x}{d t} = f(x, \varepsilon), \quad x(t) \in \mathbb{R}^m,
+	\end{equation}
+	где \(\varepsilon\) — параметр, влияющий на поведение системы.
+	
+	\textbf{Основные вопросы:}
+	\begin{itemize}
+		\item Как ведет себя решение при \( t \rightarrow \infty \)?
+		\item Как решение зависит от \(\varepsilon\) качественно?
+	\end{itemize}
+	
+	Если \(x(t)\) ограничен при \( t \rightarrow \infty \), возможны следующие типы решений:
+	\begin{itemize}
+		\item Равновесная (стационарная) точка.
+		\item Периодическое решение (предельный цикл).
+		\item Хаотический или странный аттрактор.
+	\end{itemize}
+	
+	\subsubsection{Равновесные точки}
+	
+	Для одномерного случая (\(x, \varepsilon\) — скаляры) равновесные точки удовлетворяют:
+	\begin{equation}
+		f(x, \varepsilon) = 0.
+	\end{equation}
+	
+	\textbf{Обозначения производных:}
+	\begin{equation}
+		f_x' = \frac{\partial f}{\partial x}, \quad f_\varepsilon' = \frac{\partial f}{\partial \varepsilon}, \quad f_{xx}'' = \frac{\partial^2 f}{\partial x^2}, \quad f_{\varepsilon\varepsilon}'' = \frac{\partial^2 f}{\partial \varepsilon^2}, \quad f_{x\varepsilon}'' = \frac{\partial^2 f}{\partial x \partial \varepsilon}.
+	\end{equation}
+	
+	\textbf{Теорема о неявной функции:}  
+	В области \( D = [x_0 - \Delta, x_0 + \Delta] \times [\varepsilon_0 - \Delta_1, \varepsilon_0 + \Delta_1] \), содержащей точку \((x_0, \varepsilon_0)\), где \( f(x_0, \varepsilon_0) = 0 \), и \( f(x, \varepsilon) \) непрерывно дифференцируема:
+	\begin{itemize}
+		\item Если \( f_x'(x_0, \varepsilon_0) \neq 0 \), то существует единственное решение \( x(\varepsilon) \), причем \( x(\varepsilon_0) = x_0 \).
+		\item Если \( f_\varepsilon'(x_0, \varepsilon_0) \neq 0 \), то существует единственное решение \(\varepsilon(x)\), причем \(\varepsilon(x_0) = \varepsilon_0\).
+	\end{itemize}
+	
+	\textbf{Классификация равновесных точек:}
+	\begin{itemize}
+		\item \textit{Регулярная точка:} \( f_x'(x_0, \varepsilon_0) \neq 0 \) или \( f_\varepsilon'(x_0, \varepsilon_0) \neq 0 \).
+		\item \textit{Особая точка:} \( f_x'(x_0, \varepsilon_0) = f_\varepsilon'(x_0, \varepsilon_0) = 0 \).
+		\item \textit{Двойная особая точка:} существуют две ветви решения с разными касательными.
+		\item \textit{Особая точка высокого порядка:} \( f_{xx}''(x_0, \varepsilon_0) = f_{\varepsilon\varepsilon}''(x_0, \varepsilon_0) = f_{x\varepsilon}''(x_0, \varepsilon_0) = 0 \).
+	\end{itemize}
+	
+	\subsubsection{Устойчивость равновесных точек}
+	
+	Для линейной системы:
+	\begin{equation}
+		\frac{d x}{d t} = A x,
+	\end{equation}
+	где устойчивость определяется собственными значениями матрицы \(A\). 
+	\newline
+	Аналогично для нелинейной системы:
+	\begin{equation}
+		\frac{d x}{d t} = f(x), \quad x(t) \in \mathbb{R}^m.
+	\end{equation}
+	
+	Пусть \(x_0\) — стационарная точка:
+	\begin{equation}
+		f(x_0) = 0.
+	\end{equation}
+	
+	Рассмотрим малые отклонения \(x = x_0 + \Delta x\):
+	\begin{equation}
+		\frac{d \Delta x}{d t} = f(x_0 + \Delta x) - f(x_0) = f(x_0) + A \Delta x + o(\|\Delta x\|) - f(x_0) = A \Delta x + o(\|\Delta x\|),
+	\end{equation}
+	где \(o(\|\Delta x\|)\) - малые порядка выше первого, а \(A = \frac{\partial f}{\partial x}(x_0)\) - матрица Якоби в стационарной точке.
+	\vspace{0.5em}
+	\newline
+	\textbf{Критерий Ляпунова:}
+	\begin{itemize}
+		\item Ассимптотически устойчиво, если \(\operatorname{Re}(\lambda_k) < 0\) для всех \(\lambda_k\) матрицы \(A\).
+		\item Неустойчиво, если \(\operatorname{Re}(\lambda_k) > 0\) хотя бы для одного \(\lambda_k\).
+		\item При \(\operatorname{Re}(\lambda_k) = 0\) учитываются малые (нелинейные при разложении) слагаемые.
+	\end{itemize}
+	
+	\newpage
+	
+	\section{Понятие орбитальной устойчивости. Решение линейных систем с периодическими коэффициентами. Уравнение в вариациях. Критерий орбитальной устойчивости периодического решения. Примеры.}
+	
+	\subsubsection{Диаграммы стационарных решений и бифуркационные диаграммы}
+	
+	\textbf{Задачи:}
+	\begin{enumerate}
+		\item Построение диаграммы стационарных решений (ДСР) от \(\varepsilon\).
+		\item Построение бифуркационных диаграмм (БД) в плоскости \((\varepsilon_1, \varepsilon_2)\).
+	\end{enumerate}
+	
+	В ДСР точки \(x(\varepsilon)\) оцениваются по устойчивости через собственные значения матрицы Якоби. Переход устойчивости — бифуркация:
+	\begin{itemize}
+		\item \textit{Вещественная:} \(\lambda_k = 0\).
+		\item \textit{Комплексная (Андронова-Хопфа):} пара \(\lambda_{1,2} = \alpha \pm i\beta\) с \(\alpha = 0\).
+	\end{itemize}
+	
+	Если \(\varepsilon = \begin{pmatrix} \varepsilon_1 \\ \varepsilon_2 \end{pmatrix}\), решается задача построения БД.
+	
+	\subsubsection{Вещественная бифуркация. Одномерный случай}
+	
+	На кривой \(x(\varepsilon)\) выделяются:
+	\begin{itemize}
+		\item \textit{Регулярные точки:} \( f_x'(x_0, \varepsilon_0) \neq 0 \).
+		\item \textit{Точки поворота:} \( f_x'(x_0, \varepsilon_0) = 0 \), \( f_\varepsilon'(x_0, \varepsilon_0) \neq 0 \) (появление/исчезновение пары решений, см. Рис. 1).
+		\item \textit{Особые точки:} \( f_x'(x_0, \varepsilon_0) = f_\varepsilon'(x_0, \varepsilon_0) = 0 \).
+	\end{itemize}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/8_01}
+		\par
+		{\small\((x_0, \varepsilon_0)\) — точка поворота.}
+		\label{fig:8_01}
+	\end{figure}
+	
+	\subsubsection{Ветвление в точках бифуркации}
+	
+	Для особой точки \((x_0, \varepsilon_0)\): \( f(x_0, \varepsilon_0) = 0 \), \( f_x' = f_\varepsilon' = 0 \).  
+	Разложение в ряд для близкой точки \((x_0 + \Delta x, \varepsilon_0 + \Delta \varepsilon)\):
+	\begin{equation}
+		f(x, \varepsilon) = \frac{1}{2} \left( A \Delta x^2 + 2 B \Delta x \Delta \varepsilon + C \Delta \varepsilon^2 \right) + o(\|\Delta x\|^2 + \|\Delta \varepsilon\|^2),
+	\end{equation}
+	где \( A = f_{xx}'' \), \( B = f_{x\varepsilon}'' \), \( C = f_{\varepsilon\varepsilon}'' \).
+	
+	\textbf{Случай 1: \( A \neq 0 \)}  
+	Уравнение:
+	\begin{equation}
+		A \left( \frac{d x}{d \varepsilon} \right)^2 + 2 B \frac{d x}{d \varepsilon} + C = 0, \quad D = B^2 - A C.
+	\end{equation}
+	\begin{itemize}
+		\item \( D < 0 \): изолированная точка.
+		\item \( D > 0 \): две пересекающиеся ветви (см. Рис. 2).
+	\end{itemize}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/8_02}
+		\par
+		{\small \((x_0, \varepsilon_0)\) — точка ветвления.}
+		\label{fig:8_02}
+	\end{figure}
+	
+	\textbf{Случай 2: \( A = 0 \), \( C \neq 0 \)}  
+	Уравнение:
+	\begin{equation}
+		C \left( \frac{d \varepsilon}{d x} \right)^2 + 2 B \frac{d \varepsilon}{d x} = 0.
+	\end{equation}
+	Корни:
+	\begin{equation}
+		\left( \frac{d \varepsilon}{d x} \right)_1 = 0, \quad \left( \frac{d \varepsilon}{d x} \right)_2 = -\frac{2 B}{C}.
+	\end{equation}
+	Бифуркация типа «вилка» (см. Рис. 3).
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\textwidth]{img/8_03}
+		\par
+		{\small Бифуркация типа «вилка».}
+		\label{fig:8_03}
+	\end{figure}
+	
+	\subsubsection{Комплексная бифуркация (Андронова-Хопфа)}
+	
+	Рассмотрим систему:
+	\begin{equation}
+		\begin{cases}
+			\frac{d x_1}{d t} = \varepsilon x_1 - x_2 \mp x_1 (x_1^2 + x_2^2), \\
+			\frac{d x_2}{d t} = x_1 + \varepsilon x_2 \mp x_2 (x_1^2 + x_2^2).
+		\end{cases}
+	\end{equation}
+	
+	\textbf{Случай со знаком «минус»:}  
+	Стационарная точка: \((0, 0)\). Матрица Якоби:
+	\begin{equation}
+		J = \begin{pmatrix} \varepsilon & -1 \\ 1 & \varepsilon \end{pmatrix}, \quad \lambda_{1,2} = \varepsilon \pm i.
+	\end{equation}
+	В полярных координатах (\( x_1 = R \cos \varphi \), \( x_2 = R \sin \varphi \)):
+	\begin{equation}
+		\frac{d R}{d t} = \varepsilon R - R^3 = R (\varepsilon - R^2), \quad \frac{d \varphi}{d t} = 1.
+	\end{equation}
+	Стационарные точки: \( R = 0 \), \( R = \sqrt{\varepsilon} \) (при \(\varepsilon > 0\)).  
+	\begin{itemize}
+		\item \(\varepsilon < 0\): устойчивый фокус (\( R \to 0 \)).
+		\item \(\varepsilon = 0\): устойчивый фокус (\( R' = -R^3 < 0 \)).
+		\item \(\varepsilon > 0\): неустойчивый фокус, предельный цикл \( R = \sqrt{\varepsilon} \) (см. Рис. 4).
+	\end{itemize}
+	
+	\begin{figure}[H]
+		\centering
+		\begin{minipage}{0.28\textwidth}
+			\includegraphics[width=\textwidth]{img/8_04}
+			\par
+			\centering{\small\(\varepsilon < 0\)}
+		\end{minipage}
+		\begin{minipage}{0.31\textwidth}
+			\includegraphics[width=\textwidth]{img/8_05}
+			\centering{\small\(\varepsilon = 0\)}
+		\end{minipage}
+		\begin{minipage}{0.3\textwidth}
+			\includegraphics[width=\textwidth]{img/8_06}
+			\centering{\small\(\varepsilon > 0\)}
+		\end{minipage}
+	\end{figure}
+	
+	\textbf{Случай со знаком «плюс»:}  
+	\begin{equation}
+		\frac{d R}{d t} = \varepsilon R + R^3 = R (\varepsilon + R^2), \quad \frac{d \varphi}{d t} = 1.
+	\end{equation}
+	Стационарные точки: \( R = 0 \), \( R = \sqrt{-\varepsilon} \) (при \(\varepsilon < 0\)).  
+	\begin{itemize}
+		\item \(\varepsilon < 0\): устойчивый фокус (\( R \to 0 \) при \( R < \sqrt{-\varepsilon} \)), \( R \to \infty \) при \( R > \sqrt{-\varepsilon} \).
+		\item \(\varepsilon \geq 0\): неустойчивый фокус (\( R \to \infty \)) (см. Рис. 5).
+	\end{itemize}
+	
+	\begin{figure}[H]
+		\centering
+		\begin{minipage}{0.3\textwidth}
+			\includegraphics[width=\textwidth]{img/8_07}
+			\centering{\small\(\varepsilon < 0\)}
+		\end{minipage}
+		\begin{minipage}{0.3\textwidth}
+			\includegraphics[width=\textwidth]{img/8_08}
+			\centering{\small\(\varepsilon = 0\)}
+		\end{minipage}
+		\begin{minipage}{0.3\textwidth}
+			\includegraphics[width=\textwidth]{img/8_08}
+			\centering{\small\(\varepsilon > 0\)}
+		\end{minipage}
+	\end{figure}
+	
+	\subsubsection{Методы построения диаграмм}
+	
+	Стационарные точки:
+	\begin{equation}
+		f(x, \varepsilon) = 0.
+	\end{equation}
+	\begin{itemize}
+		\item Дискретизация: \(\varepsilon_k = \varepsilon_0 + k \Delta \varepsilon\).
+		\item Решение методом Ньютона с начальным приближением \(x_{k-1}\) для \(x_k\).
+	\end{itemize}
+	
+	\textbf{Метод продолжения по параметру:}  
+	Решаем:
+	\begin{equation}
+		H(\tau, x) = 0, \quad \tau \in [0, 1],
+	\end{equation}
+	где \(H(0, x) = 0\) тривиально, а \(H(1, x) = f(x)\).  
+	Примеры:
+	\begin{equation}
+		H(\tau, x) = f(x) + (\tau - 1) \cdot f(x^*),
+	\end{equation}
+	\begin{equation}
+		H(\tau, x) = (1 - \tau) \cdot (x - x^*) + \tau \cdot f(x).
+	\end{equation}
+	Шаг \(\tau_j = j \cdot \Delta \tau\), решение дает \(x_0\).
+	
+	\subsubsection{Нахождение точек поворота и ветвления}
+	
+	Расширяем \(x\) до \( x^{(n+1)} = \varepsilon \), матрица \(J\) размером \( n \times (n+1) \):
+	\begin{equation}
+		J = \begin{pmatrix}
+			\frac{\partial f^{(1)}}{\partial x^{(1)}} & \cdots & \frac{\partial f^{(1)}}{\partial x^{(n+1)}} \\
+			\vdots & \ddots & \vdots \\
+			\frac{\partial f^{(n)}}{\partial x^{(1)}} & \cdots & \frac{\partial f^{(n)}}{\partial x^{(n+1)}}
+		\end{pmatrix}.
+	\end{equation}
+	\(J_{n+1}\) — матрица Якоби. Условие бифуркации:
+	\begin{equation}
+		\det(J_{n+1}) = 0.
+	\end{equation}
+	\begin{itemize}
+		\item \textit{Точка ветвления:} \(\det(J_k) = 0\) для \( k \neq n+1 \).
+		\item \textit{Точка поворота:} \(\det(J_k) \neq 0\) для \( k \neq n+1 \).
+	\end{itemize}
+	
+	Решаем:
+	\begin{equation}
+		\begin{cases}
+			f(x, \varepsilon) = 0, \\
+			J_{n+1} \cdot v = 0, \\
+			v^{(k)} = 1.
+		\end{cases}
+	\end{equation}
+	
+	\subsubsection{Нахождение точек комплексной бифуркации}
+	
+	В точке бифуркации: \(\lambda_{1,2} = \pm i \omega\), \(w = u \pm i v\).  
+	Условия:
+	\begin{equation}
+		J_{n+1} \cdot u + \omega \cdot v = 0, \quad -\omega \cdot u + J_{n+1} \cdot v = 0.
+	\end{equation}
+	Система:
+	\begin{equation}
+		\begin{cases}
+			f(x, \varepsilon) = 0, \\
+			J_{n+1} \cdot u + \omega \cdot v = 0, \\
+			-\omega \cdot u + J_{n+1} \cdot v = 0, \\
+			u^{(k)} = 1, \quad v^{(k)} = 0.
+		\end{cases}
+	\end{equation}
+	
+	Для \( n = 2 \):
+	\begin{equation}
+		J_{n+1} = \begin{pmatrix} a_{11} & a_{12} \\ a_{21} & a_{22} \end{pmatrix}, \quad a_{11} + a_{22} = 0.
+	\end{equation}
+	Решаем:
+	\begin{equation}
+		\begin{cases}
+			f(x, \varepsilon) = 0, \\
+			a_{11} + a_{22} = 0,
+		\end{cases}
+	\end{equation}
+	с проверкой типа \(\lambda\).
 	
 \end{document}
