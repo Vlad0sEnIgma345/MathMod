@@ -449,10 +449,10 @@
 			\item $SL$ — рабочий массив размерности $N$
 			\item $INDEX$ — управляющий параметр со входными значениями:
 			\begin{itemize}
-				\item 1 — первое обращение, вектор $B$ нулевой (т.е. однородная система)
-				\item 2 — первое обращение, $B$ может быть ненулевым
-				\item 0 — последующее обращение
-				\item Нормальное выходное значение – 0. 
+				\item \textbf{1} — первое обращение, вектор $B$ нулевой (т.е. однородная система)
+				\item \textbf{2} — первое обращение, $B$ может быть ненулевым
+				\item \textbf{0} — последующее обращение
+				\item Нормальное выходное значение – \textbf{0}. 
 			\end{itemize}
 		\end{itemize}
 	\end{itemize}
@@ -460,6 +460,10 @@
 	\newpage
 	
 	\subsubsection{Этап 2: Наблюдаемость и модальный анализ}
+	Пусть $\lambda_k$, $u_k$ — собственные значения и собственные векторы матрицы $A$, 
+	\newline
+	а $\lambda_k$, $v_k$ — собственные значения и собственные векторы матрицы $A^\top$ соответственно.
+	\vspace{-1em}
 	\subsubsection*{Собственные векторы и их свойства}
 	
 	\begin{itemize}[leftmargin=1em]
@@ -546,7 +550,7 @@
 		где \(e^{\lambda_k t}\) — \textbf{мода}, а анализ характера ее поведения в решении – \textbf{модальный анализ}.
 		\item \textbf{Покомпонентное решение:}
 		\begin{itemize}
-			\item Для \(b = 0\):
+			\item Для \(b = 0\) из уравнения $\frac{d \mathbf{x}}{d t} = \mathbf{A} \mathbf{x} + \mathbf{b}$:
 			\begin{equation}
 				x(t) = \sum_{k=1}^m u_k v_k^T e^{\lambda_k t} x_0.
 			\end{equation}
@@ -672,18 +676,42 @@
 	\newpage
 	
 	\section{Анализ чувствительности. Чувствительность составляющих решений к вариации параметров}
-	\subsection{Основные этапы анализа (3 - 4 - 5)}
+	\subsection{Основные этапы анализа (3 - 4)}
 	\subsubsection{Этап 3: Оценка чувствительности к параметрам}
 	\begin{itemize}[leftmargin=1em]
 		\item \textbf{Статическая модель:} \(f(x(k)) = 0\),
 		\begin{equation}
-			a_{ij} = \frac{\partial x^{(i)}}{\partial k^{(j)}} \approx \frac{x(k + \Delta k \cdot e_j) - x(k)}{\Delta k},
+			a_{ij} = \frac{\partial x^{(i)}}{\partial k^{(j)}}
 		\end{equation}
-		или
+		Пусть $A_j$ - $j$-й столбец матрицы, $e_j$ - 
+		$j$-й столбец ед. матрицы, а $\Delta k$ - приращение по параметру:
 		\begin{equation}
-			a_{ij} \approx \frac{x(k + \Delta k \cdot e_j) - x(k - \Delta k \cdot e_j)}{2 \Delta k}.
+			 A_j \approx \frac{x(k + \Delta k \cdot e_j) - x(k)}{\Delta k},
+		\end{equation}
+		или более точно:
+		\begin{equation}
+			A_j \approx \frac{x(k + \Delta k \cdot e_j) - x(k - \Delta k \cdot e_j)}{2 \Delta k}.
 		\end{equation}
 		\item \textbf{Динамическая модель:} \(\frac{d x}{d t} = A(k) x\),
+		
+		\begin{equation}
+			A(k) \, u_i = \lambda_i u_i.
+		\end{equation}
+		Продифференцируем по $k$:
+		\begin{equation}
+			\frac{\partial A}{\partial k} \, u_i + A \frac{\partial u_i}{\partial k} =
+			\frac{\partial \lambda_i}{\partial k} \, u_i + \lambda_i \frac{\partial u_i}{\partial k}. \tag{23}
+		\end{equation}
+		
+		И умножим слева на $v_i^T$:
+		\begin{equation}
+			v_i^T \frac{\partial A}{\partial k} \, u_i +
+			\left( v_i^T A - \lambda_i v_i^T \right)
+			\frac{\partial u_i}{\partial k} =
+			v_i^T \frac{\partial \lambda_i}{\partial k} \, u_i. \tag{24}
+		\end{equation}
+		
+		где $u_i$ и $v_i$ — собственные векторы матриц $A$ и $A^T$ соответственно.
 		\begin{equation}
 			\frac{\partial \lambda_i}{\partial k} = \frac{v_i^T \frac{\partial A}{\partial k} u_i}{v_i^T u_i},
 		\end{equation}
@@ -704,23 +732,32 @@
 	\begin{itemize}[leftmargin=1em]
 		\item \textbf{Система:}
 		\begin{equation}
-			\frac{d x}{d t} = f(t, x, p), \quad x(t_0) = x_0,
+			\frac{d x}{d t} = f(t, x, p), \quad x(t_0) = x_0, \quad x \in \mathbb{R}^m, \quad p \in \mathbb{R}^s,
 		\end{equation}
-		с критерием
+		с критерием близости
 		\begin{equation}
-			F(p) = \sum_{k=1}^N \sum_{i=1}^N (x_{\text{экс}}^{(k)}(t_i) - x^{(k)}(t_i))^2,
+			F(p) = \sum_k \sum_{i=1}^N (x_{\text{экс}}^{(k)}(t_i) - x^{(k)}(t_i))^2,
 		\end{equation}
 		или с весами
 		\begin{equation}
-			F(p) = \sum_{k=1}^N q_k \sum_{i=1}^N (x_{\text{экс}}^{(k)}(t_i) - x^{(k)}(t_i))^2.
+			F(p) = \sum_k q_k \sum_{i=1}^N (x_{\text{экс}}^{(k)}(t_i) - x^{(k)}(t_i))^2.
 		\end{equation}
+		где $x_{\text{экс}}^{(k)}(t_i)$ и $x^{(k)}(t_i)$ — эксперимент и решение. 
+		\newline
+		Первое суммирование по всем компонентам, по которым имеется экспериментальная информация. 
+		\newline
+		Для минимизации $F(p)$ можно использовать любой метод оптимизации. 
+		\newline
+		При различной размерности $x^{(k)}$ вводятся весовые коэффициенты $q_k$.
 		\item \textbf{Шаги:}
 		\begin{itemize}
 			\item Сравнение модели с экспериментом.
-			\item Минимизация \(F(p)\) методом многомерной оптимизации.
+			\item Минимизация \(F(p)\) (методом многомерной оптимизации).
 		\end{itemize}
 	\end{itemize}
 	
+	\section{Управление устойчивостью в линейной динамической модели (использование сингулярного разложения и программы  SVD для матриц различных размерностей и рангов)}
+	\subsection{Основные этапы анализа (5)}
 	\subsubsection{Этап 5: Задачи управления}
 	\begin{itemize}[leftmargin=1em]
 		\item \textbf{Система:} \(\frac{d x}{d t} = A(k) x\),
