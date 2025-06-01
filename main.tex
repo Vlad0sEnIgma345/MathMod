@@ -676,7 +676,7 @@
 	\newpage
 	
 	\section{Анализ чувствительности. Чувствительность составляющих решений к вариации параметров}
-	\subsection{Основные этапы анализа (3 - 4)}
+	\subsection{Основные этапы анализа (3)}
 	\subsubsection{Этап 3: Оценка чувствительности к параметрам}
 	\begin{itemize}[leftmargin=1em]
 		\item \textbf{Статическая модель:} \(f(x(k)) = 0\),
@@ -728,6 +728,7 @@
 		\end{itemize}
 	\end{itemize}
 	
+	\addcontentsline{toc}{section}{Этап анализа без билета}
 	\subsubsection{Этап 4: Параметрическая идентификация}
 	\begin{itemize}[leftmargin=1em]
 		\item \textbf{Система:}
@@ -756,24 +757,45 @@
 		\end{itemize}
 	\end{itemize}
 	
+	\newpage
+	
 	\section{Управление устойчивостью в линейной динамической модели (использование сингулярного разложения и программы  SVD для матриц различных размерностей и рангов)}
 	\subsection{Основные этапы анализа (5)}
 	\subsubsection{Этап 5: Задачи управления}
-	\begin{itemize}[leftmargin=1em]
-		\item \textbf{Система:} \(\frac{d x}{d t} = A(k) x\),
+	\textbf{Система:}
+	\begin{equation}
+		\frac{d x}{d t} = A(k)x, \quad x \in \mathbb{R}^m, \quad k \in \mathbb{R}^s,
+	\end{equation}
+	\begin{itemize}
+		\item Выбор параметров \(k\) направлен на смещение собственных значений \(\lambda_j = \alpha_j + i\omega_j\) матрицы \(A\) влево на комплексной плоскости для повышения устойчивости.
+		\item Пусть \(k_0\) - начальное значение параметров, а \(\Delta k\) - вектор малых приращений
+		\item Разложим в ряд и ограничим линейным приближением: 
 		\begin{equation}
-			\alpha_j(k_0 + \Delta k) = \alpha_j(k_0) + \sum_{p} \frac{\partial \alpha_j}{\partial k^{(p)}} \Delta k^{(p)},
+			\alpha_j(k_0 + \Delta k) = \alpha_j(k_0) + \sum_p \frac{\partial \alpha_j}{\partial k^{(p)}} \Delta k^{(p)},
 		\end{equation}
-		в матричной форме
+		\item Перенесём \(\lambda_j(k_0)\) влево и запишем в матричной форме:
 		\begin{equation}
 			\Phi \Delta k = \Delta \alpha,
 		\end{equation}
-		где
+		\item Элементы матрицы \(\Phi\) определяются как:
 		\begin{equation}
-			f_{jp} = \operatorname{Re} \left( \frac{v_j^T \frac{\partial A}{\partial k^{(p)}} u_j}{v_j^T u_j} \right).
+			f_{jp} = \frac{\partial \alpha_j}{\partial k^{(p)}} = \operatorname{Re} \left( \frac{\partial \lambda_j}{\partial k^{(p)}} \right) = \operatorname{Re} \left( \frac{v_j^T \frac{\partial A}{\partial k^{(p)}} u_j}{v_j^T u_j} \right),
 		\end{equation}
-		\item \textbf{Решение:} SVD минимизирует невязку \(\Phi \Delta k - \Delta \alpha\).
+		\(v_j\) и \(u_j\) — собственные векторы матриц \(A\) и \(A^T\). 
+		\item Матрица \(\Phi\) прямоугольная. Под решением понимается вектор \(\Delta k\), минимизирующий квадрат нормы \textbf{вектора невязки}:
+		\begin{equation}
+			r = \Phi \Delta k - \Delta a
+		\end{equation}
+		Для этого применяется сингулярное разложение \(SVD\) матрицы \(\Phi\), где при отстутствии единственности решения выбирается то, которое соответствует минимальной длине вектора \(\Delta k\).
+		\begin{itemize}
+			\item Строки матрицы \(\Phi\) отражают влияние параметров на различные значения \(\Delta a_j\), а столбцы - влияние конкретного параметра на все \(\Delta a_j\).
+			\item В вектор \(\Delta a\) включают как значимые собственные значения, так и дополнительные «левые», обладающие высокой чувствительностью.
+			\item При отсутствии контроля нежелательные собственные значения могут смещаться вправо.
+			\item Величину \(\Delta a\) не следует задавать слишком большой, так как уравнение с \(\Phi\) — это лишь линейное приближение.
+			\item На практике матрицу \(\Phi\) могут пересчитывать несколько раз в ходе решения.
+		\end{itemize}
 	\end{itemize}
+	
 	
 	
 \end{document}
