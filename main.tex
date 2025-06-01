@@ -349,7 +349,7 @@
 	\end{equation}
 	где \(\mathbf{x} \in \mathbb{R}^m\) — вектор состояния, \(\mathbf{A}\) — постоянная матрица, \(\mathbf{b}\) — вектор свободных членов.
 	\par
-	\subsection{Основные этапы анализа}
+	\subsection{Основные этапы анализа (1 - 1a - 2)}
 	\begin{enumerate}
 		\item Получение решения
 		\item[1a.] Получение стационарного решения и анализ его устойчивости
@@ -360,8 +360,7 @@
 	\end{enumerate}
 	
 	\subsubsection{Этап 1a: Получение стацион. решения и анализ устойчивости}
-	% Комментарий: Подробное описание решения и устойчивости с доказательствами.
-	Требует решения СЛАУ :
+	Требует решения СЛАУ:
 	\begin{equation}
 		A x + b = 0, \quad x^* = -A^{-1} b.
 	\end{equation}
@@ -461,10 +460,9 @@
 	\newpage
 	
 	\subsubsection{Этап 2: Наблюдаемость и модальный анализ}
-	% Комментарий: Подробный модальный анализ с доказательствами.
 	\subsubsection*{Собственные векторы и их свойства}
 	
-	\begin{itemize}
+	\begin{itemize}[leftmargin=1em]
 		\item \textbf{Уравнения для собственных векторов:}
 		\begin{align}
 		A u_k &= \lambda_k u_k, \label{eq:21}\\
@@ -529,44 +527,31 @@
 		\end{equation}
 	\end{itemize}
 	
-	\subsubsection*{Решение однородной системы}
+	\newpage
+	
+	\section{Наблюдаемость отдельных составляющих решения линейной системы. Пример программы модального анализа}
+	
+	\subsection{Основные этапы анализа (2 - продолжение)}
+	
+	\subsubsection{Этап 2: Наблюдаемость отдельных составляющих решения}
+	
+	\subsubsection*{Мода. Решение однородной системы}
 	
 	\begin{itemize}
 		\item \textbf{Общее решение:}
 		\begin{equation}
-			x(t) = e^{A t} x_0 = \sum_{k=1}^m u_k (v_k^T x_0) e^{\lambda_k t},
+			x(t) = e^{A t} x_0 = \sum_{k=1}^{m} u_k v_k^{T} e^{\lambda_k t} x_0 
+			= \sum_{k=1}^{m} u_k \left( v_k^{T} x_0 \right) e^{\lambda_k t}
 		\end{equation}
-		где \(e^{\lambda_k t}\) — мода.
-		\item \textbf{Покомпонентно:}
-		\begin{equation}
-			x^{(p)}(t) = \sum_{k=1}^m u_k^{(p)} D_k e^{\lambda_k t}, \quad D_k = v_k^T x_0.
-		\end{equation}
-		\item \textbf{Отношение амплитуд:}
-		\begin{equation}
-			\eta_k^{(p,s)} = \frac{u_k^{(p)} D_k}{u_k^{(s)} D_k} = \frac{u_k^{(p)}}{u_k^{(s)}},
-		\end{equation}
-		не зависит от \(x_0\).
-	\end{itemize}
-	
-	\subsubsection*{Модальный анализ}
-	
-	\begin{itemize}
-		\item \textbf{Упрощения:}
-		\begin{itemize}
-			\item Система из \(m\) однотипных узлов.
-			\item Возмущение: \(x_0 = e_i\) (единичный вектор).
-		\end{itemize}
-		\item \textbf{Подсистемы анализа:}
-		\begin{itemize}
-			\item \textit{Оценка моды \(k\):} Изучает заметность моды \(e^{\lambda_k t}\) в узлах.
-			\item \textit{Наблюдение в узле \(k\):} Анализирует \(x^{(k)}(t)\), упорядочивая моды по амплитуде \(u_j^{(k)} D_j\).
-			\item \textit{Возмущение в узле \(k\):} Оценивает влияние возмущения на моды.
-		\end{itemize}
-		\item \textbf{Пример решения:}
+		где \(e^{\lambda_k t}\) — \textbf{мода}, а анализ характера ее поведения в решении – \textbf{модальный анализ}.
+		\item \textbf{Покомпонентное решение:}
 		\begin{itemize}
 			\item Для \(b = 0\):
 			\begin{equation}
 				x(t) = \sum_{k=1}^m u_k v_k^T e^{\lambda_k t} x_0.
+			\end{equation}
+			\begin{equation}
+				x^{(p)}(t) = \sum_{k=1}^m u_k^{(p)} D_k e^{\lambda_k t}, \quad D_k = v_k^T x_0.
 			\end{equation}
 			\item Компоненты:
 			\begin{equation}
@@ -576,41 +561,120 @@
 				x^{(m)}(t) = u_1^{(m)} D_1 e^{\lambda_1 t} + \cdots + u_m^{(m)} D_m e^{\lambda_m t}.
 			\end{equation}
 		\end{itemize}
-		\item \textbf{Решение однородной системы (\(b = 0\)):}
-		\begin{equation}
-			x(t) = e^{A t} x_0 = \sum_{k=1}^m u_k (v_k^T x_0) e^{\lambda_k t},
-		\end{equation}
-		где \(u_k\), \(v_k\) — собственные векторы \(A\) и \(A^T\), с \(v_k^T u_k = 1\), \(v_i^T u_k = 0\) (\(i \neq k\)).
-		\begin{itemize}
-			\item Доказательство ортогональности:
-			\begin{equation}
-				A u_k = \lambda_k u_k, \quad A^T v_i = \lambda_i v_i,
-			\end{equation}
-			\begin{equation}
-				v_i^T A u_k - v_i^T \lambda_k u_k = (\lambda_i - \lambda_k) v_i^T u_k = 0,
-			\end{equation}
-			откуда \(v_i^T u_k = 0\) (\(i \neq k\)).
-		\end{itemize}
-		\item \textbf{Покомпонентное разложение:}
-		\begin{equation}
-			x^{(p)}(t) = \sum_{k=1}^m u_k^{(p)} D_k e^{\lambda_k t}, \quad D_k = v_k^T x_0.
-		\end{equation}
 		\item \textbf{Отношение амплитуд:}
 		\begin{equation}
-			\eta_k^{(p,s)} = \frac{u_k^{(p)} D_k}{u_k^{(s)} D_k} = \frac{u_k^{(p)}}{u_k^{(s)}},
+			\eta_k^{(p,s)} = \frac{x^{(p)}(t)}{x^{(s)}(t)} = \frac{u_k^{(p)} D_k}{u_k^{(s)} D_k} = \frac{u_k^{(p)}}{u_k^{(s)}},
 		\end{equation}
 		не зависит от \(x_0\).
-		\item \textbf{Подсистемы анализа:}
-		\begin{itemize}
-			\item Оценка моды \(k\): Определяет заметность в узлах.
-			\item Наблюдение в узле \(k\): Анализирует \(x^{(k)}(t)\).
-			\item Возмущение в узле \(k\): Оценивает амплитуды мод.
-		\end{itemize}
 	\end{itemize}
 	
-	\subsubsection{Этап 3: Оценка чувствительности к параметрам}
-	% Комментарий: Подробные формулы и доказательства чувствительности.
+	\subsubsection*{Упрощения}
+	\begin{enumerate}
+		\item Пусть система из \(m\) однотипных узлов
+		\item Поведение узлов описывается $\dfrac{dx^{(p)}}{dt} = \dots$
+		\item Все $x^{(p)}(t)$ имеют одинаковую физическую природу и размерность
+		\item Структура $A$ определяет функционирование системы целиком
+		\item Преимущества будем задавать вектором начальных условий $x_0 = e_i = (0, 0, \dots, 0, 1, 0, \dots 0, 0)^T$, где одна компонента = 1
+	\end{enumerate}
+	
+	\newpage
+	
+	\subsubsection*{Пример программы модального анализа}
 	\begin{itemize}
+		\item \textbf{Подсистема 1: Оценка поведения $k$-й моды $e^{\lambda_k t}$}
+		\begin{itemize}
+			\item Входной параметр: номер моды $k$.
+			\item Анализирует наблюдаемость моды в узлах системы.
+			\item Результат: таблица относительных амплитуд $\left|\eta_k^{(p,s)}\right|\cdot 100\%$, упорядоченных по убыванию.
+			\item Определяет системные (заметные в многих узлах) и локальные моды.
+			\item Отвечает на вопрос: где возмущение дает максимальную амплитуду моды (по компонентам $\mathbf{v}_k$).
+		\end{itemize}
+		\begin{table}[H]
+			\centering
+			\begin{minipage}{0.48\textwidth}
+				\centering
+				{\small Наблюдаемость $k$-й моды}
+				\begin{tabular}{c | c}
+					\toprule
+					Номер узла & Относительная амплитуда \\
+					\midrule
+					14 & 100\% \\
+					3 & 92\% \\
+					115 & 14\% \\
+					7 & 0,2\% \\
+					\bottomrule
+				\end{tabular}
+			\end{minipage}
+			\hfill
+			\begin{minipage}{0.48\textwidth}
+				\centering
+				{\small Возмущаемость $k$-й моды}
+				\begin{tabular}{c | c}
+					\toprule
+					Номер узла & Относительная амплитуда \\
+					\midrule
+					14 & 100\% \\
+					6 & 78\% \\
+					217 & 9\% \\
+					29 & 0,05\% \\
+					\bottomrule
+				\end{tabular}
+			\end{minipage}
+		\end{table}
+		
+		\item \textbf{Подсистема 2: Наблюдение в $k$-м узле}
+		\begin{itemize}
+			\item Входной параметр: номер узла $k$.
+			\item Анализирует составляющую $x^{(k)}(t) = \sum_{j=1}^m u_j^{(k)} D_j e^{\lambda_j t}$.
+			\item Задача: определить моду с максимальной амплитудой $u_j^{(k)} D_j$ и упорядочить моды по убыванию амплитуд.
+			\item Для каждой моды указывается узел, где возмущение максимально эффективно.
+		\end{itemize}
+		\begin{table}[H]
+			\centering
+			{\small Наблюдение в $k$-м узле}
+			\par
+			\begin{tabular}{c | c | c}
+				\toprule
+				Номер моды & Относительная амплитуда & Эффективный узел возмущения \\
+				\midrule
+				4 & 65\% & 7 \\
+				13 & 15\% & 14 \\
+				6 & 14\% & 113 \\
+				25 & 3\% & 3 \\
+				\bottomrule
+			\end{tabular}
+		\end{table}
+		
+		\item \textbf{Подсистема 3: Возмущение в $k$-м узле}
+		\begin{itemize}
+			\item Входной параметр: номер узла $k$.
+			\item Анализирует последствия возмущения $\mathbf{x}_0 = \mathbf{e}_k$.
+			\item Задача: определить, какая мода и с какой амплитудой максимально проявляется в узлах системы.
+			\item Указывает наиболее эффективный узел наблюдения.
+		\end{itemize}
+		\begin{table}[H]
+			\centering
+			{\small Возмущение в $k$-м узле}
+			\par
+			\begin{tabular}{c | c | c}
+				\toprule
+				Номер моды & Относительная амплитуда & Эффективный узел наблюдения \\
+				\midrule
+				8 & 58\% & 2 \\
+				23 & 20\% & 16 \\
+				2 & 16\% & 102 \\
+				35 & 3\% & 4 \\
+				\bottomrule
+			\end{tabular}
+		\end{table}
+	\end{itemize}
+	
+	\newpage
+	
+	\section{Анализ чувствительности. Чувствительность составляющих решений к вариации параметров}
+	\subsection{Основные этапы анализа (3 - 4 - 5)}
+	\subsubsection{Этап 3: Оценка чувствительности к параметрам}
+	\begin{itemize}[leftmargin=1em]
 		\item \textbf{Статическая модель:} \(f(x(k)) = 0\),
 		\begin{equation}
 			a_{ij} = \frac{\partial x^{(i)}}{\partial k^{(j)}} \approx \frac{x(k + \Delta k \cdot e_j) - x(k)}{\Delta k},
@@ -637,8 +701,7 @@
 	\end{itemize}
 	
 	\subsubsection{Этап 4: Параметрическая идентификация}
-	% Комментарий: Минимизация с подробными шагами.
-	\begin{itemize}
+	\begin{itemize}[leftmargin=1em]
 		\item \textbf{Система:}
 		\begin{equation}
 			\frac{d x}{d t} = f(t, x, p), \quad x(t_0) = x_0,
@@ -659,8 +722,7 @@
 	\end{itemize}
 	
 	\subsubsection{Этап 5: Задачи управления}
-	% Комментарий: Управление с доказательствами.
-	\begin{itemize}
+	\begin{itemize}[leftmargin=1em]
 		\item \textbf{Система:} \(\frac{d x}{d t} = A(k) x\),
 		\begin{equation}
 			\alpha_j(k_0 + \Delta k) = \alpha_j(k_0) + \sum_{p} \frac{\partial \alpha_j}{\partial k^{(p)}} \Delta k^{(p)},
