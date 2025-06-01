@@ -34,7 +34,7 @@
 		\end{pinkbox}
 	\end{adjustbox}
 	
-	\section{Понятие модели. Функции моделей. Классификация моделей.}
+	\section{Понятие модели. Функции моделей. Классификация моделей}
 
 	\subsection{Понятие}
 	\textbf{Модель} - это представление объекта системы или понятия в некоторой форме, отличной от формы их реального существования. Это средство, помогающее в объяснении, понимании или совершенствовании системы. Оно способствует пониманию и изменению окружающей среды.
@@ -67,7 +67,7 @@
 	
 	\newpage
 	
-	\section{Модели на микро-, макро- и мета- уровнях. Требования к "хорошей" модели. Основные этапы процесса моделирования.}
+	\section{Модели на микро-, макро- и мета- уровнях. Требования к "хорошей" модели. Основные этапы процесса моделирования}
 	
 	\subsection{МММ-уровни}
 	\textbf{*} Мат. модели с разным уровнем абстракции
@@ -148,7 +148,7 @@
 	
 	\newpage
 	
-	\section{Анализ линейных математических моделей, основные его этапы. Фазовые портреты для моделей первого и второго порядка.}
+	\section{Анализ линейных математических моделей, основные его этапы. Фазовые портреты для моделей первого и второго порядка}
 	
 	\subsection{Фазовые портреты}
 	
@@ -319,7 +319,362 @@
 	\end{figure}
 	
 	\subsection{Нелинейные системы}
-	
 	В малой окрестности точки равновесия нелинейную систему можно сколь угодно точно аппроксимировать линейной, поэтому поведение её решений соответствует типовым фазовым портретам.
+	
+	\subsection{Анализ линейных моделей и его этапы}
+	
+	Линейная динамическая модель с постоянной матрицей:
+	\[
+		\frac{d \mathbf{x}}{dt} = \mathbf{A} \mathbf{x} + \mathbf{b}
+	\]
+	где \(\mathbf{x} \in \mathbb{R}^m\) — вектор состояния, \(\mathbf{A}\) — постоянная матрица, \(\mathbf{b}\) — вектор свободных членов.
+	\par
+	\textbf{Этапы:}
+	\begin{enumerate}[label=\arabic*.]
+		\item Получение решения
+		\item[1a.] Получение стационарного решения и анализ его устойчивости
+		\item Определение наблюдаемости отдельных составляющих решения, оценка их роли в системе
+		\item Оценка чувствительности к параметрам (и к нежелательным эффектам, и к параметрам для решения)
+		\item Решение задачи параметрической идентификации
+		\item Решение задачи управления или выбора оптимальных значений параметров
+	\end{enumerate}
+	
+	\newpage
+	
+	\section{Получение решения линейной модели (построение матричной экспоненты и интеграла от нее)}
+	
+	Линейные динамические модели описываются дифференциальным уравнением вида
+	\begin{equation}
+		\frac{d \mathbf{x}}{d t} = \mathbf{A} \mathbf{x} + \mathbf{b},
+	\end{equation}
+	где \(\mathbf{x} \in \mathbb{R}^m\) — вектор состояния, \(\mathbf{A}\) — постоянная матрица, \(\mathbf{b}\) — вектор свободных членов.
+	\par
+	\subsection{Основные этапы анализа}
+	\begin{enumerate}
+		\item Получение решения
+		\item[1a.] Получение стационарного решения и анализ его устойчивости
+		\item Определение наблюдаемости и модальный анализ
+		\item Оценка чувствительности к параметрам
+		\item Параметрическая идентификация
+		\item Задачи управления
+	\end{enumerate}
+	
+	\subsubsection{Этап 1a: Получение стацион. решения и анализ устойчивости}
+	% Комментарий: Подробное описание решения и устойчивости с доказательствами.
+	Требует решения СЛАУ :
+	\begin{equation}
+		A x + b = 0, \quad x^* = -A^{-1} b.
+	\end{equation}
+	\begin{itemize}
+		\item Используются программы \textbf{DECOMP} и \textbf{SOLVE} для вычисления.
+		\item Устойчивость проверяется \textbf{QR}-алгоритмом, вычисляющим \(\lambda_k\) матрицы \(A\).
+		\item Условие асимптотической устойчивости: \(\operatorname{Re} \lambda_k < 0\).
+	\end{itemize}
+	\subsubsection{Этап 1: Получение решения $\frac{d \mathbf{x}}{d t} = \mathbf{A} \mathbf{x} + \mathbf{b}$}
+	Систему~ можно решать стандартными методами (например, \textbf{RKF45}), но использование её линейных свойств повышает надёжность и эффективность, особенно при жёсткости.
+	\begin{itemize}[leftmargin=1em]
+		\item \textbf{Точное решение} имеет вид:
+		\begin{equation}
+			x(t) = e^{A t} x_0 + \int_0^t e^{A \tau} d \tau \cdot b.
+			\label{eq:14}
+		\end{equation}
+		\begin{itemize}
+			\item Проблема: для больших \(t\) сходимость рядов медленная
+			\item Метод \textbf{Ракитского} - предварительные матричные преобразования: 
+			\par
+			Пусть \( t_n = nH \). Запишем решение уравнения~\eqref{eq:14} в точке \( t_{n+1} = t_n + H \)
+			
+			\begin{equation}
+				x(t_n + H) = e^{A H} x(t_n) + \int_0^H e^{A \tau} d \tau \cdot b.
+			\end{equation}
+			\item Доказательство:
+			\par
+			Вычтем из него формулу~\eqref{eq:14}, предварительно умноженную на \( e^{AH} \)
+			\begin{align}
+				\hspace{-1.5em}x(t_n + H) - e^{A H} x(t_n) &= \int_0^{t_n + H} e^{A \tau} d \tau \cdot b - e^{A H} \int_0^{t_n} e^{A \tau} d \tau \cdot b = \int_0^H e^{A \tau} d \tau \cdot b.
+				\label{eq:15}
+			\end{align}
+		\end{itemize}
+		\item \textbf{Аппроксимация рядов}
+		\par
+		В отличие от~\eqref{eq:14}, формула~\eqref{eq:15} требует \uline{однократного} вычисления \( e^{AH} \) и интеграла, после чего \( x(t_n) \) находится пошагово с шагом \( H \). Для вычислений используем степенные разложения:
+		\begin{equation}
+			e^{A H} \cong E + H A + \frac{H^2 A^2}{2} + \cdots,
+		\end{equation}
+		\begin{equation}
+			\int_0^H e^{A \tau} d \tau \cong H \left( E + \frac{H A}{2} + \frac{H^2 A^2}{6} + \cdots \right).
+		\end{equation}
+		При больших по модулю показателях экспоненты ряд сходится медленно. Если матрица \(A\) диагонализуема, \(e^{AH}\) представляется в виде:
+		\begin{equation}
+			e^{AH} = U
+			\begin{pmatrix}
+				e^{\lambda_1 H} & \cdots & 0 \\
+				\vdots & \ddots & \vdots \\
+				0 & \cdots & e^{\lambda_m H}
+			\end{pmatrix}
+			U^{-1}.
+		\end{equation}
+		\begin{itemize}
+			\item Для жестких систем: \(h = \frac{H}{2^N}\), \(\|A\| h < 1\).
+			\item Вычисление: \(e^{A H} = (e^{A h})^{2^N}\) с \(e^{2 A h} = e^{A h} \cdot e^{A h}\).
+			\par
+			\item Вектор: \(g(h) = \int_0^h e^{A \tau} d \tau \cdot b\), \(g(2h) = (E + e^{A h}) g(h)\).
+			\par
+			Пояснение: 
+			\begin{align}
+				\hspace{-5em}g(2h) &= \int_0^{2h} e^{A\tau} d\tau \cdot b = \int_0^h e^{A\tau} d\tau \cdot b + \int_h^{2h} e^{A\tau} d\tau \cdot b = \nonumber\\
+				\hspace{-1.5em}&= \int_0^h e^{A\tau} d\tau \cdot b + e^{Ah} \int_0^h e^{A\tau} d\tau \cdot b = (E + e^{Ah}) g(h).
+			\end{align}
+		\end{itemize}
+		\item \textbf{Резюме алгоритма решения}
+		\begin{enumerate}
+			\item Задавая конечный шаг наблюдения $H$, выбираем целое $N$: 
+			\(h = \frac{H}{2^N} < \frac{1}{|\Lambda|}\)
+			\item Для шага $h$ строим матричную экспоненту $e^{Ah}$ и вектор $g(h)$ разложением в ряд с небольшим числом членов
+			\item Получаем матрицу $e^{AH}$ и вектор $g(H)$, используя $N$ раз формулу удвоения шага
+			\item Решаем уравнение пошаговым методом
+		\end{enumerate}
+
+		На основе изложенного алгоритма написана программа \textbf{LSODE}:
+		\newline
+		Вызов:
+		\(\textbf{LSODE}(N, H, CH, A, B, X, EAH, SL, INDEX)\)
+		
+		\begin{itemize}[leftmargin=1.5em]
+			\item $N$ — размерность системы
+			\item $H$ — шаг наблюдения решения
+			\item $CH$ — константа для оценки начального шага $h$ (для обычных 0.1, для жёстких 5.0)
+			\item $A$, $B$ — матрица и вектор системы
+			\item $X$ — вектор решения
+			\item $EAH$ — матрица, содержащая элементы матрицы $e^{AH}$
+			\item $SL$ — рабочий массив размерности $N$
+			\item $INDEX$ — управляющий параметр со входными значениями:
+			\begin{itemize}
+				\item 1 — первое обращение, вектор $B$ нулевой (т.е. однородная система)
+				\item 2 — первое обращение, $B$ может быть ненулевым
+				\item 0 — последующее обращение
+				\item Нормальное выходное значение – 0. 
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+	
+	\newpage
+	
+	\subsubsection{Этап 2: Наблюдаемость и модальный анализ}
+	% Комментарий: Подробный модальный анализ с доказательствами.
+	\subsubsection*{Собственные векторы и их свойства}
+	
+	\begin{itemize}
+		\item \textbf{Уравнения для собственных векторов:}
+		\begin{align}
+		A u_k &= \lambda_k u_k, \label{eq:21}\\
+		\quad A^T v_i &= \lambda_i v_i \quad \text{или} \quad v_i^T A = \lambda_i v_i^T. \label{eq:22}
+		\end{align}
+		\item \textbf{Ортогональность:}
+		\begin{itemize}
+			\item Умножим \eqref{eq:21} слева на \(v_i^T\), \eqref{eq:22} справа на \(u_k\), и вычтем результаты:
+			\begin{equation}
+				v_i^T A u_k - \lambda_k v_i^T u_k = \lambda_i v_i^T u_k - \lambda_k v_i^T u_k,
+			\end{equation}
+			\begin{equation}
+				(\lambda_i - \lambda_k) v_i^T u_k = 0.
+			\end{equation}
+			\item Если \(k \neq i\), то
+			\begin{equation}
+				v_i^T u_k = 0. \label{eq:25}
+			\end{equation}
+		\end{itemize}
+		\item \textbf{Нормировка:}
+		\begin{equation}
+			v_k^T u_k = 1.
+		\end{equation}
+	\end{itemize}
+	
+	\subsubsection*{Формула Лагранжа-Сильвестра}
+	
+	\begin{itemize}
+		\item \textbf{Начальная форма:}
+		\begin{equation}
+			\hspace{-3em}f(A) = \sum_{k=1}^m T_k f(\lambda_k), \quad T_k = \frac{(A - \lambda_1 E) \cdots (A - \lambda_{k-1} E)(A - \lambda_{k+1} E) \cdots (A - \lambda_m E)}{(\lambda_k - \lambda_1) \cdots (\lambda_k - \lambda_{k-1})(\lambda_k - \lambda_{k+1}) \cdots (\lambda_k - \lambda_m)}.
+		\end{equation}
+		\item \textbf{Свойства \(T_k\):}
+		\begin{itemize}
+			\item Если \(k \neq i\), то \((A - \lambda_i E) u_i = 0\), следовательно,
+			\begin{equation}
+				T_k u_i = 0. \label{eq:28}
+			\end{equation}
+			\item Для \(k = i\),
+			\begin{equation}
+				T_k u_k = u_k.
+			\end{equation}
+		\end{itemize}
+		\item \textbf{Разложение \(T_k\):}
+		\begin{itemize}
+			\item Представим \(T_k = \sum_{j=1}^m c_j v_j^T\) (разложив каждую строку по векторам \(v_j^T\)).
+			\item Из~\eqref{eq:25} и~\eqref{eq:28}:
+			\begin{equation}
+				T_k u_i = \sum_{j=1}^m (c_j v_j^T)u_i = c_j (v_j^T u_i) = c_i (v_i^T u_i) = 0, \quad k \neq i,
+			\end{equation}
+			\begin{equation}
+				T_k u_k = c_k (v_k^T u_k) = c_k = u_k.
+			\end{equation}
+			\item Следовательно,
+			\begin{equation}
+				T_k = u_k v_k^T.
+			\end{equation}
+		\end{itemize}
+		\item \textbf{Итоговая форма:}
+		\begin{equation}
+			f(A) = \sum_{k=1}^m u_k v_k^T f(\lambda_k).
+		\end{equation}
+	\end{itemize}
+	
+	\subsubsection*{Решение однородной системы}
+	
+	\begin{itemize}
+		\item \textbf{Общее решение:}
+		\begin{equation}
+			x(t) = e^{A t} x_0 = \sum_{k=1}^m u_k (v_k^T x_0) e^{\lambda_k t},
+		\end{equation}
+		где \(e^{\lambda_k t}\) — мода.
+		\item \textbf{Покомпонентно:}
+		\begin{equation}
+			x^{(p)}(t) = \sum_{k=1}^m u_k^{(p)} D_k e^{\lambda_k t}, \quad D_k = v_k^T x_0.
+		\end{equation}
+		\item \textbf{Отношение амплитуд:}
+		\begin{equation}
+			\eta_k^{(p,s)} = \frac{u_k^{(p)} D_k}{u_k^{(s)} D_k} = \frac{u_k^{(p)}}{u_k^{(s)}},
+		\end{equation}
+		не зависит от \(x_0\).
+	\end{itemize}
+	
+	\subsubsection*{Модальный анализ}
+	
+	\begin{itemize}
+		\item \textbf{Упрощения:}
+		\begin{itemize}
+			\item Система из \(m\) однотипных узлов.
+			\item Возмущение: \(x_0 = e_i\) (единичный вектор).
+		\end{itemize}
+		\item \textbf{Подсистемы анализа:}
+		\begin{itemize}
+			\item \textit{Оценка моды \(k\):} Изучает заметность моды \(e^{\lambda_k t}\) в узлах.
+			\item \textit{Наблюдение в узле \(k\):} Анализирует \(x^{(k)}(t)\), упорядочивая моды по амплитуде \(u_j^{(k)} D_j\).
+			\item \textit{Возмущение в узле \(k\):} Оценивает влияние возмущения на моды.
+		\end{itemize}
+		\item \textbf{Пример решения:}
+		\begin{itemize}
+			\item Для \(b = 0\):
+			\begin{equation}
+				x(t) = \sum_{k=1}^m u_k v_k^T e^{\lambda_k t} x_0.
+			\end{equation}
+			\item Компоненты:
+			\begin{equation}
+				x^{(1)}(t) = u_1^{(1)} D_1 e^{\lambda_1 t} + \cdots + u_m^{(1)} D_m e^{\lambda_m t},
+			\end{equation}
+			\begin{equation}
+				x^{(m)}(t) = u_1^{(m)} D_1 e^{\lambda_1 t} + \cdots + u_m^{(m)} D_m e^{\lambda_m t}.
+			\end{equation}
+		\end{itemize}
+		\item \textbf{Решение однородной системы (\(b = 0\)):}
+		\begin{equation}
+			x(t) = e^{A t} x_0 = \sum_{k=1}^m u_k (v_k^T x_0) e^{\lambda_k t},
+		\end{equation}
+		где \(u_k\), \(v_k\) — собственные векторы \(A\) и \(A^T\), с \(v_k^T u_k = 1\), \(v_i^T u_k = 0\) (\(i \neq k\)).
+		\begin{itemize}
+			\item Доказательство ортогональности:
+			\begin{equation}
+				A u_k = \lambda_k u_k, \quad A^T v_i = \lambda_i v_i,
+			\end{equation}
+			\begin{equation}
+				v_i^T A u_k - v_i^T \lambda_k u_k = (\lambda_i - \lambda_k) v_i^T u_k = 0,
+			\end{equation}
+			откуда \(v_i^T u_k = 0\) (\(i \neq k\)).
+		\end{itemize}
+		\item \textbf{Покомпонентное разложение:}
+		\begin{equation}
+			x^{(p)}(t) = \sum_{k=1}^m u_k^{(p)} D_k e^{\lambda_k t}, \quad D_k = v_k^T x_0.
+		\end{equation}
+		\item \textbf{Отношение амплитуд:}
+		\begin{equation}
+			\eta_k^{(p,s)} = \frac{u_k^{(p)} D_k}{u_k^{(s)} D_k} = \frac{u_k^{(p)}}{u_k^{(s)}},
+		\end{equation}
+		не зависит от \(x_0\).
+		\item \textbf{Подсистемы анализа:}
+		\begin{itemize}
+			\item Оценка моды \(k\): Определяет заметность в узлах.
+			\item Наблюдение в узле \(k\): Анализирует \(x^{(k)}(t)\).
+			\item Возмущение в узле \(k\): Оценивает амплитуды мод.
+		\end{itemize}
+	\end{itemize}
+	
+	\subsubsection{Этап 3: Оценка чувствительности к параметрам}
+	% Комментарий: Подробные формулы и доказательства чувствительности.
+	\begin{itemize}
+		\item \textbf{Статическая модель:} \(f(x(k)) = 0\),
+		\begin{equation}
+			a_{ij} = \frac{\partial x^{(i)}}{\partial k^{(j)}} \approx \frac{x(k + \Delta k \cdot e_j) - x(k)}{\Delta k},
+		\end{equation}
+		или
+		\begin{equation}
+			a_{ij} \approx \frac{x(k + \Delta k \cdot e_j) - x(k - \Delta k \cdot e_j)}{2 \Delta k}.
+		\end{equation}
+		\item \textbf{Динамическая модель:} \(\frac{d x}{d t} = A(k) x\),
+		\begin{equation}
+			\frac{\partial \lambda_i}{\partial k} = \frac{v_i^T \frac{\partial A}{\partial k} u_i}{v_i^T u_i},
+		\end{equation}
+		при \(v_i^T u_i = 1\):
+		\begin{equation}
+			\frac{\partial \lambda_i}{\partial k} = v_i^T \frac{\partial A}{\partial k} u_i.
+		\end{equation}
+		\item \textbf{Пример для \(k = a_{ps}\):}
+		\begin{equation}
+			\frac{\partial \lambda_i}{\partial a_{ps}} = v_i^{(p)} u_i^{(s)}.
+		\end{equation}
+		\begin{itemize}
+			\item Доказательство: \(\frac{\partial A}{\partial a_{ps}}\) имеет один ненулевой элемент.
+		\end{itemize}
+	\end{itemize}
+	
+	\subsubsection{Этап 4: Параметрическая идентификация}
+	% Комментарий: Минимизация с подробными шагами.
+	\begin{itemize}
+		\item \textbf{Система:}
+		\begin{equation}
+			\frac{d x}{d t} = f(t, x, p), \quad x(t_0) = x_0,
+		\end{equation}
+		с критерием
+		\begin{equation}
+			F(p) = \sum_{k=1}^N \sum_{i=1}^N (x_{\text{экс}}^{(k)}(t_i) - x^{(k)}(t_i))^2,
+		\end{equation}
+		или с весами
+		\begin{equation}
+			F(p) = \sum_{k=1}^N q_k \sum_{i=1}^N (x_{\text{экс}}^{(k)}(t_i) - x^{(k)}(t_i))^2.
+		\end{equation}
+		\item \textbf{Шаги:}
+		\begin{itemize}
+			\item Сравнение модели с экспериментом.
+			\item Минимизация \(F(p)\) методом многомерной оптимизации.
+		\end{itemize}
+	\end{itemize}
+	
+	\subsubsection{Этап 5: Задачи управления}
+	% Комментарий: Управление с доказательствами.
+	\begin{itemize}
+		\item \textbf{Система:} \(\frac{d x}{d t} = A(k) x\),
+		\begin{equation}
+			\alpha_j(k_0 + \Delta k) = \alpha_j(k_0) + \sum_{p} \frac{\partial \alpha_j}{\partial k^{(p)}} \Delta k^{(p)},
+		\end{equation}
+		в матричной форме
+		\begin{equation}
+			\Phi \Delta k = \Delta \alpha,
+		\end{equation}
+		где
+		\begin{equation}
+			f_{jp} = \operatorname{Re} \left( \frac{v_j^T \frac{\partial A}{\partial k^{(p)}} u_j}{v_j^T u_j} \right).
+		\end{equation}
+		\item \textbf{Решение:} SVD минимизирует невязку \(\Phi \Delta k - \Delta \alpha\).
+	\end{itemize}
+	
 	
 \end{document}
