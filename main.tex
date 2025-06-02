@@ -1410,7 +1410,7 @@
 		\item Сокращение объема данных, так как учитываются только точки пересечения с \(\Sigma\).
 	\end{itemize}
 	
-	\subsubsection{Алгоритм построения отображения Пуанкаре}
+	\subsection{Алгоритм построения отображения Пуанкаре}
 	
 	1) Долгий грустный обычный вариант:
 	\begin{itemize}
@@ -1465,13 +1465,17 @@
 	
 	\end{itemize}
 	
-	\subsubsection{Нахождение точек бифуркации}
+	\section{Построение бифуркационных диаграмм для периодических решений. Структурная схема анализа нелинейных моделей}
 	
-	Рассмотрим систему с параметром \(\varepsilon\):
+	\subsection{Нахождение точек бифуркации}
+	
+	Рассмотрим систему \(\frac{d x}{d t} = f(x)\), введя в нее скалярный параметр \(\varepsilon\):
 	\begin{equation}
 		\frac{dx}{d\tau} = T \cdot f(x, \varepsilon), \quad x(1) = x(0), \quad \tau \in [0,1],
 	\end{equation}
-	где \(T\) — период, \(\tau = t/T\) — нормированное время. Система решается совместно с уравнениями для матрицы монодромии \(U(\tau)\):
+	где \(T\) — период, \(\tau = t/T\) — нормированное время. 
+	\par
+	Система решается совместно с уравнениями для матрицы монодромии \(U(\tau)\):
 	\begin{equation}
 		\frac{du_{ik}(\tau)}{d\tau} = T \cdot \sum_{s=1}^n \frac{\partial f^{(i)}}{\partial x^{(s)}} u_{sk}(\tau), \quad u_{ik}(0) = \begin{cases} 
 			0, & i \neq k, \\
@@ -1480,80 +1484,93 @@
 	\end{equation}
 	где \(u_{ik}(\tau) = \frac{\partial x^{(i)}(\tau)}{\partial x^{(k)}(0)}\) — элементы матрицы \(U(\tau)\).
 	
-	Мультипликаторы матрицы \(U(1)\) определяют орбитальную устойчивость. Рассмотрим случаи бифуркаций:
-	
-	\paragraph{Бифуркация удвоения периода.} Один из мультипликаторов \(U(1)\) равен \(-1\). Для собственного вектора \(v\):
+	Мультипликаторы матрицы \(U(1)\) определяют орбитальную устойчивость.
+	\par
+	Далее нужны доп.условия для определения \(\varepsilon\)
+	\newpage
+	\subsubsection{Бифуркация удвоения периода.} 
+	\vspace{-0.5em}
+	Один из мультипликаторов \(U(1)\) равен \(-1\). Для собственного вектора \(v\):
 	\begin{equation}
 		(U(1) + E) \cdot v = 0, \quad v^{(k)} = 1,
 	\end{equation}
-	где \(E\) — единичная матрица, \(v^{(k)}\) — \(k\)-я компонента \(v\). Это дает \(n+1\) уравнений для \(n+1\) неизвестных (\(v\), \(\varepsilon\)).
-	
-	\paragraph{Рождение (исчезновение) пары замкнутых траекторий.} Появляется мультипликатор, равный 1. Возможны два случая:
-	
-	1. Два линейно независимых собственных вектора \(v\) и \(w\):
-	\begin{equation}
-		(U(1) - E) \cdot v = 0, \quad (U(1) - E) \cdot w = 0.
-	\end{equation}
-	
-	2. Один собственный вектор \(v\) и корневой вектор \(w\):
-	\begin{equation}
-		(U(1) - E) \cdot v = 0, \quad (U(1) - E) \cdot w = v.
-	\end{equation}
-	
-	Для учета обеих ситуаций:
-	\begin{equation}
-		(U(1) - E) \cdot v = 0, \quad (U(1) - E)^2 \cdot w = 0, \quad v^{(k)} = 1, \quad w^{(k)} = 0.
-	\end{equation}
-	
-	\paragraph{Возникновение инвариантного тора.} Модуль комплексно-сопряженной пары мультипликаторов \(\lambda_{1,2} = \alpha \pm i \omega\) равен 1. Для собственных векторов \(u \pm i v\):
+	где \(E\) — ед. матрица, \(v^{(k)}\) - \(k\)-я компонента \(v\). Это дает \(n+1\) ур-ий для \(n+1\) неизвестных (\(v\), \(\varepsilon\)).
+	\vspace{-1em}
+	\subsubsection{Рождение (исчезновение) пары замкнутых траекторий.}
+	\vspace{-0.5em}
+	Появляется мультипликатор, равный 1. Возможны два случая:
+	\begin{enumerate}[leftmargin=1.4em] % уменьшение отступа между пунктами
+		\item Два линейно независимых собственных вектора \(v\) и \(w\):
+		\vspace{-0.5em}
+		\begin{equation}
+			\begin{aligned}
+				&(U(1) - E) \cdot v = 0, \\
+				&(U(1) - E) \cdot w = 0.
+			\end{aligned}
+			\vspace{-0.5em}
+		\end{equation}
+		\item Один собственный вектор \(v\) и один корневой вектор \(w\):
+		\vspace{-0.5em}
+		\begin{equation}
+			\begin{aligned}
+				&(U(1) - E) \cdot v = 0, \\
+				&(U(1) - E) \cdot w = v.
+			\end{aligned}
+			\vspace{-0.5em}
+		\end{equation}
+		Для учета обеих ситуаций:
+		\vspace{-0.25em}
+		\begin{equation}
+			\begin{aligned}
+				&(U(1) - E) \cdot v = 0, \\
+				&(U(1) - E)^2 \cdot w = 0, \\
+				&v^{(k)} = 1, \quad w^{(k)} = 0.
+			\end{aligned}
+			\vspace{-0.5em}
+		\end{equation}
+	\end{enumerate}
+	\vspace{-1.75em}
+	\subsubsection{Возникновение инвариантного тора.} 
+	Модуль комплексно-сопряженной пары мультипликаторов \(\lambda_{1,2} = \alpha \pm i \omega\) равен 1. 
+	\par
+	Для собственных векторов \(u \pm i v\):
+	\vspace{-0.5em}
 	\begin{equation}
 		U(1) \cdot (u + i v) = (\alpha + i \omega) \cdot (u + i v).
 	\end{equation}
+	\vspace{-0.5em}
 	Разделяя действительную и мнимую части:
 	\begin{equation}
-		(U(1) - \alpha E) \cdot u + \omega \cdot v = 0, \quad -\omega \cdot u + (U(1) - \alpha E) \cdot v = 0, \quad u^{(k)} = 1, \quad v^{(k)} = 0, \quad \alpha^2 + \omega^2 = 1.
+		\begin{aligned}
+			&(U(1) - \alpha E) \cdot u + \omega \cdot v = 0, \\
+			&-\omega \cdot u + (U(1) - \alpha E) \cdot v = 0, \\
+			&u^{(k)} = 1, \quad v^{(k)} = 0, \\
+			&\alpha^2 + \omega^2 = 1.
+		\end{aligned}
+		\vspace{-0.5em}
 	\end{equation}
-	
-	Решение систем для мультипликаторов совместно с уравнениями для \(U(\tau)\) позволяет строить бифуркационные диаграммы, варьируя \(\varepsilon\).
-	
-	% Нахождение бифуркаций
-	\subsection{Нахождение точек бифуркации для периодических решений}
-	
-	Рассмотрим систему с параметром \( \varepsilon \):
-	\begin{equation}
-		\frac{d x}{d \tau} = T f(x, \varepsilon), \quad x(1) = x(0).
-	\end{equation}
-	
-	\textbf{Удвоение периода:} \( \rho = -1 \), условие
-	\begin{equation}
-		(U(1) + E) v = 0, \quad v^{(k)} = 1.
-	\end{equation}
-	
-	\textbf{Рождение пары циклов:} два \( \rho = 1 \), условия
-	\begin{equation}
-		(U(1) - E) v = 0, \quad (U(1) - E)^2 w = 0, \quad v^{(k)} = 1, \quad w^{(k)} = 0.
-	\end{equation}
-	
-	\textbf{Возникновение тора:} \( \lambda_{1,2} = \alpha \pm i \omega \), \( |\lambda| = 1 \),
-	\begin{align}
-		(U(1) - \alpha E) u + \omega v &= 0, \\
-		-\omega u + (U(1) - \alpha E) v &= 0, \\
-		u^{(k)} = 1, \quad v^{(k)} &= 0, \quad \alpha^2 + \omega^2 = 1.
-	\end{align}
-	
+	Решение систем для мультипликаторов совместно с уравнениями для \(U(\tau)\) позволяет строить 
+	\par
+	бифуркационные диаграммы, варьируя \(\varepsilon\).
+	\vspace{-1.25em}
+	\subsection{Структурная схема анализа нелинейных моделей}
+	\vspace{-1.5em}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\linewidth, height=0.15\textheight]{img/15_01}
+		\label{fig:15_01}
+	\end{figure}
+	\vspace{-2em}
 	% Итоги и задачи
-	\subsection{Итоги и задачи анализа нелинейных моделей}
+	\subsection{Используемый мат.аппарат}
+	\vspace{-1.5em}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\linewidth, height=0.15\textheight]{img/15_02}
+		\label{fig:15_02}
+	\end{figure}
 	
-	Основные задачи:
-	\begin{enumerate}
-		\item Нахождение стационарных точек: \( f(x, \varepsilon) = 0 \).
-		\item Анализ устойчивости: собственные значения \( \frac{\partial f}{\partial x} \).
-		\item Диаграммы стационарных решений.
-		\item Бифуркационные диаграммы.
-		\item Нахождение периодических решений: (13).
-		\item Анализ орбитальной устойчивости: (14).
-		\item Диаграммы периодических решений.
-		\item Бифуркационные диаграммы периодических решений: (17)--(19).
-	\end{enumerate}
+	\newpage
+	
 	
 \end{document}
