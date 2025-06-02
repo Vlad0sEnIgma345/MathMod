@@ -888,6 +888,114 @@
 	
 	\section{Понятие орбитальной устойчивости. Решение линейных систем с периодическими коэффициентами. Уравнение в вариациях. Критерий орбитальной устойчивости периодического решения. Примеры.}
 	
+	\subsection{Понятие орбитальной устойчивости}
+	
+	\begin{itemize}[leftmargin=1em]
+		\item \textbf{Система:}
+		\begin{equation}
+			\frac{d x}{d t} = f(x), \quad x(t_0) = x_0,
+		\end{equation}
+		Решением при \(t \to \infty\) является периодическим: \(x(t + T) = x(t)\).
+		\item \textbf{Пространство:}
+		\begin{itemize}
+			\item \(x \in \mathbb{R}^n\), \(y \in \mathbb{R}^n\).
+			\item \(\rho(x, y)\) - расстояние между \textbf{x} и \textbf{y} в \( \mathbb{R}^n \).
+		\end{itemize}
+		\item \textbf{Расстояние \(\rho(a, M)\)}, где \( a \in \mathbb{R}^n, M \subset \mathbb{R}^n \)
+		\begin{equation}
+			\rho(a, M) = \inf_{x \in M} \rho(a, x).
+		\end{equation}
+		\item \textbf{Решение \(x(t)\):}
+		\begin{itemize}
+			\item Обозначим \( \gamma(x_0) \) — траекторию решения \( x(t) \) с начальным условием \( x_0 \), 
+			\par 
+			а \( y(t) \) — другое решение с начальным условием \( y_0 \).
+			\item \textbf{\uline{Note:}} Решение \( x(t) \) системы  называется \textbf{орбитально устойчивым}, если
+			\begin{equation}
+				(\forall \varepsilon > 0)(\exists \delta > 0)(\forall y(t)) \left( \rho(\gamma(x_0), y_0) < \delta \Rightarrow \rho(\gamma(x_0), y(t)) < \varepsilon \right).
+			\end{equation}
+			\item \textbf{\uline{Note:}} Если дополнительно
+			\begin{equation}
+				\lim_{t \to \infty} \rho(\gamma(x_0), y(t)) \to 0,
+			\end{equation}
+			то \( x(t) \) — \textbf{асимптотически орбитально устойчивое} решение.
+			\item \textbf{\uline{Note:} Устойчивый предельный цикл} - замкнутая орбитально устойчивая траектория. 
+		\end{itemize}
+	\end{itemize}
+	
+	% Критерий орбитальной устойчивости через мультипликаторы
+	\subsection{Линейные системы с периодическими коэффициентами}
+	
+	Для анализа устойчивости рассмотрим линейную систему с периодической матрицей:
+	\begin{equation}
+		\frac{d x}{d t} = A(t) x, \quad A(t + T) = A(t).
+	\end{equation}
+	\( x(t) = U(t) x_0 \), где \( U(t) \) — \textbf{невырожденная фундаментальная матрица}, удовлетворяющая
+	\begin{equation}
+		\frac{d U}{d t} = A(t) U(t), \quad U(0) = E,
+	\end{equation}
+	где \( E \) — единичная матрица. Так как
+	\begin{equation}
+		\frac{d U(t+T)}{dt} = A(t+T) \cdot U(t+T) = A(t) \cdot U(t+T),
+	\end{equation}
+	то периодичность \( A(t) \) влечёт существование постоянной матрицы \( C \), такой, что теперь $U(t + T)$ также является решением системы и отличается от $U(t)$ постоянной матрицей-множителем $C$:
+	\begin{equation}
+		U(t + T) = U(t) C.
+	\end{equation}
+	
+	Матрицу \( U(t) \) можно представить как \( U(t) = L(t) e^{R t} \), 
+	\par
+	где \( R \) — постоянная матрица, а \( L(t) \) — периодическая матрица с \( L(t + T) = L(t) \):
+	\begin{equation}
+		U(t + T) = L(t + T) e^{R (t + T)} = L(t) e^{R t} e^{R T} = U(t) e^{R T}.
+	\end{equation}
+	При \( t = 0 \): \( U(0) = L(0) = E \), следовательно, \( U(T) = U(0) e^{R T} = e^{R T} \), и
+	\begin{equation}
+		U(t + T) = U(t) U(T), \quad U(n T) = [U(T)]^n.
+	\end{equation}
+	Матрица \( U(T) \) — \textbf{матрица монодромии}, а её собственные значения \( \rho_k \) — \textbf{мультипликаторы}.
+	\begin{itemize}
+		\item Для асимптотической устойчивости нулевого стационарного решения все \( |\rho_k| < 1 \), 
+		т.к. \(x(nT) = U(nT)x_0 = [U(T)]^n x_0\).
+	\end{itemize}
+	\subsection{Критерий существования периодического решения и его орбитальной устойчивости.}
+	\begin{itemize}
+		\item Для периодического решения \( x(T) = x(0) \) имеем \( U(T) x_0 = x_0 \), то есть \( \rho_1 = 1 \), 
+		\item Для орбитальной устойчивости требуется: \(\rho_1 = 1; \quad |\rho_k| < 1, \quad k = 2, 3, \ldots, n.\)
+		\item Все остальные мультипликаторы по модулю < 0.
+	\end{itemize}
+	
+	% Уравнение в вариациях для нелинейной системы
+	\subsection{Уравнение в вариациях}
+	
+	Пусть \( p(t) \) — решение системы
+	\begin{equation}
+		\frac{d p}{d t} = f(p).
+	\end{equation}
+	Рассмотрим близкое решение \( x(t) = p(t) + \Delta x(t) \), где \( \Delta x(t) \) мало:
+	\begin{equation}
+		\frac{d (p + \Delta x)}{d t} = f(p + \Delta x).
+	\end{equation}
+	Вычитая и раскладывая \( f(p + \Delta x) \) в ряд Тейлора по \(\Delta x\), получаем
+	\begin{equation}
+		\frac{d \Delta x}{dt} = f(p + \Delta x) - f(p) = f(p) + \frac{\partial f}{\partial x}(p) \cdot \Delta x + (**) - f(p) = \frac{\partial f}{\partial x}(p) \cdot \Delta x + (**)
+	\end{equation}
+	Ограничившись линейным приближением, получим 
+	\par
+	\textbf{Уравнение в вариациях (линеаризацию системы)} для решения \(p(t)\):
+	\begin{equation}
+		\frac{d \Delta x}{d t} = \frac{\partial f}{\partial x}(p) \Delta x.
+	\end{equation}
+	\( p(t) \) периодично \(\rightarrow\) \( A(t) = \frac{\partial f}{\partial x}(p(t)) \) - периодическая матрица. Дифференцируя \(\frac{d p}{d t} = f(p)\) по \(t\):
+	\begin{equation}
+		\frac{d \dot{p}}{d t} = \frac{\partial f}{\partial x}(p) \dot{p},
+	\end{equation}
+	Получается, \( \dot{p}(t) \) — периодическое решение \(\frac{d p}{d t} = f(p)\).
+	\par
+	Это позволяет сформулировать критерий орбитальной устойчивости периодического решения нелинейной системы аналогично случаю линейной системы.
+	
+	\newpage
+	
 	\section{Понятие бифуркации. Точки ветвления и поворота, биф. Андронова-Хопфа.}
 	
 	\subsection{Диаграммы стационарных решений и бифуркационные диаграммы}
@@ -1187,5 +1295,91 @@
 		\end{cases}
 	\end{equation}
 	с проверкой типа \(\lambda\).
+	
+	\newpage
+	
+	% ЁПТАААААААААААААААААААААААААААААААААААААААААААААААААААААААААААА
+	\section{Получение периодического решения, его орбитальная устойчивость}
+	% Нахождение периодического решения
+	\subsection{Получение периодического решения}
+	Для поиска периодического решения системы
+	\begin{equation}
+		\frac{d x}{d t} = f(x), \quad x(T) = x(0),
+	\end{equation}
+	с неизвестным \( T \) выполним замену \( t = T \tau \):
+	\begin{equation}
+		\frac{d x}{d \tau} = T f(x), \quad x(1) = x(0), \quad \tau \in [0,1].
+	\end{equation}
+	Здесь \( n \) уравнений \( x(1) = x(0) \) определяют \( n+1 \) неизвестное (\( x(0) \) и \( T \)). Фиксируем одну компоненту, например, \( x^{(j)}(0) = \alpha \).
+	
+	Для устойчивости вычисляем матрицу монодромии \( U(1) \). Элементы \( u_{ik}(\tau) = \frac{\partial x^{(i)}(\tau)}{\partial x^{(k)}(0)} \) удовлетворяют
+	\begin{equation}
+		\frac{d u_{ik}}{d \tau} = T \sum_{s=1}^n \frac{\partial f^{(i)}}{\partial x^{(s)}} u_{sk}, \quad u_{ik}(0) = \delta_{ik},
+	\end{equation}
+	где \( \delta_{ik} \) — символ Кронекера. Система (14) решается совместно с (13).
+	
+	% Виды бифуркаций
+	\subsection{Простейшие виды бифуркации периодического решения}
+	
+	При изменении параметра \( \varepsilon \) возможны бифуркации:
+	
+	\begin{enumerate}
+		\item \textbf{Рождение пары циклов.} Появляется второй мультипликатор \( \rho = 1 \).
+		\item \textbf{Удвоение периода.} Один мультипликатор становится \( \rho = -1 \).
+		\item \textbf{Возникновение тора.} Пара комплексных мультипликаторов достигает \( |\rho| = 1 \).
+	\end{enumerate}
+	
+	% Отображение Пуанкаре
+	\subsection{Отображение Пуанкаре}
+	
+	Для анализа выбирается сечение \( \Sigma \), а отображение \( P: \Sigma \to \Sigma \) сопоставляет \( x_0 \) следующую точку пересечения траектории с \( \Sigma \). Для предельного цикла \( P(x_0) = x_0 \). Бифуркации:
+	- Рождение пары циклов: две неподвижные точки.
+	- Удвоение периода: \( P^2(x_0) = x_0 \), \( P(x_0) \neq x_0 \).
+	- Возникновение тора: инвариантная окружность.
+	
+	Сечение задаётся \( S(x) = 0 \). Вводим \( x^{(n+1)} = S(x) \) и дополняем систему
+	\begin{equation}
+		\frac{d x^{(n+1)}}{d t} = \sum_{j=1}^n \frac{\partial S}{\partial x^{(j)}} f^{(j)}(x).
+	\end{equation}
+	
+	% Нахождение бифуркаций
+	\subsection{Нахождение точек бифуркации для периодических решений}
+	
+	Рассмотрим систему с параметром \( \varepsilon \):
+	\begin{equation}
+		\frac{d x}{d \tau} = T f(x, \varepsilon), \quad x(1) = x(0).
+	\end{equation}
+	
+	\textbf{Удвоение периода:} \( \rho = -1 \), условие
+	\begin{equation}
+		(U(1) + E) v = 0, \quad v^{(k)} = 1.
+	\end{equation}
+	
+	\textbf{Рождение пары циклов:} два \( \rho = 1 \), условия
+	\begin{equation}
+		(U(1) - E) v = 0, \quad (U(1) - E)^2 w = 0, \quad v^{(k)} = 1, \quad w^{(k)} = 0.
+	\end{equation}
+	
+	\textbf{Возникновение тора:} \( \lambda_{1,2} = \alpha \pm i \omega \), \( |\lambda| = 1 \),
+	\begin{align}
+		(U(1) - \alpha E) u + \omega v &= 0, \\
+		-\omega u + (U(1) - \alpha E) v &= 0, \\
+		u^{(k)} = 1, \quad v^{(k)} &= 0, \quad \alpha^2 + \omega^2 = 1.
+	\end{align}
+	
+	% Итоги и задачи
+	\subsection{Итоги и задачи анализа нелинейных моделей}
+	
+	Основные задачи:
+	\begin{enumerate}
+		\item Нахождение стационарных точек: \( f(x, \varepsilon) = 0 \).
+		\item Анализ устойчивости: собственные значения \( \frac{\partial f}{\partial x} \).
+		\item Диаграммы стационарных решений.
+		\item Бифуркационные диаграммы.
+		\item Нахождение периодических решений: (13).
+		\item Анализ орбитальной устойчивости: (14).
+		\item Диаграммы периодических решений.
+		\item Бифуркационные диаграммы периодических решений: (17)--(19).
+	\end{enumerate}
 	
 \end{document}
