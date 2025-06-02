@@ -1401,5 +1401,199 @@
 		\item Диаграммы периодических решений.
 		\item Бифуркационные диаграммы периодических решений: (17)--(19).
 	\end{enumerate}
-	
+
+  \newpage
+
+  \section{Элементы теории возмущений. Приведение уравнений к безразмерной форме. Возмущения по координате ( \(x \to 0\), \(x \to \infty\)).}
+
+  Теория возмущений изучает ситуации, когда существует малый или большой параметр $\varepsilon$ ($\varepsilon \to 0$, $\varepsilon \to \infty$), который возникает в уравнениях естественно или вводится искусственно. 
+
+  Все дальнейшие билеты мы будем учиться раскладывать решение всех диффур по этому параметру $\varepsilon$. Зачем? без понятия
+
+  \subsection{Приведение уравнения к безразмерной форме}
+
+  Операция нужна для того, чтобы "понятие малый или большой стало более определенным"
+
+  Пример:
+
+  \begin{equation}
+  m \frac{d^2u}{dt^2} + ku + k_2u^3 = 0, \; u(0) = u_0, \; \frac{du}{dt}(0) = 0
+  \end{equation}
+
+  Это модель колебаний тележке на нелинейной пружине. Величины m, u, k и другие имеют вполне определенные физические размерности. Преподавателем предлагается избавиться от размерностей через следующую замену переменных
+
+  $$
+  u = \frac u {u_0}, \; \tau = \omega_0t, \; \omega_o = \sqrt{\frac k m }
+  $$
+  Уравнение приобретает вид:
+
+  \begin{equation}
+    \frac{d^2u}{d\tau^2} + u + \varepsilon u^3 = 0, \; u(0) = 1, \; \frac {du}{dt}(0) = 0, \; \varepsilon = \frac {k_2 u_0^2} {k}
+  \end{equation}
+
+  \subsection{Возмущение по координате}
+
+  Здесь препод резко переобувается в воздухе и заменяет обозначение. $\varepsilon \Rightarrow x$. Говорим о $x$ как о возмущении. Допустим для некоторого $x_0$ решение существует в принципе.
+
+  Тогда мы пытаемся найти разложение решения диффуры по степеням $x$. Зачем? Пока загадка
+
+  \textbf{Пример 1, $x\to0$:}
+
+  \begin{equation}
+    x \frac{d^2 u} {dx^2} + \frac {du} {dx} + xu = 0, \; u_0(0) = 1
+    \label{eq:perturbation_example_1}
+  \end{equation}
+
+  Искать будем в виде:
+
+  \begin{equation}
+    u(x) = \sum_{k=0}^\infty a_k x^{k+\mu}
+    \label{eq:series_approximation_example_1}
+  \end{equation}
+
+  \textit{Уравнение валится с неба, почему именно оно, не объясняется}. $a_k$ и $\mu$ - параметры. Подставляем \eqref{eq:series_approximation_example_1} в \eqref{eq:perturbation_example_1}, получим:
+
+  \begin{equation}
+    \sum_{k=0}^\infty (\mu + k) (\mu + k - 1) \cdot a_k \cdot x^{\mu + k - 1} + \sum_{k = 0} ^ \infty (\mu + k) \cdot a_k \cdot x^{\mu + k - 1} \sum_{k=0}^\infty a_k \cdot x^{\mu + k + 1} = 0
+  \end{equation}
+
+  \begin{equation}
+    \sum_{k=0}^\infty (\mu + k)^2 \cdot a_k \cdot x^{\mu + k - 1}
+    + \sum_{k = 0}^\infty a_k \cdot x ^ {\mu + k + 1} = 0
+  \end{equation}
+
+  Первую сумму можно объединить со второй, если вытащить из первой 2 первых члена суммы. Тогда степени x совпадут:
+
+  \begin{equation}
+    \mu^2 a_0 x^{\mu-1} + (\mu + 1)^2 + \sum_{k=0}^\infty \left [ (\mu + k + 2)^2 a_{k+2} + a_k \right] = 0
+  \end{equation}
+
+  Наиболее простой способ точно решить это уравнение - взять множитель при степени x и приравнять его к нулю. В данном примере возможны 2 варианта:
+
+  \begin{equation}
+    \mu = 0, \;
+    a_0 = 1, \;
+    a_1 = 0, \;
+    a_{k+2} = -\frac{a_k}{(k+2)^2}, \;
+    u(x) = 1 - \frac {x^2} {2^2} + \frac{x^4}{2^2 4^2} - \frac {x^6}{2^24^26^2} + \dots
+  \end{equation}
+
+  \begin{equation}
+    a_0 = 0, \;
+    \mu = -1, \;
+    a_1 = 1, \;
+    a_{k+2} = - \frac {a_k} {(k+1)^2}, \;
+    u(x) = 1 - \frac {x^2} {2^2} + \frac{x^4}{2^2 4^2} - \frac {x^6}{2^24^26^2} + \dots
+  \end{equation}
+
+  \textbf{Пример 2, $x \to \infty$:}
+
+  \begin{equation}
+    \frac {du} {dx} + u = \frac 1 x
+    \label{eq:perturbation_example_2}
+  \end{equation}
+
+  Теперь искать разложение по x будем в виде:
+
+  \begin{equation}
+    u = \sum_{k=1}^\infty a_k x^{-k}
+    \label{eq:series_approximation_example_2}
+  \end{equation}
+
+  Подставляя \eqref{eq:series_approximation_example_2} в \eqref{eq:perturbation_example_2} получаем:
+
+  \begin{equation}
+    - \sum_{k=1}^\infty k \cdot a_k x^{-k-1} + \sum_{k=2}^\infty a_k x^{-k} + (a_1 - 1) \frac 1 x = 0,
+  \end{equation}
+
+  \begin{equation}
+    a_1 = 1, \; a_{k+1} = ka_k, \; u(x) = \frac 1 x + \frac {1!} {x^2} + \frac {2!}{x^3} + \dots + \frac {(n-1)!}{x^n} + \dots
+  \end{equation}
+
+  \section{Символы порядка и калибровочные функции. Асимптотические разложения, последовательности и ряды}
+
+  \subsection{Символы порядка и калибровочные функции}
+
+  При сравнении двух функций $f(\varepsilon)$ и $g(\varepsilon)$ используются понятия О-большого и О-малого: $O(\varepsilon)$, $o(\varepsilon)$
+
+  \subsubsection{Определения}
+
+  $f(\varepsilon) = O(g(\varepsilon))$ при $\varepsilon \to 0$, если $$(\exists A > 0)(\exists \varepsilon_0 > 0)\bigl((\forall \varepsilon > \varepsilon_0)\bigl(|f(\varepsilon)| \leq A \cdot |g(\varepsilon)|\bigr)\bigr)$$. Или $$\lim_{\varepsilon \to 0} \left| \frac{f(\varepsilon)}{g(\varepsilon)} \right| < \infty$$
+  
+  $f(\varepsilon) = o(g(\varepsilon))$ при $\varepsilon \to 0$, если $$(\exists \delta > 0)(\exists \varepsilon_0 > 0)\bigl((\forall \varepsilon > \varepsilon_0)\bigl(|f(\varepsilon)| \leq \delta \cdot |g(\varepsilon)|\bigr)\bigr)$$. Или $$\lim_{\varepsilon \to 0} \left| \frac{f(\varepsilon)}{g(\varepsilon)} \right| = 0$$
+
+  \textit{NB: в кванторах все совпадает посимвольно. Такое же посимвольное совпадение и в методичке. Однако мне кажется что это ошибка. Попробуйте через гугл понять эти 2 понятия}
+
+  На практике этого оказывается мало. Обычно ситуация может быть следующая следующая:
+
+  \begin{equation}
+    \lim_{\varepsilon \to 0} f(\varepsilon) =
+    \begin{cases}
+      0 \\
+      A \neq 0 \\
+      \pm \infty
+    \end{cases}.
+  \end{equation}
+
+  Чтобы узнать скорость сходимости, мы сравниваем поведение функции с поведением калибровочных функций. Изначально мы берем их как степени некоего $\varepsilon$:
+
+\[
+\dots, \varepsilon^{-n}, \dots, \varepsilon^{-2}, \varepsilon^{-1}, 1, \varepsilon, \varepsilon^2, \dots, \varepsilon^n, \dots
+\]
+
+Однако не всегда этих функций достаточно, чтобы что-то сказать о скорости сходимости. В общем случае доказывается теорема, что никакого множества калибровочных функций не хватит для того, чтобы описать скорость сходимости в общем случае, поэтому они подбираются под задачу.
+
+Преподаватель демонстрирует несостоятельность степеней $\varepsilon$ на следующем примере: $e^{-\frac 1 \varepsilon}$:
+
+\begin{equation}
+  \lim_{\varepsilon \to 0^+} \frac{\varepsilon^n}{e^{-\frac{1}{\varepsilon}}} = \lim_{x \to \infty} \frac{x^n}{e^x} = 0
+\end{equation}
+
+Если попытаться расширить список калибровочных функций например при помощи $\ln\left(\frac 1 \varepsilon \right)$, то найдется другой пример:
+
+\begin{equation}
+  \lim_{\varepsilon \to 0^+} \frac{\ln\left(\frac{1}{\varepsilon}\right)}{\varepsilon^{-\alpha}} = \lim_{x \to \infty} \frac{\ln(x)}{x^\alpha} = \lim_{x \to \infty} \frac{1}{x \cdot \alpha \cdot x^{\alpha-1}} = \frac{1}{\alpha} \lim_{x \to \infty} \frac{1}{x^\alpha} = 0, \quad \forall \alpha > 0
+\end{equation}
+
+Снова не получается. Может прийти в голову желание еще раз расширить набор калибровочных функций, добавив $\ln\left(\ln\left(\frac 1 \varepsilon\right)\right)$, однако этот процесс никогда не закончится. \textit{Универсального списка калибровочных функций для всех всегда навсегда не существует}
+
+\textbf{В конечном итоге список калибровочных функций подбирается под задачу индивидуально}
+
+\subsection{Асимптотические разложения, последовательности и ряды}
+
+\textbf{Суть:} При помощи только что рассмотренных разложений можно с какой-то неплохой точностью приближать интеграллы
+
+\subsubsection{Демонстрация}
+
+Начнем с примера
+
+\begin{equation}
+  1 > F(x) = \int_0^\infty \frac{e^{-t}}{1 + xt} \, dt \implies \sum_{k=0}^\infty (-1)^k k! x^k
+\end{equation}
+
+Как видно здесь $x$ - параметр возмущения. В целом ряд расходится, однако ряд знакопеременный. Если вы помните еще что-то из вышмата, то в таком ряду для любой частной суммы из первых $n$ элементов погрешность не превышает первый отброшенный (n+1) элемент по модулю
+
+Тогда если $x = 0.1$, то для $n=10$ погрешность составит $10!\cdot0.1^{10} \approx 0.000363$
+
+\subsubsection{Обобщение}
+
+Если функцию $f(\varepsilon)$ можно представить в виде:
+
+\begin{equation}
+  f(\varepsilon) = \sum_{k=0}^N a_k \varepsilon^k + o\bigl(\varepsilon^N\bigr) \quad \text{при } \varepsilon \to 0,
+  \label{eq:asymptotic_series_Puancare}
+\end{equation}
+
+то \eqref{eq:asymptotic_series_Puancare} называют \textbf{асимптотическим рядом типа Пуанкаре}
+
+\vspace{1em}
+
+Вместо $\varepsilon^k$ может стоять все, что удовлетворяет свойству $\delta_k(\varepsilon) = o\left[\delta_{k-1}(\varepsilon)\right]$, при $\varepsilon \to 0$. В итоге \eqref{eq:asymptotic_series_Puancare} перепишется в виде:
+
+\begin{equation}
+  f(\varepsilon) = \sum_{k=0}^{N} a_k \delta_k(\varepsilon) + o(\delta_N(\varepsilon)), \quad \varepsilon \to 0
+\end{equation}
+
+В роли $\delta_k(\varepsilon)$ могут быть $\varepsilon^k$, $\varepsilon^{\frac k {10}}$, $(\ln(\varepsilon)^{-k}$ и т.п.
+
 \end{document}
