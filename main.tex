@@ -1510,4 +1510,90 @@
     a_1 = 1, \; a_{k+1} = ka_k, \; u(x) = \frac 1 x + \frac {1!} {x^2} + \frac {2!}{x^3} + \dots + \frac {(n-1)!}{x^n} + \dots
   \end{equation}
 
+  \section{Символы порядка и калибровочные функции. Асимптотические разложения, последовательности и ряды}
+
+  \subsection{Символы порядка и калибровочные функции}
+
+  При сравнении двух функций $f(\varepsilon)$ и $g(\varepsilon)$ используются понятия О-большого и О-малого: $O(\varepsilon)$, $o(\varepsilon)$
+
+  \subsubsection{Определения}
+
+  $f(\varepsilon) = O(g(\varepsilon))$ при $\varepsilon \to 0$, если $$(\exists A > 0)(\exists \varepsilon_0 > 0)\bigl((\forall \varepsilon > \varepsilon_0)\bigl(|f(\varepsilon)| \leq A \cdot |g(\varepsilon)|\bigr)\bigr)$$. Или $$\lim_{\varepsilon \to 0} \left| \frac{f(\varepsilon)}{g(\varepsilon)} \right| < \infty$$
+  
+  $f(\varepsilon) = o(g(\varepsilon))$ при $\varepsilon \to 0$, если $$(\exists \delta > 0)(\exists \varepsilon_0 > 0)\bigl((\forall \varepsilon > \varepsilon_0)\bigl(|f(\varepsilon)| \leq \delta \cdot |g(\varepsilon)|\bigr)\bigr)$$. Или $$\lim_{\varepsilon \to 0} \left| \frac{f(\varepsilon)}{g(\varepsilon)} \right| = 0$$
+
+  \textit{NB: в кванторах все совпадает посимвольно. Такое же посимвольное совпадение и в методичке. Однако мне кажется что это ошибка. Попробуйте через гугл понять эти 2 понятия}
+
+  На практике этого оказывается мало. Обычно ситуация может быть следующая следующая:
+
+  \begin{equation}
+    \lim_{\varepsilon \to 0} f(\varepsilon) =
+    \begin{cases}
+      0 \\
+      A \neq 0 \\
+      \pm \infty
+    \end{cases}.
+  \end{equation}
+
+  Чтобы узнать скорость сходимости, мы сравниваем поведение функции с поведением калибровочных функций. Изначально мы берем их как степени некоего $\varepsilon$:
+
+\[
+\dots, \varepsilon^{-n}, \dots, \varepsilon^{-2}, \varepsilon^{-1}, 1, \varepsilon, \varepsilon^2, \dots, \varepsilon^n, \dots
+\]
+
+Однако не всегда этих функций достаточно, чтобы что-то сказать о скорости сходимости. В общем случае доказывается теорема, что никакого множества калибровочных функций не хватит для того, чтобы описать скорость сходимости в общем случае, поэтому они подбираются под задачу.
+
+Преподаватель демонстрирует несостоятельность степеней $\varepsilon$ на следующем примере: $e^{-\frac 1 \varepsilon}$:
+
+\begin{equation}
+  \lim_{\varepsilon \to 0^+} \frac{\varepsilon^n}{e^{-\frac{1}{\varepsilon}}} = \lim_{x \to \infty} \frac{x^n}{e^x} = 0
+\end{equation}
+
+Если попытаться расширить список калибровочных функций например при помощи $\ln\left(\frac 1 \varepsilon \right)$, то найдется другой пример:
+
+\begin{equation}
+  \lim_{\varepsilon \to 0^+} \frac{\ln\left(\frac{1}{\varepsilon}\right)}{\varepsilon^{-\alpha}} = \lim_{x \to \infty} \frac{\ln(x)}{x^\alpha} = \lim_{x \to \infty} \frac{1}{x \cdot \alpha \cdot x^{\alpha-1}} = \frac{1}{\alpha} \lim_{x \to \infty} \frac{1}{x^\alpha} = 0, \quad \forall \alpha > 0
+\end{equation}
+
+Снова не получается. Может прийти в голову желание еще раз расширить набор калибровочных функций, добавив $\ln\left(\ln\left(\frac 1 \varepsilon\right)\right)$, однако этот процесс никогда не закончится. \textit{Универсального списка калибровочных функций для всех всегда навсегда не существует}
+
+\textbf{В конечном итоге список калибровочных функций подбирается под задачу индивидуально}
+
+\subsection{Асимптотические разложения, последовательности и ряды}
+
+\textbf{Суть:} При помощи только что рассмотренных разложений можно с какой-то неплохой точностью приближать интеграллы
+
+\subsubsection{Демонстрация}
+
+Начнем с примера
+
+\begin{equation}
+  1 > F(x) = \int_0^\infty \frac{e^{-t}}{1 + xt} \, dt \implies \sum_{k=0}^\infty (-1)^k k! x^k
+\end{equation}
+
+Как видно здесь $x$ - параметр возмущения. В целом ряд расходится, однако ряд знакопеременный. Если вы помните еще что-то из вышмата, то в таком ряду для любой частной суммы из первых $n$ элементов погрешность не превышает первый отброшенный (n+1) элемент по модулю
+
+Тогда если $x = 0.1$, то для $n=10$ погрешность составит $10!\cdot0.1^{10} \approx 0.000363$
+
+\subsubsection{Обобщение}
+
+Если функцию $f(\varepsilon)$ можно представить в виде:
+
+\begin{equation}
+  f(\varepsilon) = \sum_{k=0}^N a_k \varepsilon^k + o\bigl(\varepsilon^N\bigr) \quad \text{при } \varepsilon \to 0,
+  \label{eq:asymptotic_series_Puancare}
+\end{equation}
+
+то \eqref{eq:asymptotic_series_Puancare} называют \textbf{асимптотическим рядом типа Пуанкаре}
+
+\vspace{1em}
+
+Вместо $\varepsilon^k$ может стоять все, что удовлетворяет свойству $\delta_k(\varepsilon) = o\left[\delta_{k-1}(\varepsilon)\right]$, при $\varepsilon \to 0$. В итоге \eqref{eq:asymptotic_series_Puancare} перепишется в виде:
+
+\begin{equation}
+  f(\varepsilon) = \sum_{k=0}^{N} a_k \delta_k(\varepsilon) + o(\delta_N(\varepsilon)), \quad \varepsilon \to 0
+\end{equation}
+
+В роли $\delta_k(\varepsilon)$ могут быть $\varepsilon^k$, $\varepsilon^{\frac k {10}}$, $(\ln(\varepsilon)^{-k}$ и т.п.
+
 \end{document}
