@@ -3,4 +3,5 @@
 *.out
 *.toc
 *.gz
+*.synctex(busy)
 /*.pdf
