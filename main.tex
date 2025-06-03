@@ -1572,5 +1572,189 @@
 	
 	\newpage
 	
+	\section{Понятие аттрактора. Странные аттракторы, пример механизма их возникновения (явление Фейгенбаума, субгармонический каскад)}
+	
+	\subsection{Определения}
+	
+	% Описываем базовую систему уравнений
+	Рассмотрим систему нелинейных дифференциальных уравнений:
+	\begin{equation}
+		\frac{d x}{d t} = f(x), \quad x \in \mathbb{R}^n,
+	\end{equation}
+	где $x$ — вектор состояния, $f(x)$ — нелинейная функция.
+	\par
+	\vspace{0.5em}
+	% Вводим ключевые определения
+	\textbf{\textit{\uline{DEF 1.}}} Множество $M \subset \mathbb{R}^n$ называется \textbf{инвариантным множеством} системы, если любая траектория решения, пересекающая $M$, целиком содержится в $M$. 
+	\par
+	\textit{Примеры}: стационарные точки, предельные циклы.
+	\par
+	\vspace{0.5em}
+	\textbf{\textit{\uline{DEF 2.}}} Замкнутое инвариантное множ. $M$ реш. $x(t)$ называется \textbf{устойчивым по Ляпунову}, если:
+	\begin{equation}
+		(\forall \varepsilon > 0)(\exists \delta \in (0, \varepsilon))(\forall t \geq 0) \left( \rho(x_0, M) \leq \delta \Rightarrow \rho(x, M) \leq \varepsilon \right),
+	\end{equation}
+	где $\rho$ — расстояние от точки до множества.
+	\par
+	\vspace{0.5em}
+	\textbf{\textit{\uline{DEF 3.}}} Замкнутое инвариантное множество $\textgoth{A}$ называется \textbf{аттрактором}, если существует открытое множество $U$, такое что $\textgoth{A} \subset U$ и:
+	\begin{equation}
+		(\forall x_0 \in U) \left( \rho(x, \textgoth{A}) \to 0 \quad \text{при} \quad t \to \infty \right).
+	\end{equation}
+	При этом $U$ — область притяжения аттрактора $\textgoth{A}$.
+	\par
+	\vspace{0.5em}
+	\textbf{\textit{\uline{DEF 4.}}} Инвариантное множество $M$ называется \textbf{внутренне неустойчивым (хаотическим)}, если траектории в $M$ неустойчивы по Ляпунову, а близкие траектории расходятся экспоненциально.
+	
+	\subsection{Явление Фейгенбаума}
+	
+	% Вводим разностное уравнение
+	Рассмотрим разностное уравнение:
+	\begin{equation}
+		x_{k+1} = f(x_k), \quad f(x) = 4\varepsilon x (1 - x), \quad x \in [0,1], \quad \varepsilon \in [0,1],
+	\end{equation}
+	где $\varepsilon$ — параметр. максимум функции:
+	\begin{equation}
+		\max f(x) = f\left(\frac{1}{2}\right) = \varepsilon.
+	\end{equation}
+	Значения $x_k$ остаются в $[0,1]$.
+	
+	% Стационарные точки
+	Стационарные точки уравнения $f(x) = 4\varepsilon x (1 - x)$:
+	\begin{equation}
+		x_1^{\text{ст}} = 0, \quad x_2^{\text{ст}} = 1 - \frac{1}{4\varepsilon}.
+	\end{equation}
+	
+	\newpage
+	
+	% Анализ устойчивости для разных интервалов epsilon
+	Проанализируем поведение системы:
+	
+	\textbf{Промежуток 1.} $\varepsilon \in [0, 0.25)$. Точка $x_2^{\text{ст}}$ вне $[0,1]$. Устойчивость $x_1^{\text{ст}} = 0$:
+	\begin{equation}
+		f'(x) = 4\varepsilon - 8\varepsilon x, \quad f'(0) = 4\varepsilon < 1 \quad (\varepsilon < 0.25).
+	\end{equation}
+	Решения $x_k \to 0$ для всех $x_0$.
+	
+	\textbf{Промежуток 2.} $\varepsilon \in [0.25, 0.75)$. Точка $x_1^{\text{ст}} = 0$ неустойчива, $x_2^{\text{ст}}$ устойчива:
+	\begin{equation}
+		f'(x_2^{\text{ст}}) = 4\varepsilon - 8\varepsilon x_2^{\text{ст}} = 4\varepsilon - 8\varepsilon \left(1 - \frac{1}{4\varepsilon}\right) = 2 - 4\varepsilon, \quad |f'(x_2^{\text{ст}})| \leq 1.
+	\end{equation}
+	Решения сходятся к $x_2^{\text{ст}}$.
+	
+	\textbf{Промежуток 3.} $\varepsilon \in [0.75, 0.86237\ldots)$. Обе точки неустойчивы, появляется аттрактор периода 2:
+	\begin{equation}
+		x_2^* = f(x_1^*), \quad x_1^* = f(x_2^*).
+	\end{equation}
+	
+	\textbf{Промежуток 4.} $\varepsilon \in [0.86237\ldots, 0.88602\ldots)$. Аттрактор пер.2 неустойчив, появл.аттрактор пер.4:
+	\begin{equation}
+		x_2^{**} = f(x_1^{**}), \quad x_3^{**} = f(x_2^{**}), \quad x_4^{**} = f(x_3^{**}), \quad x_1^{**} = f(x_4^{**}).
+	\end{equation}
+	
+	\textbf{Промежуток 5.} $\varepsilon \in [0.88602\ldots, 0.89218\ldots)$. Аттрактор пер.4 неустойчив, появл.аттрактор пер.8.
+	
+	% Описание каскада удвоения периода
+	Процесс удв. периода продолжается до $\varepsilon_\infty=0.892486\ldots$, с коэф. сжатия интервалов $\delta=4.6692016\ldots$
+	
+	\subsection{Субгармонический каскад}
+	
+	\begin{itemize}
+		\item В результате последовательной бифуркации удвоения периода 
+		\textbf{субгармонический каскад} возникают хаотические аттракторы.
+		
+		\item Значения \( \varepsilon > \varepsilon_{\infty} \) характеризуются сочетанием периодического аттрактора с режимом, который называют \textbf{хаосом}.
+		
+		\item В последнем случае \( x_k \) порождаются так, что они не повторяются, зависят от \( x_0 \), и две первоначально близкие точки порождают траектории, расходящиеся друг от друга.
+		
+		\item Принципиальная непредсказуемость хаотического режима при \( \varepsilon > \varepsilon_{\infty} \) не говорит об отсутствии порядка в нём - порядок просто не виден.
+		
+		\item \textbf{Фрактальная размерность} - одна из характеристик хаотического аттрактора.
+	\end{itemize}
+	
+	\section{Фрактальные размерности. Аттрактор Лоренца}
+	
+	\subsubsection{Фрактальные размерности}
+	
+	% Определение фрактальной размерности
+	Для множества в $\mathbb{R}^n$ пусть $N(\varepsilon)$ — минимальное число гиперкубов с ребром $\varepsilon$ для покрытия множества. Фрактальная размерность $D$:
+	\begin{equation}
+		D = \lim_{\varepsilon \to 0} \frac{\ln N(\varepsilon)}{\ln (1 / \varepsilon)},
+	\end{equation}
+	если предел существует.
+	
+	% Примеры размерностей
+	\textbf{Пример 1.} Точка: $N(\varepsilon) = 1$, $D = 0$.
+	
+	\textbf{Пример 2.} Отрезок длины $L$: $N(\varepsilon) = \frac{L}{\varepsilon}$, $D = 1$.
+	
+	\textbf{Пример 3.} Поверхность площадью $S$: $N(\varepsilon) = \frac{S}{\varepsilon^2}$, $D = 2$.
+	
+	\textbf{Пример 4.} Канторово множество: $\varepsilon = \left(\frac{1}{3}\right)^m$, $N(\varepsilon) = 2^m$,
+	\begin{equation}
+		D = \lim_{m \to \infty} \frac{\ln 2^m}{\ln 3^m} = \frac{\ln 2}{\ln 3} \approx 0.63.
+	\end{equation}
+	
+	\textbf{Пример 5.} Кривая Коха: $\varepsilon = \left(\frac{1}{3}\right)^m$, $N(\varepsilon) = 3 \cdot 4^m$,
+	\begin{equation}
+		D = \lim_{m \to \infty} \frac{\ln (3 \cdot 4^m)}{\ln 3^m} = \frac{\ln 4}{\ln 3} \approx 1.26.
+	\end{equation}
+	
+	\subsubsection{Аттрактор Лоренца}
+	
+	% Система уравнений Лоренца
+	Модель Лоренца описывает конвекцию:
+	\begin{align}
+		\frac{d x}{d t} &= \sigma (y - x), \\
+		\frac{d y}{d t} &= -x z + r x - y, \\
+		\frac{d z}{d t} &= x y - b z,
+	\end{align}
+	где $\sigma, r, b$ — параметры.
+	
+	% Стационарные точки и устойчивость
+	Стационарные точки: первая — $x = y = z = 0$. Матрица Якоби:
+	\begin{equation}
+		J = \begin{pmatrix}
+			-\sigma & \sigma & 0 \\
+			r - z & -1 & -x \\
+			y & x & -b
+		\end{pmatrix},
+	\end{equation}
+	в точке $(0,0,0)$:
+	\begin{equation}
+		J(0) = \begin{pmatrix}
+			-\sigma & \sigma & 0 \\
+			r & -1 & 0 \\
+			0 & 0 & -b
+		\end{pmatrix}.
+	\end{equation}
+	Характеристическое уравнение:
+	\begin{equation}
+		\det(J(0) - \lambda E) = (-b - \lambda) \left( \lambda^2 + (\sigma + 1) \lambda + \sigma - \sigma r \right) = 0.
+	\end{equation}
+	При $r < 1$ точка устойчива, при $r > 1$ — неустойчива.
+	
+	Вторая и третья точки:
+	\begin{equation}
+		x = y = \pm \sqrt{(r - 1) b}, \quad z = r - 1,
+	\end{equation}
+	существуют при $r > 1$. Характеристическое уравнение:
+	\begin{equation}
+		\det(J - \lambda E) = -\left( \lambda^3 + (\sigma + b + 1) \lambda^2 + b (r + \sigma) \lambda + 2 \sigma b (r - 1) \right) = 0.
+	\end{equation}
+	
+	% Условие бифуркации
+	Условие комплексной бифуркации:
+	\begin{equation}
+		(\sigma + b + 1) b (r + \sigma) = 2 \sigma b (r - 1),
+	\end{equation}
+	откуда:
+	\begin{equation}
+		r = \frac{\sigma (\sigma + b + 3)}{\sigma - b - 1}.
+	\end{equation}
+	Для $\sigma = 10$, $b = \frac{8}{3}$: $r \approx 24.74$.
+	
+	% Описание поведения системы
+	При $r \in [24.06, 24.74]$ — три аттрактора (две точки и хаотический). При $r \in (24.74, 30.1)$ — хаотический аттрактор, $D = 2.06$. При $r > 30.1$ — чередование хаоса и периодичности.
 	
 \end{document}
