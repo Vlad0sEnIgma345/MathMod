@@ -2004,7 +2004,7 @@
 	
 	\begin{equation}
 		A I = A_C I_C + A_R I_R + A_L I_L + A_N I_N = 0
-		\label{eq:ai_decomposition}
+		\label{eq:ai_decomposition_1}
 	\end{equation}
 	
 	\begin{equation}
@@ -2013,7 +2013,7 @@
 		A_R R^{-1} A_R^T \varphi + 
 		A_L L^{-1} A_L^T \int \varphi \, dt + 
 		A_N f(\varphi) = 0
-		\label{eq:potential_balance}
+		\label{eq:potential_balance_1}
 	\end{equation}
 	
 	\subsection{Узловой метод}
@@ -2029,7 +2029,7 @@
 	\begin{equation}
 		U_L(t_n) \approx L \frac{I_L(t_n) - I_L(t_{n-1})}{h}, \Rightarrow I_L(t_n) = I_L(t_{n-1}) + h L^{-1} U_L(t_n)
 	\end{equation}
-	Подставив эти токи в (\ref{eq:ai_decomposition}) и выражая $U$ из (\ref{eq:potential_balance}), получаем систему разностных ур-ий 1-го порядка:
+	Подставив эти токи в (\ref{eq:ai_decomposition_1}) и выражая $U$ из (\ref{eq:potential_balance_1}), получаем систему разностных ур-ий 1-го порядка:
 	\begin{equation}
 		B \varphi(t_n) = d_n
 		\vspace{-1em}
@@ -2041,14 +2041,14 @@
 	\begin{equation}
 		d_n = h^{-1} A_C C U_C(t_{n-1}) - A_L I_L(t_{n-1}) - A_N f(\varphi(t_n))
 	\end{equation}
-	\subsection{Варианты $f(\varphi(t_n))$:}
+	\subsection{Варианты $f(\varphi(t_n))$}
 	\begin{itemize}
 		\item Независимый источник: $f(\varphi(t_n)) = I_I(t)$ ($LU$-разложение: $DECOMP \Rightarrow SOLVE$).
 		\item Линейная функция: корректирует $B$ (также $DECOMP \Rightarrow SOLVE$)).
 		\item Нелинейная функция: решается методом Ньютона.
 	\end{itemize}
 	
-	\subsection{Оценка узлового метода:}
+	\subsection{Оценка узлового метода}
 	\textbf{Достоинство:} простота реализации узлового метода:
 	\begin{itemize}
 		\item легко строятся матрица инцидентности и матрица \( B \);
@@ -2063,17 +2063,76 @@
 	
 	\newpage
 	
-	% Сведение к ОДУ
-	\textbf{Сведение к ОДУ}
+	\section{Анализ интегро-дифференциальных уравнений методом сведения к системе обыкновенных дифференциальных уравнений. Недостатки этого подхода}
 	
-	Дифференцирование (5), $\Theta = \frac{d \varphi}{dt}$:
+	\textbf{Нужно знать формулы из пред\_предыдущего п.19.3:}
+	
+	\begin{equation}
+		I_C = C \frac{dU_C}{dt}, \quad
+		I_R = R^{-1} U_R, \quad
+		I_L = L^{-1} \int U_L \, dt, \quad
+		I_N = f(\varphi)
+	\end{equation}
+	
+	\begin{equation}
+		A I = A_C I_C + A_R I_R + A_L I_L + A_N I_N = 0
+		\label{eq:ai_decomposition_2}
+	\end{equation}
+	
+	\begin{equation}
+		U = A^T \varphi \Rightarrow
+		A_C C A_C^T \frac{d\varphi}{dt} + 
+		A_R R^{-1} A_R^T \varphi + 
+		A_L L^{-1} A_L^T \int \varphi \, dt + 
+		A_N f(\varphi) = 0
+		\label{eq:potential_balance_2}
+	\end{equation}
+	
+	% Сведение к ОДУ
+	\subsection{Сведение к ОДУ}
+	Применяется без привлечения компьютера для схем с небольшим числом 
+	узлов и двухполюсников.
+	\par
+	Продифференцируем (\ref{eq:potential_balance_2}), вводя $\Theta = \frac{d \varphi}{dt}$:
 	\begin{equation}
 		A_C C A_C^T \frac{d \Theta}{dt} = -A_R R^{-1} A_R^T \Theta - A_L L^{-1} A_L^T \varphi - A_N f'(\varphi) \Theta
 	\end{equation}
-	\begin{equation}
-		\frac{d \varphi}{dt} = \Theta
-	\end{equation}
-	Проблемы: необратимость $A_C C A_C^T$, сложность начальных условий.
+	\subsection{Недостатки} 
+	\textbf{Проблема}: {\color{red} \ding{55}} $RKF45$ - необратимость $A_C C A_C^T$ и сложность начальных условий.
+	
+	\begin{enumerate}[leftmargin=1.15em]
+		\item Система не разрешена относительно производной
+		\par
+		При обращении матрицы $A_c S A_c^{T}$ возникают следующие сложности:
+		\begin{itemize}
+			\item Ранг произведения матриц $\leq$ наименьший ранг сомножителей.
+			\item В большинстве схем количество узлов больше $\geq$ количеству ёмкостей.
+			\item Отсюда: число строк $A_c >$ числа столбцов $\Rightarrow \text{rank}(A_c) \leq$ число ёмкостей.
+			\item Тогда $A_c S A_c^{T}$ — матрица неполного ранга $\Rightarrow$ она особенная, $\det(A) = 0$.
+		\end{itemize}
+		Преобразования 1-го ур. сводят часть диф. ур-ий к алгебраическим и позв. искл. часть переменных.
+		\par
+		Вручную это просто, но численно затруднено из-за высокой размерности системы.
+		\item Проблема с начальными условиями
+		\begin{itemize}
+			\item Во входных блоках — начальные условия вида $U_c(0)$ и $I_L(0)$.
+			\item Также требуется задать $\Phi(0)$ и $\Theta(0)$.
+			\item Это особенно тяжело для схем высокого порядка.
+		\end{itemize}
+	\end{enumerate}
+	
+	\textbf{Итог:} Этот метод \uline{не используется} для автоматизации процесса построения модели.
+	\par
+	\vspace{0.5em}
+	Учитывая недостатки рассмотренных двух подходов, имеем такие желания:
+	\begin{enumerate}
+		\item Модель необходимо разрешить относительно производных; при этом процесс её построения должен быть отделён от процедуры численного решения.
+		\item В качестве фазовых переменных следует использовать векторы \( U_C \) и \( I_L \), для которых заданы начальные условия.
+	\end{enumerate}
+	
+	\newpage
+	
+	\section{Некоторые сведения из теории графов. Метод переменных состояния. Понятие топологического вырождения}
 	
 	% Метод переменных состояния
 	\textbf{Метод переменных состояния}
