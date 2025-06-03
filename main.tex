@@ -1993,12 +1993,32 @@
 	
 	\section{Узловой метод анализа. Сведение интегро-дифференциальных уравнений к разностным}
 	
-	\subsection{Методы автоматизации}
+	\textbf{Нужно знать формулы из предыдущего п.19.3:}
 	
-	% Узловой метод
-	\textbf{Узловой метод}
+	\begin{equation}
+		I_C = C \frac{dU_C}{dt}, \quad
+		I_R = R^{-1} U_R, \quad
+		I_L = L^{-1} \int U_L \, dt, \quad
+		I_N = f(\varphi)
+	\end{equation}
 	
-	Аппроксимация производных (метод Эйлера):
+	\begin{equation}
+		A I = A_C I_C + A_R I_R + A_L I_L + A_N I_N = 0
+		\label{eq:ai_decomposition}
+	\end{equation}
+	
+	\begin{equation}
+		U = A^T \varphi \Rightarrow
+		A_C C A_C^T \frac{d\varphi}{dt} + 
+		A_R R^{-1} A_R^T \varphi + 
+		A_L L^{-1} A_L^T \int \varphi \, dt + 
+		A_N f(\varphi) = 0
+		\label{eq:potential_balance}
+	\end{equation}
+	
+	\subsection{Узловой метод}
+	
+	Аппроксимация производных (\textbf{метод ломаных Эйлера}) - эффективно, когда система жесткая:
 	\begin{equation}
 		\frac{d x(t_n)}{dt} \approx \frac{x(t_n) - x(t_{n-1})}{h}, \quad t_n = t_0 + n h
 	\end{equation}
@@ -2007,11 +2027,12 @@
 		I_C(t_n) \approx C \frac{U_C(t_n) - U_C(t_{n-1})}{h}, \quad I_R(t_n) = R^{-1} U_R(t_n)
 	\end{equation}
 	\begin{equation}
-		I_L(t_n) = I_L(t_{n-1}) + h L^{-1} U_L(t_n)
+		U_L(t_n) \approx L \frac{I_L(t_n) - I_L(t_{n-1})}{h}, \Rightarrow I_L(t_n) = I_L(t_{n-1}) + h L^{-1} U_L(t_n)
 	\end{equation}
-	Система:
+	Подставив эти токи в (\ref{eq:ai_decomposition}) и выражая $U$ из (\ref{eq:potential_balance}), получаем систему разностных ур-ий 1-го порядка:
 	\begin{equation}
 		B \varphi(t_n) = d_n
+		\vspace{-1em}
 	\end{equation}
 	где:
 	\begin{equation}
@@ -2020,12 +2041,27 @@
 	\begin{equation}
 		d_n = h^{-1} A_C C U_C(t_{n-1}) - A_L I_L(t_{n-1}) - A_N f(\varphi(t_n))
 	\end{equation}
-	Варианты $f(\varphi(t_n))$:
+	\subsection{Варианты $f(\varphi(t_n))$:}
 	\begin{itemize}
-		\item Независимый источник: $f(\varphi(t_n)) = I_I(t)$.
-		\item Линейная функция: корректирует $B$.
+		\item Независимый источник: $f(\varphi(t_n)) = I_I(t)$ ($LU$-разложение: $DECOMP \Rightarrow SOLVE$).
+		\item Линейная функция: корректирует $B$ (также $DECOMP \Rightarrow SOLVE$)).
 		\item Нелинейная функция: решается методом Ньютона.
 	\end{itemize}
+	
+	\subsection{Оценка узлового метода:}
+	\textbf{Достоинство:} простота реализации узлового метода:
+	\begin{itemize}
+		\item легко строятся матрица инцидентности и матрица \( B \);
+		\item просто решается уравнение $B \varphi(t_n) = d_n$.
+	\end{itemize}
+	
+	\textbf{Недостатки:}
+	\begin{itemize}
+		\item модель и численный метод связаны жёстко — при замене метода (например, неявного Эйлера) требуется переписывать всю программу;
+		\item при уменьшении шага интегрирования матрица \( B \) становится плохо обусловленной.
+	\end{itemize}
+	
+	\newpage
 	
 	% Сведение к ОДУ
 	\textbf{Сведение к ОДУ}
