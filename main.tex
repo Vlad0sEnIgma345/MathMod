@@ -1401,5 +1401,455 @@
 		\item Диаграммы периодических решений.
 		\item Бифуркационные диаграммы периодических решений: (17)--(19).
 	\end{enumerate}
-	
+
+  \newpage
+
+  \section{Элементы теории возмущений. Приведение уравнений к безразмерной форме. Возмущения по координате ( \(x \to 0\), \(x \to \infty\)).}
+
+  Теория возмущений изучает ситуации, когда существует малый или большой параметр $\varepsilon$ ($\varepsilon \to 0$, $\varepsilon \to \infty$), который возникает в уравнениях естественно или вводится искусственно. 
+
+  Все дальнейшие билеты мы будем учиться раскладывать решение всех диффур по этому параметру $\varepsilon$. Зачем? без понятия
+
+  \subsection{Приведение уравнения к безразмерной форме}
+
+  Операция нужна для того, чтобы "понятие малый или большой стало более определенным"
+
+  Пример:
+
+  \begin{equation}
+  m \frac{d^2u}{dt^2} + ku + k_2u^3 = 0, \; u(0) = u_0, \; \frac{du}{dt}(0) = 0
+  \end{equation}
+
+  Это модель колебаний тележке на нелинейной пружине. Величины m, u, k и другие имеют вполне определенные физические размерности. Преподавателем предлагается избавиться от размерностей через следующую замену переменных
+
+  $$
+  u = \frac u {u_0}, \; \tau = \omega_0t, \; \omega_o = \sqrt{\frac k m }
+  $$
+  Уравнение приобретает вид:
+
+  \begin{equation}
+    \frac{d^2u}{d\tau^2} + u + \varepsilon u^3 = 0, \; u(0) = 1, \; \frac {du}{dt}(0) = 0, \; \varepsilon = \frac {k_2 u_0^2} {k}
+  \end{equation}
+
+  \subsection{Возмущение по координате}
+
+  Здесь препод резко переобувается в воздухе и заменяет обозначение. $\varepsilon \Rightarrow x$. Говорим о $x$ как о возмущении. Допустим для некоторого $x_0$ решение существует в принципе.
+
+  Тогда мы пытаемся найти разложение решения диффуры по степеням $x$. Зачем? Пока загадка
+
+  \textbf{Пример 1, $x\to0$:}
+
+  \begin{equation}
+    x \frac{d^2 u} {dx^2} + \frac {du} {dx} + xu = 0, \; u_0(0) = 1
+    \label{eq:perturbation_example_1}
+  \end{equation}
+
+  Искать будем в виде:
+
+  \begin{equation}
+    u(x) = \sum_{k=0}^\infty a_k x^{k+\mu}
+    \label{eq:series_approximation_example_1}
+  \end{equation}
+
+  \textit{Уравнение валится с неба, почему именно оно, не объясняется}. $a_k$ и $\mu$ - параметры. Подставляем \eqref{eq:series_approximation_example_1} в \eqref{eq:perturbation_example_1}, получим:
+
+  \begin{equation}
+    \sum_{k=0}^\infty (\mu + k) (\mu + k - 1) \cdot a_k \cdot x^{\mu + k - 1} + \sum_{k = 0} ^ \infty (\mu + k) \cdot a_k \cdot x^{\mu + k - 1} \sum_{k=0}^\infty a_k \cdot x^{\mu + k + 1} = 0
+  \end{equation}
+
+  \begin{equation}
+    \sum_{k=0}^\infty (\mu + k)^2 \cdot a_k \cdot x^{\mu + k - 1}
+    + \sum_{k = 0}^\infty a_k \cdot x ^ {\mu + k + 1} = 0
+  \end{equation}
+
+  Первую сумму можно объединить со второй, если вытащить из первой 2 первых члена суммы. Тогда степени x совпадут:
+
+  \begin{equation}
+    \mu^2 a_0 x^{\mu-1} + (\mu + 1)^2 + \sum_{k=0}^\infty \left [ (\mu + k + 2)^2 a_{k+2} + a_k \right] = 0
+  \end{equation}
+
+  Наиболее простой способ точно решить это уравнение - взять множитель при степени x и приравнять его к нулю. В данном примере возможны 2 варианта:
+
+  \begin{equation}
+    \mu = 0, \;
+    a_0 = 1, \;
+    a_1 = 0, \;
+    a_{k+2} = -\frac{a_k}{(k+2)^2}, \;
+    u(x) = 1 - \frac {x^2} {2^2} + \frac{x^4}{2^2 4^2} - \frac {x^6}{2^24^26^2} + \dots
+  \end{equation}
+
+  \begin{equation}
+    a_0 = 0, \;
+    \mu = -1, \;
+    a_1 = 1, \;
+    a_{k+2} = - \frac {a_k} {(k+1)^2}, \;
+    u(x) = 1 - \frac {x^2} {2^2} + \frac{x^4}{2^2 4^2} - \frac {x^6}{2^24^26^2} + \dots
+  \end{equation}
+
+  \textbf{Пример 2, $x \to \infty$:}
+
+  \begin{equation}
+    \frac {du} {dx} + u = \frac 1 x
+    \label{eq:perturbation_example_2}
+  \end{equation}
+
+  Теперь искать разложение по x будем в виде:
+
+  \begin{equation}
+    u = \sum_{k=1}^\infty a_k x^{-k}
+    \label{eq:series_approximation_example_2}
+  \end{equation}
+
+  Подставляя \eqref{eq:series_approximation_example_2} в \eqref{eq:perturbation_example_2} получаем:
+
+  \begin{equation}
+    - \sum_{k=1}^\infty k \cdot a_k x^{-k-1} + \sum_{k=2}^\infty a_k x^{-k} + (a_1 - 1) \frac 1 x = 0,
+  \end{equation}
+
+  \begin{equation}
+    a_1 = 1, \; a_{k+1} = ka_k, \; u(x) = \frac 1 x + \frac {1!} {x^2} + \frac {2!}{x^3} + \dots + \frac {(n-1)!}{x^n} + \dots
+  \end{equation}
+
+  \section{Символы порядка и калибровочные функции. Асимптотические разложения, последовательности и ряды}
+
+  \subsection{Символы порядка и калибровочные функции}
+
+  При сравнении двух функций $f(\varepsilon)$ и $g(\varepsilon)$ используются понятия О-большого и О-малого: $O(\varepsilon)$, $o(\varepsilon)$
+
+  \subsubsection{Определения}
+
+  $f(\varepsilon) = O(g(\varepsilon))$ при $\varepsilon \to 0$, если $$(\exists A > 0)(\exists \varepsilon_0 > 0)\bigl((\forall \varepsilon > \varepsilon_0)\bigl(|f(\varepsilon)| \leq A \cdot |g(\varepsilon)|\bigr)\bigr)$$. Или $$\lim_{\varepsilon \to 0} \left| \frac{f(\varepsilon)}{g(\varepsilon)} \right| < \infty$$
+  
+  $f(\varepsilon) = o(g(\varepsilon))$ при $\varepsilon \to 0$, если $$(\exists \delta > 0)(\exists \varepsilon_0 > 0)\bigl((\forall \varepsilon > \varepsilon_0)\bigl(|f(\varepsilon)| \leq \delta \cdot |g(\varepsilon)|\bigr)\bigr)$$. Или $$\lim_{\varepsilon \to 0} \left| \frac{f(\varepsilon)}{g(\varepsilon)} \right| = 0$$
+
+  \textit{NB: в кванторах все совпадает посимвольно. Такое же посимвольное совпадение и в методичке. Однако мне кажется что это ошибка. Попробуйте через гугл понять эти 2 понятия}
+
+  На практике этого оказывается мало. Обычно ситуация может быть следующая следующая:
+
+  \begin{equation}
+    \lim_{\varepsilon \to 0} f(\varepsilon) =
+    \begin{cases}
+      0 \\
+      A \neq 0 \\
+      \pm \infty
+    \end{cases}.
+  \end{equation}
+
+  Чтобы узнать скорость сходимости, мы сравниваем поведение функции с поведением калибровочных функций. Изначально мы берем их как степени некоего $\varepsilon$:
+
+\[
+\dots, \varepsilon^{-n}, \dots, \varepsilon^{-2}, \varepsilon^{-1}, 1, \varepsilon, \varepsilon^2, \dots, \varepsilon^n, \dots
+\]
+
+Однако не всегда этих функций достаточно, чтобы что-то сказать о скорости сходимости. В общем случае доказывается теорема, что никакого множества калибровочных функций не хватит для того, чтобы описать скорость сходимости в общем случае, поэтому они подбираются под задачу.
+
+Преподаватель демонстрирует несостоятельность степеней $\varepsilon$ на следующем примере: $e^{-\frac 1 \varepsilon}$:
+
+\begin{equation}
+  \lim_{\varepsilon \to 0^+} \frac{\varepsilon^n}{e^{-\frac{1}{\varepsilon}}} = \lim_{x \to \infty} \frac{x^n}{e^x} = 0
+\end{equation}
+
+Если попытаться расширить список калибровочных функций например при помощи $\ln\left(\frac 1 \varepsilon \right)$, то найдется другой пример:
+
+\begin{equation}
+  \lim_{\varepsilon \to 0^+} \frac{\ln\left(\frac{1}{\varepsilon}\right)}{\varepsilon^{-\alpha}} = \lim_{x \to \infty} \frac{\ln(x)}{x^\alpha} = \lim_{x \to \infty} \frac{1}{x \cdot \alpha \cdot x^{\alpha-1}} = \frac{1}{\alpha} \lim_{x \to \infty} \frac{1}{x^\alpha} = 0, \quad \forall \alpha > 0
+\end{equation}
+
+Снова не получается. Может прийти в голову желание еще раз расширить набор калибровочных функций, добавив $\ln\left(\ln\left(\frac 1 \varepsilon\right)\right)$, однако этот процесс никогда не закончится. \textit{Универсального списка калибровочных функций для всех всегда навсегда не существует}
+
+\textbf{В конечном итоге список калибровочных функций подбирается под задачу индивидуально}
+
+\subsection{Асимптотические разложения, последовательности и ряды}
+
+\textbf{Суть:} При помощи только что рассмотренных разложений можно с какой-то неплохой точностью приближать интеграллы
+
+\subsubsection{Демонстрация}
+
+Начнем с примера
+
+\begin{equation}
+  1 > F(x) = \int_0^\infty \frac{e^{-t}}{1 + xt} \, dt \implies \sum_{k=0}^\infty (-1)^k k! x^k
+\end{equation}
+
+Как видно здесь $x$ - параметр возмущения. В целом ряд расходится, однако ряд знакопеременный. Если вы помните еще что-то из вышмата, то в таком ряду для любой частной суммы из первых $n$ элементов погрешность не превышает первый отброшенный (n+1) элемент по модулю
+
+Тогда если $x = 0.1$, то для $n=10$ погрешность составит $10!\cdot0.1^{10} \approx 0.000363$
+
+\subsubsection{Обобщение}
+
+Если функцию $f(\varepsilon)$ можно представить в виде:
+
+\begin{equation}
+  f(\varepsilon) = \sum_{k=0}^N a_k \varepsilon^k + o\bigl(\varepsilon^N\bigr) \quad \text{при } \varepsilon \to 0,
+  \label{eq:asymptotic_series_Puancare}
+\end{equation}
+
+то \eqref{eq:asymptotic_series_Puancare} называют \textbf{асимптотическим рядом типа Пуанкаре}
+
+\vspace{1em}
+
+Вместо $\varepsilon^k$ может стоять все, что удовлетворяет свойству $\delta_k(\varepsilon) = o\left[\delta_{k-1}(\varepsilon)\right]$, при $\varepsilon \to 0$. В итоге \eqref{eq:asymptotic_series_Puancare} перепишется в виде:
+
+\begin{equation}
+  f(\varepsilon) = \sum_{k=0}^{N} a_k \delta_k(\varepsilon) + o(\delta_N(\varepsilon)), \quad \varepsilon \to 0
+\end{equation}
+
+В роли $\delta_k(\varepsilon)$ могут быть $\varepsilon^k$, $\varepsilon^{\frac k {10}}$, $(\ln(\varepsilon)^{-k}$ и т.п.
+
+\newpage
+
+\section{Возмущения по параметру: алгебраические уравнения (регулярный случай с различными и кратными корнями, сингулярный случай), трансцендентные уравнения, дифференциальные уравнения (регулярный случай, методика растянутых параметров Линдштедта-Пуанкаре, сингулярный случай, сращивание асимптотических разложений)}
+
+\textit{Засучите рукава, билет будет долгий}
+\vspace{1em}
+
+\textbf{Кратко:} Это одни большой в примерах, описывающий, как раскладывать решения любых уравнений (обычных и дифференциальных) по параметру в +- всех нестандартных случаях. \textbf{Судя по тому, что было на экзамене у прошлых групп, будет дан пример, который надо будет разложить по параметру, так что этот раздел изучается, к сожалению, целиком}
+
+\subsection{Статическая модель. Алгебраические уравнения}
+
+\subsubsection{Пример 1}
+\begin{equation}
+  f(x,\varepsilon) = x^2 - (3 + 2\varepsilon)x + 2 + \varepsilon = 0
+  \label{eq:pertrubation_algebraic_init}
+\end{equation}
+
+\textbf{Возмущенное уравнение:} уравнение с $\varepsilon\ne0$
+
+\textbf{невозмущенное (вырожденное) уравнение:} уравнение, где $\varepsilon = 0$
+
+Заметим, что невозмущенное уравнение превращается в обычное квадратное, у которого 2 корня: $1$ и $2$
+
+Разложение \eqref{eq:pertrubation_algebraic_init} будем искать в виде:
+
+\begin{equation}
+  x(\varepsilon) = \sum_{k=0}^\infty x_k \varepsilon^k = x_0 + x_1 \varepsilon + x_2 \varepsilon^2 + \ldots
+  \label{eq:pertrubation_algebraic_expantion}
+\end{equation}
+
+\textit{В методичке валится с потолка. $x_1$, $x_2$, $x_3$, ... - не решения уравнения. Это просто какие-то коэффициенты. Поэтому фактически это просто степенной ряд}
+
+Подставим \eqref{eq:pertrubation_algebraic_expantion} в \eqref{eq:pertrubation_algebraic_init}:
+
+\begin{align*}
+  &\left(x_0 + x_1 \varepsilon + x_2 \varepsilon^2 + \ldots\right)^2 - (3 + 2\varepsilon)\left(x_0 + x_1 \varepsilon + x_2 \varepsilon^2 + \ldots\right) + 2 + \varepsilon = 0, \\
+\end{align*}
+
+Приведем подобные при степенях $\varepsilon$
+
+\begin{equation}
+  \left(x_0^2 - 3x_0 + 2\right) + \varepsilon\left(2x_0x_1 - 3x_1 - 2x_0 + 1\right) + \varepsilon^2\left(2x_0x_2 + x_1^2 - 3x_2 - 2x_1\right) + \ldots = 0
+\end{equation}
+
+Самый простой способ добиться слева нуля - приравнять все слагаемые к нулю. $\varepsilon > 0$, значит приравнивать к нулю надо коэффициенты при степенях $\varepsilon$:
+
+\begin{align*}
+  \varepsilon^0: & \quad x_0^2 - 3x_0 + 2 = 0, \quad x_0^{(1)} = 1, \quad x_0^{(2)} = 2; \\
+  \varepsilon^1: & \quad 2x_0x_1 - 3x_1 - 2x_0 + 1 = 0, \quad x_1^{(1)} = -1, \quad x_1^{(2)} = 3; \\
+  \varepsilon^2: & \quad 2x_0x_2 + x_1^2 - 3x_2 - 2x_1 = 0, \quad x_2^{(1)} = 3, \quad x_2^{(2)} = -3.
+\end{align*}
+
+Запишем ответы:
+
+\begin{align*}
+x^{(1)} &= 1 - \varepsilon + 3\varepsilon^2 + \ldots, \\
+x^{(2)} &= 2 + 3\varepsilon - 3\varepsilon^2 + \ldots
+\end{align*}
+
+\textit{Заметим, что первыми слагаемыми в обоих ответах являются решения невырожденного уравнения. Это случилось потому что при $\varepsilon^0$ стоит исходное вырожденное уравнение. Это сохранится и далее}
+
+\subsubsection{Пример 2}
+
+\begin{equation}
+  x^2 + (\varepsilon - 2)x + 1 = 0
+  \label{eq:pertrubation_algebraic_init_2}
+\end{equation}
+
+Пробуем искать разложение в том же виде:
+
+\begin{equation}
+  \left(x_0 + x_1 \varepsilon + x_2 \varepsilon^2 + \ldots\right)^2 + (\varepsilon - 2)\left(x_0 + x_1 \varepsilon + x_2 \varepsilon^2 + \ldots\right) + 1 = 0, \\
+\end{equation}
+
+\begin{align*}
+  \varepsilon^0: & \quad x_0^2 - 2x_0 + 1 = 0, \quad x_0^{(1)} = x_0^{(2)} = 1; \\
+  \varepsilon^1: & \quad 2x_0x_1 - 2x_1 = 0 \quad \Rightarrow 1 = 0 \quad !!!
+\end{align*}
+
+Если разложение приводит к противоречию в самом мироздании, значит оно не годится. Заметим, что решение вырожденного уравнение - 2 кратных корня, равных 1. По аналогии с первым примером, при $\varepsilon^0$ стоит невырожденное уравнение
+
+\vspace{1em}
+
+Попробуем ввести некоторое возмущение в разложение $x(\varepsilon)$ размером в $\delta$, при чем такое, что при $\varepsilon\to0 \Rightarrow \delta \to 0$, тогда запишем $x(\varepsilon) = 1 + \delta$ (самая удобная форма для преобразований) и подставим в \eqref{eq:pertrubation_algebraic_init_2}
+
+\begin{equation}
+  x^2 + (\varepsilon - 2)x + 1 = 0 \quad \Rightarrow \quad (x - 1)^2 = -\varepsilon \cdot x, \quad \Rightarrow \quad \delta^2 = -\varepsilon(1 + \delta)
+\end{equation}
+
+"Отсюда видно, что $\delta$ при малых $\varepsilon$ ведет себя как $\sqrt{\varepsilon}$. Поэтому будем искать разложение решения \eqref{eq:pertrubation_algebraic_init_2} в виде":
+
+\begin{equation}
+  x(\varepsilon) = \sum_{k=0}^\infty x_k \varepsilon^{k/2} = x_0 + x_1 \sqrt{\varepsilon} + x_2 \varepsilon + \ldots
+\end{equation}
+
+Выполним подстановку:
+
+\begin{equation}
+  \left(x_0 + x_1 \sqrt{\varepsilon} + x_2 \varepsilon + \ldots\right)^2 + (\varepsilon - 2)\left(x_0 + x_1 \sqrt{\varepsilon} + x_2 \varepsilon + \ldots\right) + 1 = 0
+\end{equation}
+
+\begin{align*}
+  \sqrt{\varepsilon}: & \quad x_0^2 - 2x_0 + 1 = 0, \quad x_0^{(1)} = x_0^{(2)} = 1; \\
+  \varepsilon: & \quad 2x_0x_1 - 2x_1 = 0, \quad 0 = 0; \\
+  \varepsilon^{3/2}: & \quad x_1^2 + 2x_0x_2 - 2x_2 = 0, \quad x_1^2 + 1 = 0, \quad x_1^{(1)} = i, \quad x_1^{(2)} = -i; \\
+  \varepsilon^2: & \quad 2x_0x_3 + 2x_1x_2 + x_1 - 2x_3 = 0, \quad x_2^{(1)} = x_2^{(2)} = \frac{1}{2}.
+\end{align*}
+
+Итоговые разложения:
+
+\begin{align*}
+  x^{(1)}(\varepsilon) &= 1 + i \cdot \sqrt{\varepsilon} - \frac{\varepsilon}{2} + \ldots, \\
+  x^{(2)}(\varepsilon) &= 1 - i \cdot \sqrt{\varepsilon} - \frac{\varepsilon}{2} + \ldots
+\end{align*}
+
+\section{Упрощение математических моделей, описываемых жесткими дифференциальными уравнениями. Принцип квазистационарности производных (ПКП)}
+
+\subsection{Упрощение математических моделей, описываемых жесткими дифференциальными уравнениями}
+
+\textit{Ну что же, 28 дописывать я уже не буду, так что страдай от непонимания)}
+
+Рассмотрим некий небольшой параметр $\varepsilon$ и систему диффур:
+
+\begin{align}
+  &\varepsilon \frac{dx_1}{dt} = -\left(1 + \varepsilon^2\right)x_1 - \left(1 - \varepsilon^2\right)x_2 \\
+  &\frac{dx_2}{dt} = x_1
+\end{align}
+
+Перепишем в матричной форме:
+
+\begin{equation}
+  \frac{d\mathbf{x}}{dt} = \mathbf{A} \cdot \mathbf{x}, \quad
+  \mathbf{A} = 
+  \begin{pmatrix}
+    -\frac{1 + \varepsilon^2}{\varepsilon} & -\frac{1 - \varepsilon^2}{\varepsilon} \\
+    1 & 0
+  \end{pmatrix}.
+\end{equation}
+
+Вычисляем собственные значения: $\lambda_1 = -1 - \varepsilon$, $\lambda_2 = - \frac 1 \varepsilon + 1$. Из-за малости $\varepsilon$ система является жесткой
+
+В инженерной практике нередко решают пренебречь производной $\varepsilon \frac {x_1}{dt}$, таким образом превращая уравнение в алгебраическое
+
+\begin{align}
+  &-(1+\varepsilon^2)x_1 - (1-\varepsilon^2)x_2 \approx 0, \\
+  &\frac{dx_2}{dt} = x_1 \approx \frac{-(1-\varepsilon^2)}{(1+\varepsilon^2)}x_2 \approx (-1 + 2\varepsilon^2 + \dots)x_2.
+\end{align}
+
+Заметим, что коэффициент $(-1 + 2\varepsilon^2 + \dots)$, дающий нам в характерристическом уравнении степени экоспоненты, с точностью до $\varepsilon$ совпадает с $\lambda_1 = - 1 - \varepsilon$
+
+\vspace{1em}
+
+Хорошо себя показывает этот метод и в следующем примере:
+
+\begin{align}
+  10^{-3} \cdot \frac{dx_1}{dt} &= -x_1 + 0.999x_2, \\
+  \frac{dx_2}{dt} &= x_1 - 2x_2 \tag{10}.
+\end{align}
+
+Если разделить первое уравнение (10) на $10^{-3}$, то матрица получившейся системы обладает следующими собственными значениями: $\lambda_1 = -1$, $\lambda_2 = -1001$. В соответствии с «инженерным подходом» пренебрегаем слагаемым $10^{-3} \cdot \frac{dx_1}{dt}$ в первом уравнении и получаем
+\begin{align*}
+  & -x_1 + 0.999x_2 \approx 0, \\
+  & \frac{dx_2}{dt} = x_1 - 2x_2 \approx -1.001 \cdot x_2.
+\end{align*}
+И вновь, как и в предыдущем примере, значение $-1.001$ оказывается весьма близким к $\lambda_1 = -1$.
+
+Однако, применение такого подхода на практике сталкивается со следующими трудностями:
+
+\begin{itemize}
+  \item Трудно оценить погрешность такого пренебрежения малым параметром;
+  \item Трудно уменьшить эту погрешность, если она недостаточно мала;
+  \item Количество уравнений с малым параметром при производной может не совпадать с количеством быстроубывающих в пограничном слое составляющих решения.
+\end{itemize}
+
+Рассмотрим последний пункт на следующем примере
+
+\begin{equation}
+  \frac{d\mathbf{x}}{dt} = \mathbf{A} \cdot \mathbf{x}, \quad 
+  \mathbf{A} = \begin{pmatrix}
+  -501 & 500 \\
+  500 & -501
+  \end{pmatrix}, \quad t \in [0, 3]
+  \label{eq:leaving_derivatives_bad_example}
+\end{equation}
+
+Если разделить оба уравнения на 1000, то получается два уравнения с малым параметром при производной и складывается впечатление, что матрица обладает двумя большими по модулю собственными значениями, соответствующие две экспоненты быстро исчезают в пределах пограничного слоя, и решение почти на всем промежутке $t \in [0, 3]$ оказывается равным нулю. Однако собственные значения $\mathbf{A}$ равны: $\lambda_1 = -1$, $\lambda_2 = -1001$. Таким образом, пренебрегая малым параметром в обоих уравнениях, мы ошибочно удаляем из решения вне пограничного слоя экспоненту с показателем $\lambda_1 = -1$. даже если это учесть и пренебрегать малым параметром лишь в одном уравнении, то это приводит к следующему результату:
+
+\begin{equation}
+  x_1 \approx \frac{500}{501} x_2, \quad
+  \frac{dx_2}{dt} \approx -\left( 501 - \frac{500^2}{501} \right) x_2 = -\frac{1001}{501} x_2 \approx -2 x_2.
+\end{equation}
+
+Согласно этому $\lambda_1 = -2$, что в 2 раза отличается от правды
+
+\subsection{Принцип квазистационарности производных (ПКП)}
+
+Суть в том, чтобы отбрасывать не первую производную, а следующие. На основе уже рассмотренной системы \eqref{eq:leaving_derivatives_bad_example}, продифференцируем первое уравнение по $dt$ и пренебрежем уже второй производной $\left(\frac{d^2x_1}{dt^2}\approx 0\right)$
+
+\begin{align}
+  0 &\approx \frac{d^2 x_1}{dt^2} = -501 \frac{dx_1}{dt} + 500 \frac{dx_2}{dt} = -501(-501x_1 + 500x_2) + 500(500x_1 - 501x_2), \\
+  x_1 &\approx \frac{1000 \cdot 501}{501^2 + 500^2} x_2, \quad \frac{dx_2}{dt} \approx -\left( 501 - \frac{500 \cdot 501}{501^2 + 500^2} \right) x_2 \approx -1.001 x_2.
+\end{align}
+
+То есть $\lambda_1 = -1.001$ - погршеность в 3 знаке - неплохо
+
+\subsubsection{Более формальная демонстрация}
+
+\begin{align}
+  \varepsilon \frac{d\mathbf{x}_1}{dt} &= \mathbf{f}_1(\mathbf{x}_1, \mathbf{x}_2), \\
+  \frac{d\mathbf{x}_2}{dt} &= \mathbf{f}_2(\mathbf{x}_1, \mathbf{x}_2),
+\end{align}
+
+Из любопытства сначала, как и раньше, отбросим первую производную с малым коэффициентом при ней
+
+\begin{equation}
+  \mathbf{f}_1(\mathbf{x}_1, \mathbf{x}_2) \approx 0.
+\end{equation}
+
+Теперь продифференцируем первое уравнение и пренебрежем второй производной:
+
+\begin{equation}
+  0 \approx \varepsilon \frac{d^2 \mathbf{x}_1}{dt^2} = \frac{\partial \mathbf{f}_1}{\partial \mathbf{x}_1} \frac{d\mathbf{x}_1}{dt} + \frac{\partial \mathbf{f}_1}{\partial \mathbf{x}_2} \frac{d\mathbf{x}_2}{dt} = \frac{\partial \mathbf{f}_1}{\partial \mathbf{x}_1} \frac{\mathbf{f}_1(\mathbf{x}_1, \mathbf{x}_2)}{\varepsilon} + \frac{\partial \mathbf{f}_1}{\partial \mathbf{x}_2} \mathbf{f}_2(\mathbf{x}_1, \mathbf{x}_2).
+\end{equation}
+
+Здесь алгебраическое уравнение вне пограничного слоя выглядит следующим образом
+
+\begin{equation}
+  \mathbf{f}_1(\mathbf{x}_1, \mathbf{x}_2) + \varepsilon \left( \frac{\partial \mathbf{f}_1}{\partial \mathbf{x}_1} \right)^{-1} \frac{\partial \mathbf{f}_1}{\partial \mathbf{x}_2} \mathbf{f}_2(\mathbf{x}_1, \mathbf{x}_2) \approx 0.
+\end{equation}
+
+Таким образом относительно первого разложения мы получили поправку порядка $\varepsilon$
+
+\subsubsection{Доказательство для линейных систем}
+
+Пусть для простоты только одно собственное значение сильно меньше остальных. Продифференцируем $S$ раз и пренебрежем $S$-й производной в уравнении с номером $j$:
+
+\[
+\frac{d^2 \mathbf{x}}{dt^2} = \mathbf{A} \frac{d\mathbf{x}}{dt}, \quad \frac{d^S \mathbf{x}}{dt^S} = \mathbf{A}^S \mathbf{x},
+\]
+
+\begin{equation}
+0 \approx \frac{d^S x_j}{dt^S} = -\varepsilon^T \mathbf{A}^S \mathbf{x} = \sum_{k=1}^{m} \left( \mathbf{e}_j^T \mathbf{u}_k \right) \mathbf{v}_k^T \lambda_k^S \mathbf{x} = \sum_{k=1}^{m} \left( \mathbf{e}_j^T \mathbf{u}_k \right) \mathbf{v}_k^T \lambda_k^S \mathbf{x} =
+\end{equation}
+
+\[
+= \lambda_j^S \left( \left( \mathbf{e}_j^T \mathbf{u}_1 \right) \mathbf{v}_1^T \mathbf{x} + \sum_{k=2}^{m} \left( \mathbf{e}_j^T \mathbf{u}_k \right) \frac{\lambda_k^S}{\lambda_j^S} \mathbf{v}_k^T \mathbf{x} \right).
+\]
+
+Так как $\left| \frac{\lambda_k^S}{\lambda_j^S} \right| \ll 1$, то с ростом $S$ сумма в правой части быстро убывает, и все выражение принимает вид:
+
+\begin{equation}
+\lambda_j^S \left( \mathbf{e}_j^T \mathbf{u}_1 \right) \mathbf{v}_1^T \mathbf{x} \approx 0 \Rightarrow \mathbf{v}_1^T \mathbf{x} \approx 0,
+\end{equation}
+
+Погрешность легко оценивается сравнением коэффициентов алгебраических связей для $S$ и $S+1$, а повышение точности достигается увеличением $S$
+
 \end{document}
