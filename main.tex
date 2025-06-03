@@ -1596,4 +1596,119 @@
 
 В роли $\delta_k(\varepsilon)$ могут быть $\varepsilon^k$, $\varepsilon^{\frac k {10}}$, $(\ln(\varepsilon)^{-k}$ и т.п.
 
+\newpage
+
+\section{Возмущения по параметру: алгебраические уравнения (регулярный случай с различными и кратными корнями, сингулярный случай), трансцендентные уравнения, дифференциальные уравнения (регулярный случай, методика растянутых параметров Линдштедта-Пуанкаре, сингулярный случай, сращивание асимптотических разложений)}
+
+\textit{Засучите рукава, билет будет долгий}
+\vspace{1em}
+
+\textbf{Кратко:} Это одни большой в примерах, описывающий, как раскладывать решения любых уравнений (обычных и дифференциальных) по параметру в +- всех нестандартных случаях. \textbf{Судя по тому, что было на экзамене у прошлых групп, будет дан пример, который надо будет разложить по параметру, так что этот раздел изучается, к сожалению, целиком}
+
+\subsection{Статическая модель. Алгебраические уравнения}
+
+\subsubsection{Пример 1}
+\begin{equation}
+  f(x,\varepsilon) = x^2 - (3 + 2\varepsilon)x + 2 + \varepsilon = 0
+  \label{eq:pertrubation_algebraic_init}
+\end{equation}
+
+\textbf{Возмущенное уравнение:} уравнение с $\varepsilon\ne0$
+
+\textbf{невозмущенное (вырожденное) уравнение:} уравнение, где $\varepsilon = 0$
+
+Заметим, что невозмущенное уравнение превращается в обычное квадратное, у которого 2 корня: $1$ и $2$
+
+Разложение \eqref{eq:pertrubation_algebraic_init} будем искать в виде:
+
+\begin{equation}
+  x(\varepsilon) = \sum_{k=0}^\infty x_k \varepsilon^k = x_0 + x_1 \varepsilon + x_2 \varepsilon^2 + \ldots
+  \label{eq:pertrubation_algebraic_expantion}
+\end{equation}
+
+\textit{В методичке валится с потолка. $x_1$, $x_2$, $x_3$, ... - не решения уравнения. Это просто какие-то коэффициенты. Поэтому фактически это просто степенной ряд}
+
+Подставим \eqref{eq:pertrubation_algebraic_expantion} в \eqref{eq:pertrubation_algebraic_init}:
+
+\begin{align*}
+  &\left(x_0 + x_1 \varepsilon + x_2 \varepsilon^2 + \ldots\right)^2 - (3 + 2\varepsilon)\left(x_0 + x_1 \varepsilon + x_2 \varepsilon^2 + \ldots\right) + 2 + \varepsilon = 0, \\
+\end{align*}
+
+Приведем подобные при степенях $\varepsilon$
+
+\begin{equation}
+  \left(x_0^2 - 3x_0 + 2\right) + \varepsilon\left(2x_0x_1 - 3x_1 - 2x_0 + 1\right) + \varepsilon^2\left(2x_0x_2 + x_1^2 - 3x_2 - 2x_1\right) + \ldots = 0
+\end{equation}
+
+Самый простой способ добиться слева нуля - приравнять все слагаемые к нулю. $\varepsilon > 0$, значит приравнивать к нулю надо коэффициенты при степенях $\varepsilon$:
+
+\begin{align*}
+  \varepsilon^0: & \quad x_0^2 - 3x_0 + 2 = 0, \quad x_0^{(1)} = 1, \quad x_0^{(2)} = 2; \\
+  \varepsilon^1: & \quad 2x_0x_1 - 3x_1 - 2x_0 + 1 = 0, \quad x_1^{(1)} = -1, \quad x_1^{(2)} = 3; \\
+  \varepsilon^2: & \quad 2x_0x_2 + x_1^2 - 3x_2 - 2x_1 = 0, \quad x_2^{(1)} = 3, \quad x_2^{(2)} = -3.
+\end{align*}
+
+Запишем ответы:
+
+\begin{align*}
+x^{(1)} &= 1 - \varepsilon + 3\varepsilon^2 + \ldots, \\
+x^{(2)} &= 2 + 3\varepsilon - 3\varepsilon^2 + \ldots
+\end{align*}
+
+\textit{Заметим, что первыми слагаемыми в обоих ответах являются решения невырожденного уравнения. Это случилось потому что при $\varepsilon^0$ стоит исходное вырожденное уравнение. Это сохранится и далее}
+
+\subsubsection{Пример 2}
+
+\begin{equation}
+  x^2 + (\varepsilon - 2)x + 1 = 0
+  \label{eq:pertrubation_algebraic_init_2}
+\end{equation}
+
+Пробуем искать разложение в том же виде:
+
+\begin{equation}
+  \left(x_0 + x_1 \varepsilon + x_2 \varepsilon^2 + \ldots\right)^2 + (\varepsilon - 2)\left(x_0 + x_1 \varepsilon + x_2 \varepsilon^2 + \ldots\right) + 1 = 0, \\
+\end{equation}
+
+\begin{align*}
+  \varepsilon^0: & \quad x_0^2 - 2x_0 + 1 = 0, \quad x_0^{(1)} = x_0^{(2)} = 1; \\
+  \varepsilon^1: & \quad 2x_0x_1 - 2x_1 = 0 \quad \Rightarrow 1 = 0 \quad !!!
+\end{align*}
+
+Если разложение приводит к противоречию в самом мироздании, значит оно не годится. Заметим, что решение вырожденного уравнение - 2 кратных корня, равных 1. По аналогии с первым примером, при $\varepsilon^0$ стоит невырожденное уравнение
+
+\vspace{1em}
+
+Попробуем ввести некоторое возмущение в разложение $x(\varepsilon)$ размером в $\delta$, при чем такое, что при $\varepsilon\to0 \Rightarrow \delta \to 0$, тогда запишем $x(\varepsilon) = 1 + \delta$ (самая удобная форма для преобразований) и подставим в \eqref{eq:pertrubation_algebraic_init_2}
+
+\begin{equation}
+  x^2 + (\varepsilon - 2)x + 1 = 0 \quad \Rightarrow \quad (x - 1)^2 = -\varepsilon \cdot x, \quad \Rightarrow \quad \delta^2 = -\varepsilon(1 + \delta)
+\end{equation}
+
+"Отсюда видно, что $\delta$ при малых $\varepsilon$ ведет себя как $\sqrt{\varepsilon}$. Поэтому будем искать разложение решения \eqref{eq:pertrubation_algebraic_init_2} в виде":
+
+\begin{equation}
+  x(\varepsilon) = \sum_{k=0}^\infty x_k \varepsilon^{k/2} = x_0 + x_1 \sqrt{\varepsilon} + x_2 \varepsilon + \ldots
+\end{equation}
+
+Выполним подстановку:
+
+\begin{equation}
+  \left(x_0 + x_1 \sqrt{\varepsilon} + x_2 \varepsilon + \ldots\right)^2 + (\varepsilon - 2)\left(x_0 + x_1 \sqrt{\varepsilon} + x_2 \varepsilon + \ldots\right) + 1 = 0
+\end{equation}
+
+\begin{align*}
+  \sqrt{\varepsilon}: & \quad x_0^2 - 2x_0 + 1 = 0, \quad x_0^{(1)} = x_0^{(2)} = 1; \\
+  \varepsilon: & \quad 2x_0x_1 - 2x_1 = 0, \quad 0 = 0; \\
+  \varepsilon^{3/2}: & \quad x_1^2 + 2x_0x_2 - 2x_2 = 0, \quad x_1^2 + 1 = 0, \quad x_1^{(1)} = i, \quad x_1^{(2)} = -i; \\
+  \varepsilon^2: & \quad 2x_0x_3 + 2x_1x_2 + x_1 - 2x_3 = 0, \quad x_2^{(1)} = x_2^{(2)} = \frac{1}{2}.
+\end{align*}
+
+Итоговые разложения:
+
+\begin{align*}
+  x^{(1)}(\varepsilon) &= 1 + i \cdot \sqrt{\varepsilon} - \frac{\varepsilon}{2} + \ldots, \\
+  x^{(2)}(\varepsilon) &= 1 - i \cdot \sqrt{\varepsilon} - \frac{\varepsilon}{2} + \ldots
+\end{align*}
+
 \end{document}
