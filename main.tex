@@ -2660,5 +2660,157 @@
 	
 	\newpage
 	
+	\section{Возмущения по параметру: алгебраические уравнения (регулярный случай с различными и кратными корнями, сингулярный случай), трансцендентные уравнения, дифференциальные уравнения (регулярный случай, методика растянутых параметров Линдштедта-Пуанкаре, сингулярный случай, сращивание асимптотических разложений)}
+	
+	\subsection{СКИИИИИПААААААЕЕЕЕЕЕМ}
+	
+	\newpage
+	
+	\section{Упрощение математических моделей, описываемых жесткими дифференциальными уравнениями. Принцип квазистационарности производных (ПКП)}
+	
+	\subsection{Упрощение математических моделей, описываемых жесткими дифференциальными уравнениями}
+	
+	\textit{Ну что же, 28 дописывать я уже не буду, так что страдай от непонимания)}
+	
+	Рассмотрим некий небольшой параметр $\varepsilon$ и систему диффур:
+	
+	\begin{align}
+		&\varepsilon \frac{dx_1}{dt} = -\left(1 + \varepsilon^2\right)x_1 - \left(1 - \varepsilon^2\right)x_2 \\
+		&\frac{dx_2}{dt} = x_1
+	\end{align}
+	
+	Перепишем в матричной форме:
+	
+	\begin{equation}
+		\frac{d\mathbf{x}}{dt} = \mathbf{A} \cdot \mathbf{x}, \quad
+		\mathbf{A} = 
+		\begin{pmatrix}
+			-\frac{1 + \varepsilon^2}{\varepsilon} & -\frac{1 - \varepsilon^2}{\varepsilon} \\
+			1 & 0
+		\end{pmatrix}.
+	\end{equation}
+	
+	Вычисляем собственные значения: $\lambda_1 = -1 - \varepsilon$, $\lambda_2 = - \frac 1 \varepsilon + 1$. Из-за малости $\varepsilon$ система является жесткой
+	
+	В инженерной практике нередко решают пренебречь производной $\varepsilon \frac {x_1}{dt}$, таким образом превращая уравнение в алгебраическое
+	
+	\begin{align}
+		&-(1+\varepsilon^2)x_1 - (1-\varepsilon^2)x_2 \approx 0, \\
+		&\frac{dx_2}{dt} = x_1 \approx \frac{-(1-\varepsilon^2)}{(1+\varepsilon^2)}x_2 \approx (-1 + 2\varepsilon^2 + \dots)x_2.
+	\end{align}
+	
+	Заметим, что коэффициент $(-1 + 2\varepsilon^2 + \dots)$, дающий нам в характерристическом уравнении степени экоспоненты, с точностью до $\varepsilon$ совпадает с $\lambda_1 = - 1 - \varepsilon$
+	
+	\vspace{1em}
+	
+	Хорошо себя показывает этот метод и в следующем примере:
+	
+	\begin{align}
+		10^{-3} \cdot \frac{dx_1}{dt} &= -x_1 + 0.999x_2, \\
+		\frac{dx_2}{dt} &= x_1 - 2x_2 \tag{10}.
+	\end{align}
+	
+	Если разделить первое уравнение (10) на $10^{-3}$, то матрица получившейся системы обладает следующими собственными значениями: $\lambda_1 = -1$, $\lambda_2 = -1001$. В соответствии с «инженерным подходом» пренебрегаем слагаемым $10^{-3} \cdot \frac{dx_1}{dt}$ в первом уравнении и получаем
+	\begin{align*}
+		& -x_1 + 0.999x_2 \approx 0, \\
+		& \frac{dx_2}{dt} = x_1 - 2x_2 \approx -1.001 \cdot x_2.
+	\end{align*}
+	И вновь, как и в предыдущем примере, значение $-1.001$ оказывается весьма близким к $\lambda_1 = -1$.
+	
+	Однако, применение такого подхода на практике сталкивается со следующими трудностями:
+	
+	\begin{itemize}
+		\item Трудно оценить погрешность такого пренебрежения малым параметром;
+		\item Трудно уменьшить эту погрешность, если она недостаточно мала;
+		\item Количество уравнений с малым параметром при производной может не совпадать с количеством быстроубывающих в пограничном слое составляющих решения.
+	\end{itemize}
+	
+	Рассмотрим последний пункт на следующем примере
+	
+	\begin{equation}
+		\frac{d\mathbf{x}}{dt} = \mathbf{A} \cdot \mathbf{x}, \quad 
+		\mathbf{A} = \begin{pmatrix}
+			-501 & 500 \\
+			500 & -501
+		\end{pmatrix}, \quad t \in [0, 3]
+		\label{eq:leaving_derivatives_bad_example}
+	\end{equation}
+	
+	Если разделить оба уравнения на 1000, то получается два уравнения с малым параметром при производной и складывается впечатление, что матрица обладает двумя большими по модулю собственными значениями, соответствующие две экспоненты быстро исчезают в пределах пограничного слоя, и решение почти на всем промежутке $t \in [0, 3]$ оказывается равным нулю. Однако собственные значения $\mathbf{A}$ равны: $\lambda_1 = -1$, $\lambda_2 = -1001$. Таким образом, пренебрегая малым параметром в обоих уравнениях, мы ошибочно удаляем из решения вне пограничного слоя экспоненту с показателем $\lambda_1 = -1$. даже если это учесть и пренебрегать малым параметром лишь в одном уравнении, то это приводит к следующему результату:
+	
+	\begin{equation}
+		x_1 \approx \frac{500}{501} x_2, \quad
+		\frac{dx_2}{dt} \approx -\left( 501 - \frac{500^2}{501} \right) x_2 = -\frac{1001}{501} x_2 \approx -2 x_2.
+	\end{equation}
+	
+	Согласно этому $\lambda_1 = -2$, что в 2 раза отличается от правды
+	
+	\subsection{Принцип квазистационарности производных (ПКП)}
+	
+	Суть в том, чтобы отбрасывать не первую производную, а следующие. На основе уже рассмотренной системы \eqref{eq:leaving_derivatives_bad_example}, продифференцируем первое уравнение по $dt$ и пренебрежем уже второй производной $\left(\frac{d^2x_1}{dt^2}\approx 0\right)$
+	
+	\begin{align}
+		0 &\approx \frac{d^2 x_1}{dt^2} = -501 \frac{dx_1}{dt} + 500 \frac{dx_2}{dt} = -501(-501x_1 + 500x_2) + 500(500x_1 - 501x_2), \\
+		x_1 &\approx \frac{1000 \cdot 501}{501^2 + 500^2} x_2, \quad \frac{dx_2}{dt} \approx -\left( 501 - \frac{500 \cdot 501}{501^2 + 500^2} \right) x_2 \approx -1.001 x_2.
+	\end{align}
+	
+	То есть $\lambda_1 = -1.001$ - погршеность в 3 знаке - неплохо
+	
+	\subsubsection{Более формальная демонстрация}
+	
+	\begin{align}
+		\varepsilon \frac{d\mathbf{x}_1}{dt} &= \mathbf{f}_1(\mathbf{x}_1, \mathbf{x}_2), \\
+		\frac{d\mathbf{x}_2}{dt} &= \mathbf{f}_2(\mathbf{x}_1, \mathbf{x}_2),
+	\end{align}
+	
+	Из любопытства сначала, как и раньше, отбросим первую производную с малым коэффициентом при ней
+	
+	\begin{equation}
+		\mathbf{f}_1(\mathbf{x}_1, \mathbf{x}_2) \approx 0.
+	\end{equation}
+	
+	Теперь продифференцируем первое уравнение и пренебрежем второй производной:
+	
+	\begin{equation}
+		0 \approx \varepsilon \frac{d^2 \mathbf{x}_1}{dt^2} = \frac{\partial \mathbf{f}_1}{\partial \mathbf{x}_1} \frac{d\mathbf{x}_1}{dt} + \frac{\partial \mathbf{f}_1}{\partial \mathbf{x}_2} \frac{d\mathbf{x}_2}{dt} = \frac{\partial \mathbf{f}_1}{\partial \mathbf{x}_1} \frac{\mathbf{f}_1(\mathbf{x}_1, \mathbf{x}_2)}{\varepsilon} + \frac{\partial \mathbf{f}_1}{\partial \mathbf{x}_2} \mathbf{f}_2(\mathbf{x}_1, \mathbf{x}_2).
+	\end{equation}
+	
+	Здесь алгебраическое уравнение вне пограничного слоя выглядит следующим образом
+	
+	\begin{equation}
+		\mathbf{f}_1(\mathbf{x}_1, \mathbf{x}_2) + \varepsilon \left( \frac{\partial \mathbf{f}_1}{\partial \mathbf{x}_1} \right)^{-1} \frac{\partial \mathbf{f}_1}{\partial \mathbf{x}_2} \mathbf{f}_2(\mathbf{x}_1, \mathbf{x}_2) \approx 0.
+	\end{equation}
+	
+	Таким образом относительно первого разложения мы получили поправку порядка $\varepsilon$
+	
+	\subsubsection{Доказательство для линейных систем}
+	
+	Пусть для простоты только одно собственное значение сильно меньше остальных. Продифференцируем $S$ раз и пренебрежем $S$-й производной в уравнении с номером $j$:
+	
+	\[
+	\frac{d^2 \mathbf{x}}{dt^2} = \mathbf{A} \frac{d\mathbf{x}}{dt}, \quad \frac{d^S \mathbf{x}}{dt^S} = \mathbf{A}^S \mathbf{x},
+	\]
+	
+	\begin{equation}
+		0 \approx \frac{d^S x_j}{dt^S} = -\varepsilon^T \mathbf{A}^S \mathbf{x} = \sum_{k=1}^{m} \left( \mathbf{e}_j^T \mathbf{u}_k \right) \mathbf{v}_k^T \lambda_k^S \mathbf{x} = \sum_{k=1}^{m} \left( \mathbf{e}_j^T \mathbf{u}_k \right) \mathbf{v}_k^T \lambda_k^S \mathbf{x} =
+	\end{equation}
+	
+	\[
+	= \lambda_j^S \left( \left( \mathbf{e}_j^T \mathbf{u}_1 \right) \mathbf{v}_1^T \mathbf{x} + \sum_{k=2}^{m} \left( \mathbf{e}_j^T \mathbf{u}_k \right) \frac{\lambda_k^S}{\lambda_j^S} \mathbf{v}_k^T \mathbf{x} \right).
+	\]
+	
+	Так как $\left| \frac{\lambda_k^S}{\lambda_j^S} \right| \ll 1$, то с ростом $S$ сумма в правой части быстро убывает, и все выражение принимает вид:
+	
+	\begin{equation}
+		\lambda_j^S \left( \mathbf{e}_j^T \mathbf{u}_1 \right) \mathbf{v}_1^T \mathbf{x} \approx 0 \Rightarrow \mathbf{v}_1^T \mathbf{x} \approx 0,
+	\end{equation}
+	
+	Погрешность легко оценивается сравнением коэффициентов алгебраических связей для $S$ и $S+1$, а повышение точности достигается увеличением $S$
+	
+	\newpage
+	
+	\section{Понятие антиинтуитивных систем, их признаки и типичные ошибки при принятии управленческих решений}
+	
+	\subsection{ХЗ пока что, че с ним делать}
 	
 \end{document}
