@@ -2340,14 +2340,12 @@
 		\end{aligned}
 	\end{equation}
 	
-	% АЩАЩАЩАЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩ
 	
 	\subsection{При наличии топологичесĸих вырождений}
 	
 	\begin{enumerate}
 		\item Векторы и матрицы сохраняют полный вид.
 		\item Только 3 базовые подматрицы $=0$.
-	
 	
 		\item Компонентные уравнения остаются ($R, r, L, C$ – диагональные матрицы):
 		\begin{equation}
@@ -2434,5 +2432,36 @@
 	\noindent\textit{Для вычисления этих производных на каждом шаге решается три СЛАУ относительно соответствующих переменных. Матрицы всех трёх систем симметричны и при решении могут быть использованы специальные численные методы.}
 	
 	\newpage
+	
+	\section{Автоматизация составления уравнений состояния. Алгоритмы <<склеивания вершин>> и <<обрезания хвостов>>}
+	
+	\subsection{Алгоритм <<склеивания вершин>>}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\linewidth, height=0.2\textheight]{img/25_01}
+		\label{fig:25_01}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\linewidth, height=0.2\textheight]{img/25_02}
+		\label{fig:25_02}
+	\end{figure}
+	
+	После определения списка ветвей и хорд переходят к этапу 2 и заполняют матрицу 
+	контуров и сечений M в соответствии со следующим алгоритмом.
+	
+	\subsection{Алгоритм <<обрезания вершин>>}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\linewidth, height=0.2\textheight]{img/25_03}
+		\label{fig:25_03}
+	\end{figure}
+	
+	\newpage
+	
+	
 	
 \end{document}
