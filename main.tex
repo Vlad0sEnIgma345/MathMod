@@ -2580,11 +2580,11 @@
 	
 	\subsubsection{Определения}
 	
-	$f(\varepsilon) = O(g(\varepsilon))$ при $\varepsilon \to 0$, если $$(\exists A > 0)(\exists \varepsilon_0 > 0)\bigl((\forall \varepsilon > \varepsilon_0)\bigl(|f(\varepsilon)| \leq A \cdot |g(\varepsilon)|\bigr)\bigr)$$. Или $$\lim_{\varepsilon \to 0} \left| \frac{f(\varepsilon)}{g(\varepsilon)} \right| < \infty$$
+	$f(\varepsilon) = O(g(\varepsilon))$ при $\varepsilon \to 0$, если $$(\exists A > 0)(\exists \varepsilon_0 > 0)\bigl((\forall \varepsilon > \varepsilon_0)\bigl(|f(\varepsilon)| \leq A \cdot |g(\varepsilon)|\bigr)\bigr)$$ Или $$\lim_{\varepsilon \to 0} \left| \frac{f(\varepsilon)}{g(\varepsilon)} \right| < \infty$$
 	
-	$f(\varepsilon) = o(g(\varepsilon))$ при $\varepsilon \to 0$, если $$(\exists \delta > 0)(\exists \varepsilon_0 > 0)\bigl((\forall \varepsilon > \varepsilon_0)\bigl(|f(\varepsilon)| \leq \delta \cdot |g(\varepsilon)|\bigr)\bigr)$$. Или $$\lim_{\varepsilon \to 0} \left| \frac{f(\varepsilon)}{g(\varepsilon)} \right| = 0$$
+	$f(\varepsilon) = o(g(\varepsilon))$ при $\varepsilon \to 0$, если $$(\exists \delta > 0)(\exists \varepsilon_0 > 0)\bigl((\forall \varepsilon > \varepsilon_0)\bigl(|f(\varepsilon)| \leq \delta \cdot |g(\varepsilon)|\bigr)\bigr)$$ Или $$\lim_{\varepsilon \to 0} \left| \frac{f(\varepsilon)}{g(\varepsilon)} \right| = 0$$
 	
-	\textit{NB: в кванторах все совпадает посимвольно. Такое же посимвольное совпадение и в методичке. Однако мне кажется что это ошибка. Попробуйте через гугл понять эти 2 понятия}
+	\textit{\textbf{NB}: в кванторах все совпадает посимвольно. Такое же посимвольное совпадение и в методичке. Однако мне кажется что это ошибка. Попробуйте через гугл понять эти 2 понятия}
 	
 	На практике этого оказывается мало. Обычно ситуация может быть следующая следующая:
 	
@@ -2670,10 +2670,8 @@
 	
 	\subsection{Упрощение математических моделей, описываемых жесткими дифференциальными уравнениями}
 	
-	\textit{Ну что же, 28 дописывать я уже не буду, так что страдай от непонимания)}
-	
 	Рассмотрим некий небольшой параметр $\varepsilon$ и систему диффур:
-	
+	\vspace{-0.7em}
 	\begin{align}
 		&\varepsilon \frac{dx_1}{dt} = -\left(1 + \varepsilon^2\right)x_1 - \left(1 - \varepsilon^2\right)x_2 \\
 		&\frac{dx_2}{dt} = x_1
@@ -2690,10 +2688,10 @@
 		\end{pmatrix}.
 	\end{equation}
 	
-	Вычисляем собственные значения: $\lambda_1 = -1 - \varepsilon$, $\lambda_2 = - \frac 1 \varepsilon + 1$. Из-за малости $\varepsilon$ система является жесткой
+	Вычисляем собств. значения: $\lambda_1 = -1 - \varepsilon$, $\lambda_2 = - \frac 1 \varepsilon + 1$. Из-за малости $\varepsilon$ система является жесткой
 	
 	В инженерной практике нередко решают пренебречь производной $\varepsilon \frac {x_1}{dt}$, таким образом превращая уравнение в алгебраическое
-	
+	\vspace{-0.85em}
 	\begin{align}
 		&-(1+\varepsilon^2)x_1 - (1-\varepsilon^2)x_2 \approx 0, \\
 		&\frac{dx_2}{dt} = x_1 \approx \frac{-(1-\varepsilon^2)}{(1+\varepsilon^2)}x_2 \approx (-1 + 2\varepsilon^2 + \dots)x_2.
@@ -2704,6 +2702,8 @@
 	\vspace{1em}
 	
 	Хорошо себя показывает этот метод и в следующем примере:
+	
+	\vspace{-0.85em}
 	
 	\begin{align}
 		10^{-3} \cdot \frac{dx_1}{dt} &= -x_1 + 0.999x_2, \\
@@ -2724,6 +2724,8 @@
 		\item Трудно уменьшить эту погрешность, если она недостаточно мала;
 		\item Количество уравнений с малым параметром при производной может не совпадать с количеством быстроубывающих в пограничном слое составляющих решения.
 	\end{itemize}
+	
+	\newpage
 	
 	Рассмотрим последний пункт на следующем примере
 	
@@ -2782,6 +2784,8 @@
 	\end{equation}
 	
 	Таким образом относительно первого разложения мы получили поправку порядка $\varepsilon$
+	
+	\newpage
 	
 	\subsubsection{Доказательство для линейных систем}
 	
