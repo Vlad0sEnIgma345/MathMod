@@ -2238,7 +2238,7 @@
 	
 	\section{Метод переменных состояния без топологических вырождений}
 	
-	\subsection{Метод переменных состояния}
+	\subsection{Метод переменных состояний}
 	
 	Матрица контуров и сечений:
 	\begin{equation}
@@ -2248,6 +2248,7 @@
 			M_{LE} & M_{LC} & M_{Lr} & M_{L\Gamma} \\
 			M_{IE} & M_{IC} & M_{Ir} & M_{I\Gamma}
 		\end{pmatrix}
+		\vspace{-0.5em}
 	\end{equation}
 	Топологические уравнения:
 	\begin{equation}
@@ -2257,11 +2258,13 @@
 	\begin{equation}
 		M_{Sr} = 0, M_{S\Gamma} = 0, M_{R\Gamma} = 0
 	\end{equation}
+	\vspace{-2.5em}
 	\subsection{Без топологических вырождений}
 	Для отсутствия топологических вырождений:
 	\begin{equation}
 			M_{SE} = 0, M_{SC} = 0, M_{SR} = 0, M_{LF} = 0, M_{IR} = 0
 	\end{equation}
+	Векторы токов и напряжений:
 	\begin{equation}
 		\begin{aligned}
 			\bm{U}_B &= \begin{pmatrix} \bm{U}_E & \bm{U}_C & \bm{U}_r \end{pmatrix}^T, & \text{напр. ветв} \\
@@ -2285,357 +2288,151 @@
 	\begin{equation}
 		\frac{d I_L}{dt} = L^{-1} U_L, \quad \frac{d U_C}{dt} = C^{-1} I_C, \quad U_r = r I_r, \quad U_R = R I_R
 	\end{equation}
-	Уравнение относительно $\bm{U}_C$
-	\begin{equation}
-		\begin{aligned}
-			\frac{d \bm{U}_C}{dt} &= \bm{C}^{-1} \cdot \bm{I}_C = \bm{C}^{-1} \cdot \left( M_{RC}^\top \bm{I}_R + M_{LC}^\top \bm{I}_L + M_{IC}^\top \bm{I}_I \right) =\\
-			&\hspace{-1em}= \bm{C}^{-1} \left( M_{RC}^\top \bm{R}^{-1} \bm{U}_R + M_{LC}^\top \bm{I}_L + M_{IC}^\top \bm{I}_I \right) =\\
-			&\hspace{-2em}= \bm{C}^{-1} \left( M_{RC}^\top \bm{R}^{-1} \left( -M_{RE} \bm{U}_E - M_{RC} \bm{U}_C \right) + M_{LC}^\top \bm{I}_L + M_{IC}^\top \bm{I}_I \right).
-		\end{aligned}
-	\end{equation}
-	Аналогично, для $\bm{I}_L$ имеем:
-	\begin{equation}
-		\begin{aligned}
-			\frac{d \bm{I}_L}{dt} &= \bm{L}^{-1} \cdot \bm{U}_L = \bm{L}^{-1} \left( -M_{LE} \bm{U}_E - M_{LC} \bm{U}_C - M_{LI} \cdot \bm{I}_r \right) =\\
-			&\hspace{-1em}= \bm{L}^{-1} \left( -M_{LE} \bm{U}_E - M_{LC} \bm{U}_C - M_{LI} \cdot \left( M_{IL}^\top \bm{I}_L + M_{IR}^\top \bm{I}_I \right) \right).
-		\end{aligned}
-	\end{equation}
+	Система коши для $\bm{U}_C$ и $\bm{I}_L$:
+	\begin{itemize}
+		\item Уравнение относительно $\bm{U}_C$:
+		\begin{equation}
+			\begin{aligned}
+				\frac{d \bm{U}_C}{dt} &= \bm{C}^{-1} \cdot \bm{I}_C = \bm{C}^{-1} \cdot \left( M_{RC}^\top \bm{I}_R + M_{LC}^\top \bm{I}_L + M_{IC}^\top \bm{I}_I \right) =\\
+				&\hspace{-1em}= \bm{C}^{-1} \left( M_{RC}^\top \bm{R}^{-1} \bm{U}_R + M_{LC}^\top \bm{I}_L + M_{IC}^\top \bm{I}_I \right) =\\
+				&\hspace{-2em}= \bm{C}^{-1} \left( M_{RC}^\top \bm{R}^{-1} \left( -M_{RE} \bm{U}_E - M_{RC} \bm{U}_C \right) + M_{LC}^\top \bm{I}_L + M_{IC}^\top \bm{I}_I \right).
+			\end{aligned}
+		\end{equation}
+		\item Аналогично, для $\bm{I}_L$ имеем:
+		\begin{equation}
+			\begin{aligned}
+				\frac{d \bm{I}_L}{dt} &= \bm{L}^{-1} \cdot \bm{U}_L = \bm{L}^{-1} \left( -M_{LE} \bm{U}_E - M_{LC} \bm{U}_C - M_{LI} \cdot \bm{I}_r \right) =\\
+				&\hspace{-1em}= \bm{L}^{-1} \left( -M_{LE} \bm{U}_E - M_{LC} \bm{U}_C - M_{LI} \cdot \left( M_{IL}^\top \bm{I}_L + M_{IR}^\top \bm{I}_I \right) \right).
+			\end{aligned}
+		\end{equation}
+	\end{itemize}
 	
 	\newpage
 	
 	\section{Метод переменных состояния при наличии топологических вырождений}
+	\subsection{Метод переменных состояний}
 	
-	АОАОАОАОАОАОАОАОАОАОАОА
-	\begin{equation}
-		M = \begin{pmatrix}
-			M_{RE} & M_{RC} & 0 \\
-			M_{LE} & M_{LC} & M_{Lr} \\
-			M_{IE} & M_{IC} & M_{Ir}
-		\end{pmatrix}
-	\end{equation}
-	Уравнения:
-	\begin{equation}
-		U_R = -M_{RE} U_E - M_{RC} U_C
-	\end{equation}
-	\begin{equation}
-		U_L = -M_{LE} U_E - M_{LC} U_C - M_{Lr} U_r
-	\end{equation}
-	\begin{equation}
-		U_I = -M_{IE} U_E - M_{IC} U_C - M_{Ir} U_r
-	\end{equation}
-	\begin{equation}
-		I_E = M_{RE}^T I_R + M_{LE}^T I_L + M_{IE}^T I_I
-	\end{equation}
-	\begin{equation}
-		I_C = M_{RC}^T I_R + M_{LC}^T I_L + M_{IC}^T I_I
-	\end{equation}
-	\begin{equation}
-		I_r = M_{Lr}^T I_L + M_{Ir}^T I_I
-	\end{equation}
-	Компонентные:
-	\begin{equation}
-		\frac{d I_L}{dt} = L^{-1} U_L, \quad \frac{d U_C}{dt} = C^{-1} I_C, \quad U_r = r I_r, \quad U_R = R I_R
-	\end{equation}
-	Система Коши:
-	\begin{equation}
-		\frac{d U_C}{dt} = C^{-1} (M_{RC}^T R^{-1} (-M_{RE} U_E - M_{RC} U_C) + M_{LC}^T I_L + M_{IC}^T I_I)
-	\end{equation}
-	\begin{equation}
-		\frac{d I_L}{dt} = L^{-1} (-M_{LE} U_E - M_{LC} U_C - M_{Lr} r (M_{Lr}^T I_L + M_{Ir}^T I_I))
-	\end{equation}
-	
-	% С вырождениями
-	С вырождениями добавляются:
-	\begin{equation}
-		I_S = S \frac{d U_S}{dt}, \quad U_\Gamma = \Gamma \frac{d I_\Gamma}{dt}
-	\end{equation}
-	Уравнения:
-	\begin{equation}
-		U_S = -M_{SE} U_E - M_{SC} U_C
-	\end{equation}
-	\begin{equation}
-		U_R = -M_{RE} U_E - M_{RC} U_C - M_{Rr} U_r
-	\end{equation}
-	\begin{equation}
-		U_L = -M_{LE} U_E - M_{LC} U_C - M_{Lr} U_r - M_{L\Gamma} U_\Gamma
-	\end{equation}
-	\begin{equation}
-		U_I = -M_{IE} U_E - M_{IC} U_C - M_{Ir} U_r - M_{I\Gamma} U_\Gamma
-	\end{equation}
-	\begin{equation}
-		I_E = M_{SE}^T I_S + M_{RE}^T I_R + M_{LE}^T I_L + M_{IE}^T I_I
-	\end{equation}
-	\begin{equation}
-		I_C = M_{SC}^T I_S + M_{RC}^T I_R + M_{LC}^T I_L + M_{IC}^T I_I
-	\end{equation}
-	\begin{equation}
-		I_r = M_{Rr}^T I_R + M_{Lr}^T I_L + M_{Ir}^T I_I
-	\end{equation}
-	\begin{equation}
-		I_\Gamma = M_{L\Gamma}^T I_L + M_{I\Gamma}^T I_I
-	\end{equation}
-	Для $U_r$:
-	\begin{equation}
-		(r^{-1} + M_{Rr}^T R^{-1} M_{Rr}) U_r = M_{Rr}^T R^{-1} (-M_{RE} U_E - M_{RC} U_C) + M_{Lr}^T I_L + M_{Ir}^T I_I
-	\end{equation}
-	Для $U_\Gamma$:
-	\begin{equation}
-		(\Gamma^{-1} + M_{L\Gamma}^T L^{-1} M_{L\Gamma}) U_\Gamma = M_{L\Gamma}^T L^{-1} (-M_{LE} U_E - M_{LC} U_C - M_{Lr} U_r) + M_{I\Gamma}^T \frac{d I_I}{dt}
-	\end{equation}
-	Для $I_S$:
-	\begin{equation}
-		(S^{-1} + M_{SC} C^{-1} M_{SC}^T) I_S = -M_{SE} \frac{d U_E}{dt} - M_{SC} C^{-1} (M_{RC}^T R^{-1} (-M_{RE} U_E - M_{RC} U_C - M_{Rr} U_r) + M_{LC}^T I_L + M_{IC}^T I_I)
-	\end{equation}
-	Система Коши:
-	\begin{equation}
-		\frac{d U_C}{dt} = C^{-1} (M_{SC}^T I_S + M_{RC}^T R^{-1} (-M_{RE} U_E - M_{RC} U_C - M_{Rr} U_r) + M_{LC}^T I_L + M_{IC}^T I_I)
-	\end{equation}
-	\begin{equation}
-		\frac{d I_L}{dt} = L^{-1} (-M_{LE} U_E - M_{LC} U_C - M_{Lr} U_r - M_{L\Gamma} U_\Gamma)
-	\end{equation}
-	
-	% Алгоритмы
-	\textbf{Алгоритмы}
-	
-	1. «Склеивание вершин»: деление на ветви и хорды (см. пример в табл. \ref{tab:glue}).
-	
-	\begin{table}[H]
-		\centering
-		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
-			\hline
-			& & & Шаг 1 & Шаг 2 & Шаг 3 & Шаг 4 & \\
-			\hline
-			$C_1$ & 1 & 2 & $C_1$ — ветвь & & & & \\
-			$C_2$ & 3 & 4 & 3 & 4 & $C_2$ — ветвь & & \\
-			$C_3$ & 4 & 5 & 4 & 5 & 3 & 5 & $C_3$ — ветвь & \\
-			$C_4$ & 2 & 5 & 1 & 5 & 1 & 5 & 1 & 3 & $C_4$ — ветвь \\
-			$R_1$ & 1 & 5 & 1 & 5 & 1 & 5 & 1 & 3 & 1 | 1 \\
-			$R_2$ & 2 & 3 & 1 & 3 & 1 & 3 & 1 & 3 & 1 | 1 \\
-			$R_3$ & 3 & 4 & 3 & 4 & 3 & 3 & 3 & 3 & 1 | 1 \\
-			$R_4$ & 4 & 5 & 4 & 5 & 3 & 5 & 3 & 3 & 1 | 1 \\
-			$I$ & 5 & 1 & 5 & 1 & 5 & 1 & 3 & 1 & 1 | 1 \\
-			\hline
-		\end{tabular}
-		\caption{Пример «склеивания вершин»}
-		\label{tab:glue}
-	\end{table}
-	
-	2. «Обрезание хвостов»: построение $M$ (см. табл. \ref{tab:cut}).
-	
-	\begin{table}[h]
-		\centering
-		\begin{tabular}{|c|c|c|c|c|c|c||c|c|c|c|c|c|c|}
-			\hline
-			$R_1$ & 1 & 5 & & & & & $R_4$ & 4 & 5 & & & & \\
-			\hline
-			$C_1$ & 1 & 2 & 1 & 2 & & & $C_1$ & 1 & 2 & — & — & & \\
-			$C_2$ & 3 & 4 & — & — & & & $C_2$ & 3 & 4 & 3 & 4 & & \\
-			$C_3$ & 4 & 5 & 4 & 5 & & & $C_3$ & 4 & 5 & 4 & 5 & 4 & 5 \\
-			$C_4$ & 2 & 5 & 2 & 5 & 2 & 5 & $C_4$ & 2 & 5 & 2 & 5 & — & — \\
-			\hline
-		\end{tabular}
-		\caption{Пример «обрезания хвостов»}
-		\label{tab:cut}
-	\end{table}
-	
-	% ООООООООООООООООООООООООООООООООООООООООООООООООООООООООООООООООО
-	
-	ЛАЛАЛАЛЛААЛЛАЛАЛАЛАЛЛАЛАЛАЛАЛЛАЛАЛАЛЛАЛА
-	
-	% Уравнения для типов элементов
-	Двухполюсники: $C$, $R$, $L$, $N$. Векторная форма:
-	\begin{equation}
-		I_C = C \frac{d U_C}{dt}, \quad I_R = R^{-1} U_R, \quad I_L = L^{-1} \int U_L \, dt, \quad I_N = f(\varphi),
-	\end{equation}
-	где $C$, $R$, $L$ — диагональные матрицы.
-	
-	% Общее уравнение
-	\begin{equation}
-		A I = A_C I_C + A_R I_R + A_L I_L + A_N I_N = 0.
-	\end{equation}
-	
-	% Подстановка
-	Подстановка (3) в (4) с $U = A^T \varphi$:
-	\begin{equation}
-		A_C C A_C^T \frac{d \varphi}{dt} + A_R R^{-1} A_R^T \varphi + A_L L^{-1} A_L^T \int \varphi \, dt + A_N f(\varphi) = 0.
-	\end{equation}
-	
-	\subsubsection{Численная реализация}
-	
-	% Метод Эйлера
-	Неявный метод Эйлера:
-	\begin{equation}
-		\frac{d x(t_n)}{dt} \approx \frac{x(t_n) - x(t_{n-1})}{h}, \quad t_n = t_0 + n h.
-	\end{equation}
-	
-	% Аппроксимация
-	\begin{align}
-		I_C(t_n) &\approx C \frac{U_C(t_n) - U_C(t_{n-1})}{h}, \\
-		I_R(t_n) &= R^{-1} U_R(t_n), \\
-		U_L(t_n) &\approx L \frac{I_L(t_n) - I_L(t_{n-1})}{h} \Rightarrow I_L(t_n) = I_L(t_{n-1}) + h L^{-1} U_L(t_n).
-	\end{align}
-	
-	% Разностные уравнения
-	Система:
-	\begin{equation}
-		B \varphi(t_n) = d_n,
-	\end{equation}
-	где
-	\begin{equation}
-		B = h^{-1} A_C C A_C^T + A_R R^{-1} A_R^T + h A_L^{-1} A_L^T,
-	\end{equation}
-	\begin{equation}
-		d_n = h^{-1} A_C C U_C(t_{n-1}) - A_L I_L(t_{n-1}) - A_N f(\varphi(t_n)).
-	\end{equation}
-	
-	% Варианты нелинейных элементов
-	Варианты $f(\varphi(t_n))$:
-	1. Независимый источник: $f(\varphi(t_n)) = I_I(t)$,
-	2. Линейная функция: корректирует $B$,
-	3. Нелинейная функция: метод Ньютона.
-	
-	\subsection{Метод переменных состояния}
-	
-	\subsubsection{Элементы теории графов}
-	
-	% Определения
-	Граф: вершины и рёбра. Дерево — подграф без циклов. Ветви — рёбра дерева, хорды — остальные рёбра.
-	
-	% Нормальное дерево
-	Нормальное дерево: иерархия $E$, $C$, $R$, $L$, $I$.
-	
-	\subsubsection{Матрица контуров и сечений}
-	
-	% Матрица M
-	Матрица $M$: строки — хорды, столбцы — ветви. Элементы: $+1$, $-1$, $0$.
-	
-	% Векторы
-	Ветви: $U_B = (U_E, U_C, U_r, U_\Gamma)^T$, $I_B = (I_E, I_C, I_r, I_\Gamma)^T$. \\
-	Хорды: $U_X = (U_S, U_R, U_L, U_I)^T$, $I_X = (I_S, I_R, I_L, I_I)^T$.
-	
-	% Структура M
+	Матрица контуров и сечений:
 	\begin{equation}
 		M = \begin{pmatrix}
 			M_{SE} & M_{SC} & M_{Sr} & M_{S\Gamma} \\
 			M_{RE} & M_{RC} & M_{Rr} & M_{R\Gamma} \\
 			M_{LE} & M_{LC} & M_{Lr} & M_{L\Gamma} \\
 			M_{IE} & M_{IC} & M_{Ir} & M_{I\Gamma}
-		\end{pmatrix}.
+		\end{pmatrix}
 	\end{equation}
-	
-	\subsubsection{Топологические уравнения}
-	
-	% Уравнения
-	Контуры:
+	Топологические уравнения:
 	\begin{equation}
-		U_X = -M U_B,
+		U_x = -M U_B, \quad I_B = M^T I _x
 	\end{equation}
-	Сечения:
+	Всегда:
 	\begin{equation}
-		I_B = M^T I_X.
+		M_{Sr} = 0, M_{S\Gamma} = 0, M_{R\Gamma} = 0
 	\end{equation}
 	
-	\subsubsection{Метод без топологических вырождений}
-	
-	% Упрощение
-	$M_{Sr} = 0$, $M_{S\Gamma} = 0$, $M_{R\Gamma} = 0$, $M_{SE} = 0$, $M_{SC} = 0$, $M_{Rr} = 0$, $M_{L\Gamma} = 0$, $M_{I\Gamma} = 0$.
-	
-	% Уравнения
-	\begin{align}
-		U_R &= -M_{RE} U_E - M_{RC} U_C, \\
-		U_L &= -M_{LE} U_E - M_{LC} U_C - M_{Lr} U_r, \\
-		U_I &= -M_{IE} U_E - M_{IC} U_C - M_{Ir} U_r, \\
-		I_E &= M_{RE}^T I_R + M_{LE}^T I_L + M_{IE}^T I_I, \\
-		I_C &= M_{RC}^T I_R + M_{LC}^T I_L + M_{IC}^T I_I, \\
-		I_r &= M_{Lr}^T I_L + M_{Ir}^T I_I.
-	\end{align}
-	
-	% Компонентные уравнения
+	Векторы токов и напряжений теперь сохраняют полный вид:
 	\begin{equation}
-		\frac{d I_L}{dt} = L^{-1} U_L, \quad \frac{d U_C}{dt} = C^{-1} I_C, \quad U_r = r I_r, \quad U_R = R I_R.
+		\begin{aligned}
+			\bm{U}_B &= \begin{pmatrix} \bm{U}_E & \bm{U}_C & \bm{U}_r & \bm{U}_\Gamma \end{pmatrix}^T, \\
+			\bm{I}_B &= \begin{pmatrix} \bm{I}_E & \bm{I}_C & \bm{I}_r & \bm{U}_\Gamma \end{pmatrix}^T, \\
+			\bm{U}_X &= \begin{pmatrix} \bm{U}_S & \bm{U}_R & \bm{U}_L & \bm{U}_I \end{pmatrix}^T, \\
+			\bm{I}_X &= \begin{pmatrix} \bm{I}_S & \bm{I}_R & \bm{I}_L & \bm{U}_I \end{pmatrix}^T,
+		\end{aligned}
 	\end{equation}
 	
-	% Итоговые уравнения
-	\begin{align}
-		\frac{d U_C}{dt} &= C^{-1} \left( M_{RC}^T R^{-1} (-M_{RE} U_E - M_{RC} U_C) + M_{LC}^T I_L + M_{IC}^T I_I \right), \\
-		\frac{d I_L}{dt} &= L^{-1} (-M_{LE} U_E - M_{LC} U_C - M_{Lr} r (M_{Lr}^T I_L + M_{Ir}^T I_I)).
-	\end{align}
+	% АЩАЩАЩАЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩЩ
 	
-	\subsubsection{Метод с топологическими вырождениями}
+	\subsection{При наличии топологичесĸих вырождений}
 	
-	% Дополнительные уравнения
+	\begin{enumerate}
+		\item Векторы и матрицы сохраняют полный вид.
+		\item Только 3 базовые подматрицы $=0$.
+	
+	
+		\item Компонентные уравнения остаются ($R, r, L, C$ – диагональные матрицы):
+		\begin{equation}
+			\frac{d I_L}{dt} = L^{-1} U_L, \quad \frac{d U_C}{dt} = C^{-1} I_C, \quad U_r = r I_r, \quad U_R = R I_R
+		\end{equation}
+		\item К компонентным уравнениям добавляются еще 2:
+		\begin{equation}
+			I_s = S \frac{d U_s}{dt} \quad U_\Gamma = \Gamma \frac{d I_r}{dt}
+		\end{equation}
+	\end{enumerate}
+	
+	\subsection{Электрические и вычислительные аспекты}
+	
+	\begin{itemize}
+		\item Если $M_{SE} \neq 0$ и $M_{sc} \neq 0$ $\Rightarrow$ наличие контуров из источников напряжений и ёмкостей $\Rightarrow$ доп. решение СЛАУ относительно $I_s$.
+		
+		\item Если $M_{rR} \neq 0$ $\Rightarrow$ наличие контуров из резисторов $\Rightarrow$ решение доп. системы уравнений относительно $U_r$.
+		
+		\item Если $M_{lR} \neq 0$ или $M_{lf} \neq 0$ $\Rightarrow$ наличие контуров из индуктивностей и источников тока $\Rightarrow$ решение доп. системы уравнений относительно $U_r$.
+	\end{itemize}
+	
+	\subsection{Топологические уравнения}
+	
+	\begin{tabular*}{\textwidth}{@{}p{0.48\textwidth}@{\hspace{0.04\textwidth}}p{0.48\textwidth}@{}}
+		\centering \textbf{Уравнения напряжений} & \centering \textbf{Уравнения токов} \tabularnewline
+		$\begin{aligned}
+			U_S &= -M_{SE} U_E - M_{SC} U_C \\[0.5em]
+			U_R &= -M_{RE} U_E - M_{RC} U_C - M_{Rr} U_r \\[0.5em]
+			U_L &= -M_{LE} U_E - M_{LC} U_C - M_{Lr} U_r - M_{Lr} U_r \\[0.5em]
+			U_I &= -M_{IE} U_E - M_{IC} U_C - M_{Ir} U_r - M_{Ir} U_r
+		\end{aligned}$
+		&
+		$\begin{aligned}
+			| I_e &= M_{SE}^T I_S + M_{RC}^T I_R + M_{LC}^T I_L + M_{IE}^T I_I \\[0.5em]
+			| I_c &= M_{SC}^T I_S + M_{RC}^T I_R + M_{LC}^T I_L + M_{LC}^T I_I \\[0.5em]
+			| I_r &= M_{Rr}^T I_R + M_{Lr}^T I_L + M_{Ir}^T I_I \\[0.5em]
+			| I_r &= M_{L\Gamma}^T I_L + M_{I\Gamma}^T I_I
+		\end{aligned}$
+	\end{tabular*}
+	
+	\subsection{Получение системы в форме Коши ($U_c$ и $I_l$)}
+	
+	\textbf{Система 1: $U_r$}
+	
 	\begin{equation}
-		I_S = S \frac{d U_S}{dt}, \quad U_\Gamma = \Gamma \frac{d I_\Gamma}{dt}.
+		\begin{aligned}
+			r^{-1} U_r &= I_r = \hspace{-1em}= M_{Rr}^{-1} \left( -M_{RE} U_E + M_{Rc} U_c - M_{Rr} U_r \right) + M_{LR}^T I_L + M_{Ir}^T I_I = \\
+			&\hspace{-2em} \Rightarrow\ [r^{-1} + M_{Rr}^T M_{pr}^R M_{rR}] U_r = M_{Rr}^T M_{Rr}^R (-M_{RE} U_E + M_{rc} U_c) + M_{LR}^T I_L + M_{Ir}^T I_I
+		\end{aligned}
 	\end{equation}
 	
-	% Топологические уравнения
+	На каждом шаге решается СЛАУ для $U_r$ — один раз (DECOMP).
+	
+	\textbf{Система 2: $U_\Gamma$}
+	
 	\begin{align}
-		U_S &= -M_{SE} U_E - M_{SC} U_C, \\
-		U_R &= -M_{RE} U_E - M_{RC} U_C - M_{Rr} U_r, \\
-		U_L &= -M_{LE} U_E - M_{LC} U_C - M_{Lr} U_r - M_{L\Gamma} U_\Gamma, \\
-		U_I &= -M_{IE} U_E - M_{IC} U_C - M_{Ir} U_r - M_{I\Gamma} U_\Gamma, \\
-		I_E &= M_{SE}^T I_S + M_{RE}^T I_R + M_{LE}^T I_L + M_{IE}^T I_I, \\
-		I_C &= M_{SC}^T I_S + M_{RC}^T I_R + M_{LC}^T I_L + M_{IC}^T I_I, \\
-		I_r &= M_{Rr}^T I_R + M_{Lr}^T I_L + M_{Ir}^T I_I, \\
-		I_\Gamma &= M_{L\Gamma}^T I_L + M_{I\Gamma}^T I_I.
+		r^{-1} U_r &= \frac{d I_r}{dt},\quad M_{LR} \frac{d I_L}{dt} + M_{Ir} \frac{d I_I}{dt} = \\
+		&\hspace{-1em}= M_{LR} L_L^{-1} \left( -M_{LE} U_E - M_{Lc} U_c - M_{LR} U_r \right) + M_{fr} \frac{d I_f}{dt} \\
+		&\hspace{-2em}\Rightarrow\ [r^{-1} + M_{LR}^T M_{lR} L_l^{-1}] U_r \\
+		&\hspace{-3em}= M_{LR}^T L^{-1} \left( -M_{LE} U_E - M_{Lc} U_c \right) + M_{Ir} \frac{d I_r}{dt}
 	\end{align}
 	
-	% Системы для U_r, U_\Gamma, I_S
+	На каждом шаге решается СЛАУ.
+	
+	\textbf{Система 3: $I_s$}
+	
 	\begin{align}
-		(r^{-1} + M_{Rr}^T R^{-1} M_{Rr}) U_r &= M_{Rr}^T R^{-1} (-M_{RE} U_E - M_{RC} U_C) + M_{Lr}^T I_L + M_{Ir}^T I_I, \\
-		(\Gamma^{-1} + M_{L\Gamma}^T L^{-1} M_{L\Gamma}) U_\Gamma &= M_{L\Gamma}^T L^{-1} (-M_{LE} U_E - M_{LC} U_C - M_{Lr} U_r) + M_{I\Gamma}^T \frac{d I_I}{dt}, \\
-		(S^{-1} + M_{SC} C^{-1} M_{SC}^T) I_S &= -M_{SE} \frac{d U_E}{dt} - M_{SC} C^{-1} (M_{LC}^T I_L + M_{IC}^T I_I + M_{RC}^T R^{-1} (-M_{RE} U_E - M_{RC} U_C - M_{Rr} U_r)).
+		\hspace{-1em}s^{-1} I_s &= \frac{d U_s}{dt} = -M_{SE} \frac{d U_E}{dt} - M_{sc} \frac{d U_c}{dt} = -M_{SE} \frac{d U_E}{dt} - M_{sc} \frac{d U_c}{dt} \\
+		\hspace{-1em}[s^{-1} + M_{sc} C_c^{-1} M_{sc}^T] I_s &= -M_{SE} \frac{d U_E}{dt} - M_{sc} C_c^{-1} \left( M_{lc}^T I_l + M_{Ic}^T I_I + M_{Rc}^T (-M_{RE} U_E + M_{Rc} U_c - M_R U_r) \right)
 	\end{align}
 	
-	% Итоговые уравнения
-	\begin{align}
-		\frac{d U_C}{dt} &= C^{-1} (M_{SC}^T I_S + M_{RC}^T R^{-1} (-M_{RE} U_E - M_{RC} U_C - M_{Rr} U_r) + M_{LC}^T I_L + M_{IC}^T I_I), \\
-		\frac{d I_L}{dt} &= L^{-1} (-M_{LE} U_E - M_{LC} U_C - M_{Lr} U_r - M_{L\Gamma} U_\Gamma).
-	\end{align}
+	На каждом шаге — СЛАУ для $I_s$.
 	
-	\subsubsection{Алгоритмы}
+	\textbf{Итоговая система уравнений в форме Коши относительно $U_c$ и $I_l$}
 	
-	% Склеивание вершин
-	\textbf{Алгоритм «склеивания вершин»}: классификация двухполюсников на ветви и хорды.
+	\begin{equation}
+		\begin{aligned}
+			\frac{dU_c}{dt} &= c^{-1}\left(M_{sc}^T I_s + M_{Rc}^T R^{-1} (-M_{RE} U_E - M_{Re} U_C - M_{Rr} U_r) + M_{Lc}^T I_L + M_{Ic}^T I_I\right) \\
+			&\hspace{-1em}\frac{dI_L}{dt} = L^{-1}\left(-M_{Lc} U_E - M_{Lc} U_C - M_{Ir} U_r - M_{Ir} U_r\right)
+		\end{aligned}
+	\end{equation}
 	
-	% Таблица
-	\begin{table}[H]
-		\centering
-		\caption{Пример работы алгоритма «склеивания вершин»}
-		\begin{tabular}{|c|cc|cc|cc|cc|cc|}
-			\hline
-			& \multicolumn{2}{c|}{} & \multicolumn{2}{c|}{Шаг 1} & \multicolumn{2}{c|}{Шаг 2} & \multicolumn{2}{c|}{Шаг 3} & \multicolumn{2}{c|}{Шаг 4} \\
-			\hline
-			$C_1$ & 1 & 2 & $C_1$ — ветвь & & & & & & & \\
-			$C_2$ & 3 & 4 & 3 & 4 & $C_2$ — ветвь & & & & & \\
-			$C_3$ & 4 & 5 & 4 & 5 & 3 & 5 & $C_3$ — ветвь & & & \\
-			$C_4$ & 2 & 5 & 1 & 5 & 1 & 5 & 1 & 3 & $C_4$ — ветвь & \\
-			$R_1$ & 1 & 5 & 1 & 5 & 1 & 5 & 1 & 3 & 1 & 1 \\
-			$R_2$ & 2 & 3 & 1 & 3 & 1 & 3 & 1 & 3 & 1 & 1 \\
-			$R_3$ & 3 & 4 & 3 & 4 & 3 & 3 & 3 & 3 & 1 & 1 \\
-			$R_4$ & 4 & 5 & 4 & 5 & 3 & 5 & 3 & 3 & 1 & 1 \\
-			$I$ & 5 & 1 & 5 & 1 & 5 & 1 & 3 & 1 & 1 & 1 \\
-			\hline
-		\end{tabular}
-	\end{table}
+	\vspace{1em}
+	\noindent\textit{Для вычисления этих производных на каждом шаге решается три СЛАУ относительно соответствующих переменных. Матрицы всех трёх систем симметричны и при решении могут быть использованы специальные численные методы.}
 	
-	% Обрезание хвостов
-	\textbf{Алгоритм «обрезания хвостов»}: построение матрицы $M$.
+	\newpage
 	
-	% Таблица
-	\begin{table}[H]
-		\centering
-		\caption{Пример работы алгоритма «обрезания хвостов»}
-		\begin{tabular}{|c|cc|cc|cc||c|cc|cc|cc|}
-			\hline
-			\multicolumn{7}{c||}{Контур хорды $R_1$} & \multicolumn{6}{c|}{Контур хорды $R_4$} \\
-			\hline
-			$R_1$ & 1 & 5 & 1 & 5 & 1 & 5 & $R_4$ & 4 & 5 & 4 & 5 & 4 & 5 \\
-			$C_1$ & 1 & 2 & 1 & 2 & 1 & 2 & $C_1$ & 1 & 2 & — & — & — & — \\
-			$C_2$ & 3 & 4 & — & — & — & — & $C_2$ & 3 & 4 & 3 & 4 & — & — \\
-			$C_3$ & 4 & 5 & 4 & 5 & — & — & $C_3$ & 4 & 5 & 4 & 5 & 4 & 5 \\
-			$C_4$ & 2 & 5 & 2 & 5 & 2 & 5 & $C_4$ & 2 & 5 & 2 & 5 & — & — \\
-			\hline
-		\end{tabular}
-	\end{table}
 \end{document}
