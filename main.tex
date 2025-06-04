@@ -2815,6 +2815,99 @@
 	
 	\section{Понятие антиинтуитивных систем, их признаки и типичные ошибки при принятии управленческих решений}
 	
-	\subsection{ХЗ пока что, че с ним делать}
+	\subsection{Проблемы интуиции}
+	\vspace{-1em}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\linewidth, height=0.2\textheight]{img/30_01}
+		\label{fig:30_01}
+	\end{figure}
+	\vspace{-1em}
+	\subsection{Ловушки антиинтуитивных систем}
+	\vspace{-1em}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\linewidth, height=0.2\textheight]{img/30_02}
+		\label{fig:30_02}
+	\end{figure}
+	\vspace{-1em}
+	\subsection{Пример модели Вольмерра <<хищник-жертва>>}
+	
+	\[
+	\left\{
+	\begin{aligned}
+		\frac{dr}{dt} &= 2r - \alpha rf \\
+		\frac{df}{dt} &= \alpha rf - f
+	\end{aligned}
+	\right.
+	\qquad
+	\begin{aligned}
+		&r \text{ — кролики} \\
+		&f \text{ — лисы} \\
+		&\alpha  \text{ — вероятность смерти} \\
+		&\text{система — их совместное существование}
+	\end{aligned}
+	\]
+	\vspace{-1em}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\linewidth, height=0.1\textheight]{img/30_03}
+		\label{fig:30_03}
+	\end{figure}
+	\vspace{-1em}
+	\[
+	\vec{x} = 
+	\begin{pmatrix}
+		r \\
+		f
+	\end{pmatrix}, \qquad
+	x^* = 
+	\begin{pmatrix}
+		\frac{1}{\alpha} \\
+		\frac{2}{\alpha}
+	\end{pmatrix}, \qquad
+	J = 
+	\begin{pmatrix}
+		2 - \alpha f & -\alpha r \\
+		\alpha f & -1 + \alpha r
+	\end{pmatrix}, \qquad
+	J(x^*) = 
+	\begin{pmatrix}
+		0 & -1 \\
+		2 & 0
+	\end{pmatrix}
+	\]
+	
+	\[
+	\lambda_{1,2} = \pm i\sqrt{2}
+	\]
+	\newpage
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\linewidth, height=0.2\textheight]{img/30_04}
+		\label{fig:30_04}
+	\end{figure}
+	\vspace{-2.5em}
+	\subsection{Проблема социально-экономических моделей}
+	\vspace{-1em}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\linewidth, height=0.35\textheight]{img/30_05}
+		\label{fig:30_05}
+	\end{figure}
+	\vspace{-2em}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\linewidth, height=0.35\textheight]{img/30_06}
+		\label{fig:30_06}
+	\end{figure}
+	\newpage
+	\subsection{Итоговая модель}
+	\vspace{-1em}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=1\linewidth, height=0.2\textheight]{img/30_07}
+		\label{fig:30_07}
+	\end{figure}
 	
 \end{document}
