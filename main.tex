@@ -157,10 +157,12 @@
 		\mathbf{\frac{dx}{dt} = f(x), \quad x(0) = x_0}
 	\end{equation}
 	
-	Строят \textbf{фазовый портрет} — множество траекторий, описывающих поведение решений.
+	Строят \textbf{фазовый портрет} — множество траекторий, описыв. поведение реш. в фазовом пространстве.
+	\par
+	\textbf{Фазовое пространство} — это пространство, где оси соответствуют переменным системы.
 	\par
 	\vspace{0.5em}
-	Для уравнений первого порядка типы траекторий:
+	$\bullet$ Для уравнений 1-го порядка типы траекторий:
 	{\setcounter{ruscount}{0} % Сбрасываем счетчик
 		\rusitem{Одноточечная (равновесие).}
 		\rusitem{Интервал (концы - равновесия).}
@@ -194,6 +196,9 @@
 		\end{minipage}
 	\end{figure}
 	
+	$\bullet$ Для уравнений 2-го порядка существуют линейные системы, матрица 2x2, разные $\lambda_k$.
+	
+	\vspace{-0.5em}
 	\subsection{Линейные системы и их фазовые портреты}
 	
 	Система:
@@ -210,7 +215,7 @@
 		A U &= U \Lambda, \quad \Lambda = U^{-1} A U = \operatorname{diag}(\lambda_1, \lambda_2)
 	\end{align}
 	
-	Замена $x = U y$ даёт:
+	Замена $x = U y$ приводит систему к диагональному виду:
 	
 	\begin{equation}
 		\frac{d \mathbf{y}}{d t} = \Lambda \mathbf{y}, \quad \Lambda = \begin{pmatrix} \lambda_1 & 0 \\ 0 & \lambda_2 \end{pmatrix}
@@ -517,7 +522,7 @@
 			\item Представим \(T_k = \sum_{j=1}^m c_j v_j^T\) (разложив каждую строку по векторам \(v_j^T\)).
 			\item Из~\eqref{eq:25} и~\eqref{eq:28}:
 			\begin{equation}
-				T_k u_i = \sum_{j=1}^m (c_j v_j^T)u_i = c_j (v_j^T u_i) = c_i (v_i^T u_i) = 0, \quad k \neq i,
+				T_k u_i = \sum_{j=1}^m (c_j v_j^T)u_i = \sum_{j=1}^m c_j (v_j^T u_i) = c_i (v_i^T u_i) = 0, \quad k \neq i,
 			\end{equation}
 			\begin{equation}
 				T_k u_k = c_k (v_k^T u_k) = c_k = u_k.
@@ -2375,56 +2380,62 @@
 			U_S &= -M_{SE} U_E - M_{SC} U_C \\[0.5em]
 			U_R &= -M_{RE} U_E - M_{RC} U_C - M_{Rr} U_r \\[0.5em]
 			U_L &= -M_{LE} U_E - M_{LC} U_C - M_{Lr} U_r - M_{Lr} U_r \\[0.5em]
-			U_I &= -M_{IE} U_E - M_{IC} U_C - M_{Ir} U_r - M_{Ir} U_r
+			U_I &= -M_{IE} U_E - M_{IC} U_C - M_{Ir} U_r - M_{I\Gamma} U_{\Gamma}
 		\end{aligned}$
 		&
 		$\begin{aligned}
-			| I_e &= M_{SE}^T I_S + M_{RC}^T I_R + M_{LC}^T I_L + M_{IE}^T I_I \\[0.5em]
+			| I_E &= M_{SE}^T I_S + M_{RC}^T I_R + M_{LC}^T I_L + M_{IE}^T I_I \\[0.5em]
 			| I_c &= M_{SC}^T I_S + M_{RC}^T I_R + M_{LC}^T I_L + M_{LC}^T I_I \\[0.5em]
 			| I_r &= M_{Rr}^T I_R + M_{Lr}^T I_L + M_{Ir}^T I_I \\[0.5em]
-			| I_r &= M_{L\Gamma}^T I_L + M_{I\Gamma}^T I_I
+			| I_{\Gamma} &= M_{L\Gamma}^T I_L + M_{I\Gamma}^T I_I
 		\end{aligned}$
 	\end{tabular*}
 	
-	\subsection{Получение системы в форме Коши ($U_c$ и $I_l$)}
+	\subsection{Получение системы в форме Коши ($U_C$ и $I_L$)}
 	
 	\textbf{Система 1: $U_r$}
-	
+	\vspace{-0.5em}
 	\begin{equation}
 		\begin{aligned}
-			r^{-1} U_r &= I_r = \hspace{-1em}= M_{Rr}^{-1} \left( -M_{RE} U_E + M_{Rc} U_c - M_{Rr} U_r \right) + M_{LR}^T I_L + M_{Ir}^T I_I = \\
-			&\hspace{-2em} \Rightarrow\ [r^{-1} + M_{Rr}^T M_{pr}^R M_{rR}] U_r = M_{Rr}^T M_{Rr}^R (-M_{RE} U_E + M_{rc} U_c) + M_{LR}^T I_L + M_{Ir}^T I_I
+			&r^{-1} U_r = I_r = M_{Rr}^T I_R + M_{Lr}^T I_L + M_{Ir}^T I_I = \nonumber\\ &\hspace{-1em}= M_{Rr}^T R^{-1} \left( -M_{RE} U_E + M_{Rc} U_c - M_{Rr} U_r \right) + M_{Lr}^T I_L + M_{Ir}^T I_I \Rightarrow \nonumber\\
+			&\hspace{-2em} \Rightarrow\ [r^{-1} + M_{Rr}^T R^{-1} M_{Rr}] U_r = M_{Rr}^T R^{-1} (-M_{RE} U_E - M_{RC} U_C) + M_{Lr}^T I_L + M_{Ir}^T I_I
 		\end{aligned}
 	\end{equation}
 	
 	На каждом шаге решается СЛАУ для $U_r$ — один раз (DECOMP).
 	
 	\textbf{Система 2: $U_\Gamma$}
-	
-	\begin{align}
-		r^{-1} U_r &= \frac{d I_r}{dt},\quad M_{LR} \frac{d I_L}{dt} + M_{Ir} \frac{d I_I}{dt} = \\
-		&\hspace{-1em}= M_{LR} L_L^{-1} \left( -M_{LE} U_E - M_{Lc} U_c - M_{LR} U_r \right) + M_{fr} \frac{d I_f}{dt} \\
-		&\hspace{-2em}\Rightarrow\ [r^{-1} + M_{LR}^T M_{lR} L_l^{-1}] U_r \\
-		&\hspace{-3em}= M_{LR}^T L^{-1} \left( -M_{LE} U_E - M_{Lc} U_c \right) + M_{Ir} \frac{d I_r}{dt}
-	\end{align}
+	\vspace{-0.5em}
+	\begin{equation}
+		\begin{aligned}
+			&\Gamma^{-1} U_{\Gamma} = \frac{d I_{\Gamma}}{dt} = M_{LR}^T \frac{d I_L}{dt} + M_{I\Gamma} \frac{d I_I}{dt} = \nonumber\\
+			&\hspace{-1em}= M_{L\Gamma}^T L_L^{-1} \left( -M_{LE} U_E - M_{LC} U_C - M_{Lr} U_r - M_{L\Gamma} U_{\Gamma} \right) + M_{Ir}^T \frac{d I_I}{dt} \Rightarrow \nonumber\\
+			&\hspace{-2em}\Rightarrow\ [r^{-1} + M_{LR}^T L_l^{-1} M_{L\Gamma}] U_{\Gamma} =\nonumber\\
+			&\hspace{-3em}= M_{L\Gamma}^T L^{-1} \left( -M_{LE} U_E - M_{LC} U_C - M_{Lr} U_r \right) + M_{I\Gamma}^T \frac{d I_I}{dt}
+		\end{aligned}
+	\end{equation}
 	
 	На каждом шаге решается СЛАУ.
 	
-	\textbf{Система 3: $I_s$}
-	
-	\begin{align}
-		\hspace{-1em}s^{-1} I_s &= \frac{d U_s}{dt} = -M_{SE} \frac{d U_E}{dt} - M_{sc} \frac{d U_c}{dt} = -M_{SE} \frac{d U_E}{dt} - M_{sc} \frac{d U_c}{dt} \\
-		\hspace{-1em}[s^{-1} + M_{sc} C_c^{-1} M_{sc}^T] I_s &= -M_{SE} \frac{d U_E}{dt} - M_{sc} C_c^{-1} \left( M_{lc}^T I_l + M_{Ic}^T I_I + M_{Rc}^T (-M_{RE} U_E + M_{Rc} U_c - M_R U_r) \right)
-	\end{align}
-	
-	На каждом шаге — СЛАУ для $I_s$.
-	
-	\textbf{Итоговая система уравнений в форме Коши относительно $U_c$ и $I_l$}
-	
+	\textbf{Система 3: $I_S$}
+	\vspace{-0.5em}
 	\begin{equation}
 		\begin{aligned}
-			\frac{dU_c}{dt} &= c^{-1}\left(M_{sc}^T I_s + M_{Rc}^T R^{-1} (-M_{RE} U_E - M_{Re} U_C - M_{Rr} U_r) + M_{Lc}^T I_L + M_{Ic}^T I_I\right) \\
-			&\hspace{-1em}\frac{dI_L}{dt} = L^{-1}\left(-M_{Lc} U_E - M_{Lc} U_C - M_{Ir} U_r - M_{Ir} U_r\right)
+			&S^{-1} I_S = \frac{d U_S}{dt} = -M_{SE} \frac{d U_E}{dt} - M_{SC} \frac{d U_C}{dt} = \nonumber\\ 
+			&\hspace{-1em}= -M_{SE} \frac{d U_E}{dt} - M_{SC} \frac{d U_C}{dt} (M_{SC}^T I_S + M_{RC}^T I_R + M_{LC}^T I_L + M_{IC}^T I_I) \Rightarrow \nonumber\\
+			&\hspace{-2em}\Rightarrow [S^{-1} + M_{SC} C_C^{-1} M_{SC}^T] I_S = \nonumber\\
+			&\hspace{-3em}= -M_{SE} \frac{d U_E}{dt} - M_{SC} C_C^{-1} \left(M_{LC}^T I_L + M_{IC}^T I_I + M_{RC}^T R^{-1} (-M_{RE} U_E - M_{RC} U_C - M_r U_r) \right)
+		\end{aligned}
+	\end{equation}
+	
+	На каждом шаге — СЛАУ для $I_S$.
+	
+	\textbf{Итоговая система уравнений в форме Коши относительно $U_C$ и $I_L$}
+	\vspace{-0.5em}
+	\begin{equation}
+		\begin{aligned}
+			&\frac{dU_C}{dt} = C^{-1}\left(M_{SC}^T I_S + M_{RC}^T R^{-1} (-M_{RE} U_E - M_{RC} U_C - M_{Rr} U_r) + M_{LC}^T I_L + M_{IC}^T I_I\right) \nonumber\\
+			&\hspace{-1em}\frac{dI_L}{dt} = L^{-1}\left(-M_{LE} U_E - M_{LC} U_C - M_{Lr} U_r - M_{L\Gamma} U_{\Gamma}\right)
 		\end{aligned}
 	\end{equation}
 	
