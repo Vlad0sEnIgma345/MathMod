@@ -2228,21 +2228,91 @@
 	\end{enumerate}
 	\vspace{-2em}
 	\subsection{Программа метода}
-	\textbf{Этап 1:} деление всех двухполюсников на ветви и хорды и построение дерева графа
+	\textbf{Этап 1:} Деление всех двухполюсников на ветви и хорды и построение дерева графа.
 	\par
-	\textbf{Этап 2:} Построение (заполнение) матрицы М контуров и сечений
+	\textbf{Этап 2:} Построение (заполнение) матрицы М контуров и сечений.
 	\par
-	\textbf{Этап 3:} Получение уравнений модели
+	\textbf{Этап 3:} Получение уравнений модели (следующий билет).
 	
 	\newpage
 	
-	\[
-	M = \begin{pmatrix}
-		M_{RE} & M_{RC} & 0 \\
-		M_{LE} & M_{LC} & M_{Lr} \\
-		M_{IE} & M_{IC} & M_{Ir}
-	\end{pmatrix}
-	\]
+	\section{Метод переменных состояния без топологических вырождений}
+	
+	\subsection{Метод переменных состояния}
+	
+	Матрица контуров и сечений:
+	\begin{equation}
+		M = \begin{pmatrix}
+			M_{SE} & M_{SC} & M_{Sr} & M_{S\Gamma} \\
+			M_{RE} & M_{RC} & M_{Rr} & M_{R\Gamma} \\
+			M_{LE} & M_{LC} & M_{Lr} & M_{L\Gamma} \\
+			M_{IE} & M_{IC} & M_{Ir} & M_{I\Gamma}
+		\end{pmatrix}
+	\end{equation}
+	Топологические уравнения:
+	\begin{equation}
+		U_x = -M U_B, \quad I_B = M^T I _x
+	\end{equation}
+	Всегда:
+	\begin{equation}
+		M_{Sr} = 0, M_{S\Gamma} = 0, M_{R\Gamma} = 0
+	\end{equation}
+	\subsection{Без топологических вырождений}
+	Для отсутствия топологических вырождений:
+	\begin{equation}
+			M_{SE} = 0, M_{SC} = 0, M_{SR} = 0, M_{LF} = 0, M_{IR} = 0
+	\end{equation}
+	\begin{equation}
+		\begin{aligned}
+			\bm{U}_B &= \begin{pmatrix} \bm{U}_E & \bm{U}_C & \bm{U}_r \end{pmatrix}^T, & \text{напр. ветв} \\
+			\bm{I}_B &= \begin{pmatrix} \bm{I}_E & \bm{I}_C & \bm{I}_r \end{pmatrix}^T, & \text{ток ветв} \\
+			\bm{U}_X &= \begin{pmatrix} \bm{U}_R & \bm{U}_L & \bm{U}_I \end{pmatrix}^T, & \text{напр. хорд} \\
+			\bm{I}_X &= \begin{pmatrix} \bm{I}_R & \bm{I}_L & \bm{I}_I \end{pmatrix}^T, & \text{ток хорд}
+		\end{aligned}
+	\end{equation}
+	Уравнения Кирхгофа принимают вид:
+	\begin{equation}
+		\begin{aligned}
+			\bm{U}_R &= -M_{RE}^\top \bm{U}_E - M_{RC}^\top \bm{U}_C \\ 
+			\bm{U}_L &= -M_{LE}^\top \bm{U}_E - M_{LC}^\top \bm{U}_C - M_{Lr}^\top \bm{U}_r \\ 
+			\bm{U}_I &= -M_{IE}^\top \bm{U}_E - M_{IC}^\top \bm{U}_C - M_{Ir}^\top \bm{U}_r \\ 
+			\bm{I}_E &= M_{RE}^\top \bm{I}_R + M_{LE}^\top \bm{I}_L + M_{IE}^\top \bm{I}_I \\ 
+			\bm{I}_C &= M_{RC}^\top \bm{I}_R + M_{LC}^\top \bm{I}_L + M_{IC}^\top \bm{I}_I \\ 
+			\bm{I}_r &= M_{Lr}^\top \bm{I}_L + M_{Ir}^\top \bm{I}_I
+		\end{aligned}
+	\end{equation}
+	Компонентные уравнения ($R, r, L, C$ – диагональные матрицы):
+	\begin{equation}
+		\frac{d I_L}{dt} = L^{-1} U_L, \quad \frac{d U_C}{dt} = C^{-1} I_C, \quad U_r = r I_r, \quad U_R = R I_R
+	\end{equation}
+	Уравнение относительно $\bm{U}_C$
+	\begin{equation}
+		\begin{aligned}
+			\frac{d \bm{U}_C}{dt} &= \bm{C}^{-1} \cdot \bm{I}_C = \bm{C}^{-1} \cdot \left( M_{RC}^\top \bm{I}_R + M_{LC}^\top \bm{I}_L + M_{IC}^\top \bm{I}_I \right) =\\
+			&\hspace{-1em}= \bm{C}^{-1} \left( M_{RC}^\top \bm{R}^{-1} \bm{U}_R + M_{LC}^\top \bm{I}_L + M_{IC}^\top \bm{I}_I \right) =\\
+			&\hspace{-2em}= \bm{C}^{-1} \left( M_{RC}^\top \bm{R}^{-1} \left( -M_{RE} \bm{U}_E - M_{RC} \bm{U}_C \right) + M_{LC}^\top \bm{I}_L + M_{IC}^\top \bm{I}_I \right).
+		\end{aligned}
+	\end{equation}
+	Аналогично, для $\bm{I}_L$ имеем:
+	\begin{equation}
+		\begin{aligned}
+			\frac{d \bm{I}_L}{dt} &= \bm{L}^{-1} \cdot \bm{U}_L = \bm{L}^{-1} \left( -M_{LE} \bm{U}_E - M_{LC} \bm{U}_C - M_{LI} \cdot \bm{I}_r \right) =\\
+			&\hspace{-1em}= \bm{L}^{-1} \left( -M_{LE} \bm{U}_E - M_{LC} \bm{U}_C - M_{LI} \cdot \left( M_{IL}^\top \bm{I}_L + M_{IR}^\top \bm{I}_I \right) \right).
+		\end{aligned}
+	\end{equation}
+	
+	\newpage
+	
+	\section{Метод переменных состояния при наличии топологических вырождений}
+	
+	АОАОАОАОАОАОАОАОАОАОАОА
+	\begin{equation}
+		M = \begin{pmatrix}
+			M_{RE} & M_{RC} & 0 \\
+			M_{LE} & M_{LC} & M_{Lr} \\
+			M_{IE} & M_{IC} & M_{Ir}
+		\end{pmatrix}
+	\end{equation}
 	Уравнения:
 	\begin{equation}
 		U_R = -M_{RE} U_E - M_{RC} U_C
