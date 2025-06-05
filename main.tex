@@ -375,7 +375,7 @@
 		\item Условие асимптотической устойчивости: \(\operatorname{Re} \lambda_k < 0\).
 	\end{itemize}
 	\subsubsection{Этап 1: Получение решения $\frac{d \mathbf{x}}{d t} = \mathbf{A} \mathbf{x} + \mathbf{b}$}
-	Систему~ можно решать стандартными методами (например, \textbf{RKF45}), но использование её линейных свойств повышает надёжность и эффективность, особенно при жёсткости.
+	Систему можно решать стандартными методами (например, \textbf{RKF45}), но использование её линейных свойств понижает надёжность и эффективность, особенно при жёсткости.
 	\begin{itemize}[leftmargin=1em]
 		\item \textbf{Точное решение} имеет вид:
 		\begin{equation}
@@ -736,6 +736,7 @@
 	\end{itemize}
 	
 	\addcontentsline{toc}{section}{Этап анализа без билета}
+	\subsection{Основные этапы анализа (4)}
 	\subsubsection{Этап 4: Параметрическая идентификация}
 	\begin{itemize}[leftmargin=1em]
 		\item \textbf{Система:}
@@ -780,7 +781,7 @@
 		\begin{equation}
 			\alpha_j(k_0 + \Delta k) = \alpha_j(k_0) + \sum_p \frac{\partial \alpha_j}{\partial k^{(p)}} \Delta k^{(p)},
 		\end{equation}
-		\item Перенесём \(\lambda_j(k_0)\) влево и запишем в матричной форме:
+		\item Перенесём \(\alpha_j(k_0)\) влево и запишем в матричной форме:
 		\begin{equation}
 			\Phi \Delta k = \Delta \alpha,
 		\end{equation}
@@ -900,7 +901,7 @@
 		\begin{equation}
 			\frac{d x}{d t} = f(x), \quad x(t_0) = x_0,
 		\end{equation}
-		Решением при \(t \to \infty\) является периодическим: \(x(t + T) = x(t)\).
+		Решение при \(t \to \infty\) является периодическим: \(x(t + T) = x(t)\).
 		\item \textbf{Пространство:}
 		\begin{itemize}
 			\item \(x \in \mathbb{R}^n\), \(y \in \mathbb{R}^n\).
@@ -2339,9 +2340,9 @@
 	\begin{equation}
 		\begin{aligned}
 			\bm{U}_B &= \begin{pmatrix} \bm{U}_E & \bm{U}_C & \bm{U}_r & \bm{U}_\Gamma \end{pmatrix}^T, \\
-			\bm{I}_B &= \begin{pmatrix} \bm{I}_E & \bm{I}_C & \bm{I}_r & \bm{U}_\Gamma \end{pmatrix}^T, \\
+			\bm{I}_B &= \begin{pmatrix} \bm{I}_E & \bm{I}_C & \bm{I}_r & \bm{I}_\Gamma \end{pmatrix}^T, \\
 			\bm{U}_X &= \begin{pmatrix} \bm{U}_S & \bm{U}_R & \bm{U}_L & \bm{U}_I \end{pmatrix}^T, \\
-			\bm{I}_X &= \begin{pmatrix} \bm{I}_S & \bm{I}_R & \bm{I}_L & \bm{U}_I \end{pmatrix}^T,
+			\bm{I}_X &= \begin{pmatrix} \bm{I}_S & \bm{I}_R & \bm{I}_L & \bm{I}_I \end{pmatrix}^T,
 		\end{aligned}
 	\end{equation}
 	
@@ -2463,7 +2464,7 @@
 	После определения списка ветвей и хорд переходят к этапу 2 и заполняют матрицу 
 	контуров и сечений M в соответствии со следующим алгоритмом.
 	
-	\subsection{Алгоритм <<обрезания вершин>>}
+	\subsection{Алгоритм <<обрезания хвостов>>}
 	
 	\begin{figure}[H]
 		\centering
@@ -2807,7 +2808,7 @@
 	\]
 	
 	\begin{equation}
-		0 \approx \frac{d^S x_j}{dt^S} = -\varepsilon^T \mathbf{A}^S \mathbf{x} = \sum_{k=1}^{m} \left( \mathbf{e}_j^T \mathbf{u}_k \right) \mathbf{v}_k^T \lambda_k^S \mathbf{x} = \sum_{k=1}^{m} \left( \mathbf{e}_j^T \mathbf{u}_k \right) \mathbf{v}_k^T \lambda_k^S \mathbf{x} =
+		0 \approx \frac{d^S x_j}{dt^S} = -e_j^T \mathbf{A}^S \mathbf{x} = \sum_{k=1}^{m} \left( \mathbf{e}_j^T \mathbf{u}_k \right) \mathbf{v}_k^T \lambda_k^S \mathbf{x} = \sum_{k=1}^{m} \left( \mathbf{e}_j^T \mathbf{u}_k \right) \mathbf{v}_k^T \lambda_k^S \mathbf{x} =
 	\end{equation}
 	
 	\[
